@@ -60,8 +60,9 @@ export default function AveragePrices({ community }: Props) {
     return null;
   }
 
-  const formatCurrency = (value: number) => {
-    return formatPrice(value);
+  const formatCurrency = (value: number | string | undefined) => {
+    const numericValue = typeof value === "number" ? value : Number(value);
+    return Number.isFinite(numericValue) ? formatPrice(numericValue) : "";
   };
 
   const chartDataFormatted = chartData.map((item) => ({
@@ -93,7 +94,7 @@ export default function AveragePrices({ community }: Props) {
                 border: "1px solid #ccc",
                 borderRadius: "4px",
               }}
-              formatter={(value: number) => formatCurrency(value)}
+              formatter={(value) => formatCurrency(Array.isArray(value) ? value[0] : value)}
               labelFormatter={(label) => {
                 const item = chartDataFormatted.find((d) => d.monthShort === label);
                 return item?.month_label || label;

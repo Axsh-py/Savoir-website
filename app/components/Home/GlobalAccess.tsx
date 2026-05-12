@@ -71,7 +71,7 @@ export default function GlobalAccess() {
 
           style={{ willChange: "transform, opacity" }}
         >
-          <Title className="text-[#C6A45A] text-[16px] lg:text-[31px]">
+          <Title className="text-[#353635] text-[16px] lg:text-[31px]">
             UNLOCK ENDLESS REAL ESTATE OPPORTUNITIES WITH GLOBAL ACCESS
           </Title>
         </motion.div>

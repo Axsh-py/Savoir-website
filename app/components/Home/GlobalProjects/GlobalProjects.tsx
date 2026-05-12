@@ -53,13 +53,13 @@ export default function GlobalProjects() {
           <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#E0C98A] mb-[10px]">
             Worldwide Presence
           </div>
-          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] tracking-[-0.01em] text-white">
+          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-white">
             <span className="italic">Global</span> Projects
           </p>
         </div>
         <Link
           to="/global-projects"
-          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/30 hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/68 hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
         >
           See All Markets
           <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />

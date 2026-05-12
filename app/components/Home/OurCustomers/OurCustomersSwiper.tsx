@@ -95,7 +95,7 @@ function TestimonialCard({ data }: { data: any }) {
           />
           <div>
             <p className="font-semibold text-gray-900">{data.name}</p>
-            <p className="text-sm text-gray-500">{data.position}</p>
+            <p className="text-sm text-[#4B4840]">{data.position}</p>
           </div>
         </div>
       </div>

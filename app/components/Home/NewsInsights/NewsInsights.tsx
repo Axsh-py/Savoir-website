@@ -51,18 +51,18 @@ export default function NewsInsights() {
     >
       <div className="max-w-[1280px] mx-auto w-full px-[24px] lg:px-[52px] py-[60px] lg:py-[96px]">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#3536351F]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#35363540]">
           <div>
             <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
               Editorial
             </div>
-            <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] tracking-[-0.01em] text-[#0A0A0A]">
+            <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-[#0A0A0A]">
               News &amp; <span className="italic">Insights</span>
             </p>
           </div>
           <Link
             to="/news"
-            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#888580] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
           >
             All Stories
             <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -93,7 +93,7 @@ export default function NewsInsights() {
               {featured.title}
             </p>
             {featured.created_at && (
-              <p className="Jakarta text-[10px] text-[#888580] tracking-[0.04em]">
+              <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.04em]">
                 {featured.created_at}
               </p>
             )}
@@ -101,10 +101,10 @@ export default function NewsInsights() {
 
           {rest.map((item, idx) => (
             <React.Fragment key={item.id ?? item.slug ?? idx}>
-              <div className="hidden lg:block bg-[#3536351F]" />
+              <div className="hidden lg:block bg-[#35363540]" />
               <Link
                 to={`/news/${item.slug}`}
-                className="group block py-[40px] lg:px-[36px] border-t-[0.5px] lg:border-t-0 border-[#3536351F] first:[&:not(:first-child)]:border-t-0"
+                className="group block py-[40px] lg:px-[36px] border-t-[0.5px] lg:border-t-0 border-[#35363540] first:[&:not(:first-child)]:border-t-0"
               >
                 <div className="relative overflow-hidden mb-[22px] aspect-[16/9] bg-[#F8F6F2]">
                   <img
@@ -123,7 +123,7 @@ export default function NewsInsights() {
                   {item.title}
                 </p>
                 {item.created_at && (
-                  <p className="Jakarta text-[10px] text-[#888580] tracking-[0.04em]">
+                  <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.04em]">
                     {item.created_at}
                   </p>
                 )}

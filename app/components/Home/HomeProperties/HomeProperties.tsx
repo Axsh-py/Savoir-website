@@ -68,7 +68,7 @@ export default function HomeProperties() {
   return (
     <section
       ref={containerRef}
-      className={`w-full bg-white transition-all duration-700 ease-out ${
+      className={`w-full bg-[#F7F5F0] py-[34px] lg:py-[72px] transition-all duration-700 ease-out ${
         isVisible
           ? "opacity-100 translate-x-0"
           : "opacity-0 -translate-x-[200px]"
@@ -76,13 +76,13 @@ export default function HomeProperties() {
     >
       <div className="flex flex-col w-full">
           {/* Header */}
-          <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pt-[36px] lg:pt-[64px] pb-[24px] lg:pb-[32px]">
+          <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pb-[24px] lg:pb-[32px]">
             <div>
               <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
                 In the Spotlight
               </div>
-              <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] tracking-[-0.01em] text-[#0A0A0A]">
-                Savoir’s <span className="italic">Collection</span>
+              <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-[#0A0A0A]">
+                Savoir's <span className="italic">Collection</span>
               </p>
             </div>
             <div className="flex items-center gap-[16px] lg:gap-[24px] flex-wrap">
@@ -95,7 +95,7 @@ export default function HomeProperties() {
                     className={`Jakarta text-[11px] font-normal tracking-[0.06em] border-[0.5px] px-[16px] lg:px-[20px] py-[7px] rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer ${
                       tab === t
                         ? "bg-[#0A0A0A] border-[#0A0A0A] text-white"
-                        : "bg-transparent border-[#3536351F] text-[#888580] hover:border-[#C6A45A] hover:text-[#C6A45A]"
+                        : "bg-transparent border-[#35363540] text-[#4B4840] hover:border-[#C6A45A] hover:text-[#C6A45A]"
                     }`}
                   >
                     {t}
@@ -104,7 +104,7 @@ export default function HomeProperties() {
               </div>
               <Link
                 to="/search"
-                className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#888580] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+                className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
               >
                 View All
                 <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -113,12 +113,12 @@ export default function HomeProperties() {
           </div>
 
           {/* Spotlight body */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] lg:h-[620px] border-y-[0.5px] border-[#3536351F]">
+          <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 overflow-hidden border-y-[0.5px] border-[#35363540] bg-white shadow-[0_24px_70px_rgba(53,54,53,0.08)] lg:grid-cols-[1.08fr_0.92fr] lg:h-[580px] lg:rounded-[6px] lg:border-[0.5px]">
             {/* Hero */}
             {hero ? (
               <Link
                 to={`/project/${hero.slug}`}
-                className="relative overflow-hidden cursor-pointer group block aspect-[4/3] lg:aspect-auto"
+                className="relative overflow-hidden cursor-pointer group block aspect-[4/3] min-h-[420px] lg:aspect-auto lg:min-h-0"
               >
                 <img
                   loading="lazy"
@@ -126,7 +126,7 @@ export default function HomeProperties() {
                   alt={hero.title_en}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.04]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.88)] via-[rgba(10,10,10,0.35)] to-[rgba(10,10,10,0.05)]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.9)] via-[rgba(10,10,10,0.42)] to-[rgba(10,10,10,0.06)]" />
                 <div className="absolute bottom-0 left-0 right-0 px-[24px] lg:px-[40px] py-[28px] lg:py-[36px] z-[1]">
                   <div className="flex flex-wrap gap-[8px] mb-[16px]">
                     {hero.property_type && (
@@ -146,7 +146,7 @@ export default function HomeProperties() {
                   <p className="CormorantGaramond text-[24px] lg:text-[34px] font-light text-white leading-[1.2] mb-[10px] line-clamp-2">
                     {hero.title_en}
                   </p>
-                  <p className="Jakarta text-[12px] text-white/55 tracking-[0.06em] mb-[24px] line-clamp-1">
+                  <p className="Jakarta text-[12px] text-white/78 tracking-[0.06em] mb-[24px] line-clamp-1">
                     {formatLocation(hero)}
                   </p>
                   <span className="inline-flex items-center gap-[12px] group-hover:gap-[18px] transition-all duration-300 Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#E0C98A]">
@@ -156,27 +156,27 @@ export default function HomeProperties() {
                 </div>
               </Link>
             ) : (
-              <div className="flex items-center justify-center bg-[#F8F6F2] aspect-[4/3] lg:aspect-auto">
-                <p className="Jakarta text-[12px] text-[#888580]">
+              <div className="flex items-center justify-center bg-[#F8F6F2] aspect-[4/3] min-h-[420px] lg:aspect-auto lg:min-h-0">
+                <p className="Jakarta text-[12px] text-[#4B4840]">
                   No properties available
                 </p>
               </div>
             )}
 
             {/* Cards panel */}
-            <div className="flex flex-col lg:overflow-y-auto border-t-[0.5px] lg:border-t-0 lg:border-l-[0.5px] border-[#3536351F] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex flex-col bg-white/95 lg:overflow-y-auto border-t-[0.5px] lg:border-t-0 lg:border-l-[0.5px] border-[#35363540] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {properties.map((p, idx) => (
                 <button
                   key={p.slug ?? idx}
                   type="button"
                   onClick={() => setActiveIdx(idx)}
-                  className={`grid grid-cols-[110px_1fr] lg:grid-cols-[130px_1fr] border-b-[0.5px] border-[#3536351F] last:border-b-0 cursor-pointer transition-colors duration-200 group text-left flex-shrink-0 ${
+                  className={`grid grid-cols-[112px_1fr] lg:grid-cols-[150px_1fr] border-b-[0.5px] border-[#35363540] last:border-b-0 cursor-pointer transition-colors duration-200 group text-left flex-shrink-0 ${
                     idx === activeIdx
-                      ? "bg-[rgba(198,164,90,0.04)]"
+                      ? "bg-[#F8F4EA] shadow-[inset_3px_0_0_#C6A45A]"
                       : "hover:bg-[#F8F6F2]"
                   }`}
                 >
-                  <div className="relative overflow-hidden bg-[#F8F6F2] w-[110px] lg:w-[130px] min-h-[140px] lg:min-h-[155px]">
+                  <div className="relative overflow-hidden bg-[#F8F6F2] w-[112px] lg:w-[150px] min-h-[142px] lg:min-h-[165px]">
                     <img
                       loading="lazy"
                       src={p.photo}
@@ -184,7 +184,7 @@ export default function HomeProperties() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.07]"
                     />
                   </div>
-                  <div className="px-[16px] py-[14px] lg:px-[22px] lg:py-[20px] flex flex-col justify-between gap-[10px] border-l-[0.5px] border-[#3536351F]">
+                  <div className="px-[16px] py-[14px] lg:px-[24px] lg:py-[20px] flex flex-col justify-between gap-[10px] border-l-[0.5px] border-[#35363540]">
                     <div>
                       <div className="flex flex-wrap gap-[6px] mb-[10px]">
                         {p.property_type && (
@@ -192,14 +192,14 @@ export default function HomeProperties() {
                             {p.property_type}
                           </span>
                         )}
-                        <span className="Jakarta text-[8px] font-medium tracking-[0.16em] uppercase text-[#888580] border-[0.5px] border-[#3536351F] px-[8px] py-[3px]">
+                        <span className="Jakarta text-[8px] font-medium tracking-[0.16em] uppercase text-[#4B4840] border-[0.5px] border-[#35363540] px-[8px] py-[3px]">
                           {offeringShort(p.offering_type, tab)}
                         </span>
                       </div>
                       <p className="CormorantGaramond text-[15px] lg:text-[16px] font-normal text-[#0A0A0A] leading-[1.3] mb-[4px] group-hover:text-[#8C6E32] transition-colors line-clamp-2">
                         {p.title_en}
                       </p>
-                      <p className="Jakarta text-[10px] text-[#888580] tracking-[0.03em] mb-[12px] line-clamp-1">
+                      <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.03em] mb-[12px] line-clamp-1">
                         {formatLocation(p)}
                       </p>
                       <div className="flex flex-wrap gap-x-[14px] gap-y-[6px]">
@@ -207,7 +207,7 @@ export default function HomeProperties() {
                           <span className="Jakarta text-[12px] text-[#0A0A0A]">
                             {p.bedroom ?? "-"}
                           </span>
-                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#888580]">
+                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
                             Beds
                           </span>
                         </div>
@@ -215,7 +215,7 @@ export default function HomeProperties() {
                           <span className="Jakarta text-[12px] text-[#0A0A0A]">
                             {p.bathroom ?? "-"}
                           </span>
-                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#888580]">
+                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
                             Baths
                           </span>
                         </div>
@@ -224,7 +224,7 @@ export default function HomeProperties() {
                             <span className="Jakarta text-[12px] text-[#0A0A0A]">
                               {p.size}
                             </span>
-                            <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#888580]">
+                            <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
                               sq ft
                             </span>
                           </div>
@@ -236,7 +236,7 @@ export default function HomeProperties() {
                         {formatPrice(p.price)} {p.currency || "AED"}
                       </span>
                       {p.offering_type === "RR" && (
-                        <span className="Jakarta text-[8px] tracking-[0.1em] uppercase text-[#888580] ml-[4px]">
+                        <span className="Jakarta text-[8px] tracking-[0.1em] uppercase text-[#4B4840] ml-[4px]">
                           / yr
                         </span>
                       )}
@@ -246,7 +246,7 @@ export default function HomeProperties() {
               ))}
               {properties.length === 0 && (
                 <div className="flex items-center justify-center py-[60px]">
-                  <p className="Jakarta text-[12px] text-[#888580]">
+                  <p className="Jakarta text-[12px] text-[#4B4840]">
                     No properties available
                   </p>
                 </div>
@@ -255,8 +255,8 @@ export default function HomeProperties() {
           </div>
 
           {/* Footer */}
-          <div className="max-w-[1280px] mx-auto w-full flex items-center justify-between px-[24px] lg:px-[52px] py-[16px]">
-            <p className="Jakarta text-[10px] text-[#888580] tracking-[0.06em]">
+          <div className="max-w-[1280px] mx-auto w-full flex items-center justify-between px-[24px] lg:px-[52px] pt-[16px]">
+            <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.06em]">
               Showing{" "}
               <strong className="text-[#0A0A0A] font-medium">
                 {Math.min(totalCount, activeIdx + 1)}
@@ -278,7 +278,7 @@ export default function HomeProperties() {
                     className={`w-[6px] h-[6px] rounded-full transition-colors duration-200 cursor-pointer ${
                       i === Math.min(activeIdx, dotCount - 1)
                         ? "bg-[#C6A45A]"
-                        : "bg-[#3536351F]"
+                        : "bg-[#35363540]"
                     }`}
                   />
                 ))}

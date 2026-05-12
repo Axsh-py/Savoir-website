@@ -16,7 +16,7 @@ export default function SponsorsSwiper({ speedSeconds = 20, logos = [] }: Props)
   const style = { ["--speed" as unknown as "speed"]: `${speedSeconds}s` } as React.CSSProperties;
 
   return (
-    <div className={`bg-white py-6 opacity-50 ${styles.wrapper}`}>
+    <div className={`bg-white py-[10px] ${styles.wrapper}`}>
       <div className={styles.track} style={style}>
         {loop.map((src, i) => {
           const isFirstSet = i < logos.length;

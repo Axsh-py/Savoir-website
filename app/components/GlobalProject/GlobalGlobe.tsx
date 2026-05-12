@@ -110,11 +110,14 @@ const GlobalGlobe: React.FC<GlobalGlobeProps> = ({
 
   // globe setup ONCE (does not depend on selectedCountry)
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
     let cancelled = false;
     (async () => {
       const Globe = (await import("globe.gl")).default;
-      const world = Globe()(containerRef.current)
+      if (cancelled) return;
+
+      const world = new Globe(container)
         .showAtmosphere(false)
         .backgroundColor("rgba(0, 0, 0, 0.0)")
         .labelsData([])
@@ -125,17 +128,18 @@ const GlobalGlobe: React.FC<GlobalGlobeProps> = ({
 
       world.controls().enableZoom = enableZoom;
       
-      world.globeMaterial().opacity = 1;
-      world.globeMaterial().transparent = true;
+      const globeMaterial = world.globeMaterial() as THREE.MeshPhongMaterial;
+      globeMaterial.opacity = 1;
+      globeMaterial.transparent = true;
       world.controls().autoRotate = false;
-      world.globeMaterial().color = new THREE.Color("#bebbb3");
+      globeMaterial.color = new THREE.Color("#bebbb3");
       
       if (globeScale !== 1) world.scene().scale.set(globeScale, globeScale, globeScale);
 
       worldRef.current = world;
 
-      const w = containerRef.current.clientWidth || 0;
-      const h = containerRef.current.clientHeight || 0;
+      const w = container.clientWidth || 0;
+      const h = container.clientHeight || 0;
       world.width(w).height(h);
 
       world.pointOfView({ lat: 20, lng: 30, altitude: initialAltitude });
@@ -183,8 +187,9 @@ const GlobalGlobe: React.FC<GlobalGlobeProps> = ({
 
     return () => {
       cancelled = true;
+      worldRef.current?._destructor?.();
       worldRef.current = null;
-      if (containerRef.current) containerRef.current.innerHTML = "";
+      container.innerHTML = "";
     };
     // only run once for stable props; remove selectedCountry
     // eslint-disable-next-line react-hooks/exhaustive-deps

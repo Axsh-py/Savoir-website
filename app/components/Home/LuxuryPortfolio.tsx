@@ -75,10 +75,10 @@ export default function LuxuryPortfolio() {
           <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#E0C98A] mb-[14px]">
             Publication
           </div>
-          <p className="CormorantGaramond text-[28px] lg:text-[44px] font-light text-white leading-[1.05] tracking-[-0.01em] mb-[20px] lg:mb-[22px]">
+          <p className="CormorantGaramond text-[28px] lg:text-[44px] font-light text-white leading-[1.05] mb-[20px] lg:mb-[22px]">
             Luxury Portfolio <span className="italic">Magazine</span>
           </p>
-          <p className="Jakarta text-[12px] lg:text-[13px] leading-[1.85] text-white/40 mb-[28px] lg:mb-[36px] max-w-[380px]">
+          <p className="Jakarta text-[12px] lg:text-[13px] leading-[1.85] text-white/72 mb-[28px] lg:mb-[36px] max-w-[380px]">
             Published biannually, Luxury Portfolio magazine features the latest luxury
             perspectives on Real Estate, Design, Travel and Lifestyle — crafted for the
             world’s most discerning readers.
@@ -94,7 +94,7 @@ export default function LuxuryPortfolio() {
                   className={`Jakarta text-[9px] font-medium tracking-[0.16em] uppercase border-[0.5px] px-[14px] lg:px-[16px] py-[7px] cursor-pointer transition-colors ${
                     on
                       ? "border-[#C6A45A] text-[#C6A45A] bg-[rgba(198,164,90,0.07)]"
-                      : "border-white/[0.14] text-white/40 hover:border-[#C6A45A] hover:text-[#C6A45A] hover:bg-[rgba(198,164,90,0.07)]"
+                      : "border-white/[0.14] text-white/72 hover:border-[#C6A45A] hover:text-[#C6A45A] hover:bg-[rgba(198,164,90,0.07)]"
                   }`}
                 >
                   {c}

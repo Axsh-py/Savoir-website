@@ -66,18 +66,18 @@ export default function Locations() {
       }`}
     >
       {/* Header */}
-      <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pt-[36px] lg:pt-[64px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#3536351F]">
+      <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pt-[36px] lg:pt-[64px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#35363540]">
         <div>
           <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
             Location Intelligence
           </div>
-          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] tracking-[-0.01em] text-[#0A0A0A]">
+          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-[#0A0A0A]">
             Explore <span className="italic">Popular</span> Areas
           </p>
         </div>
         <Link
           to="/popular-areas"
-          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#888580] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
         >
           View Map
           <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -109,7 +109,7 @@ export default function Locations() {
                   to={`/popular-areas/${a.slug}`}
                   className="hover:opacity-80 transition-opacity"
                 >
-                  <p className="CormorantGaramond text-[44px] sm:text-[64px] lg:text-[88px] font-light text-white leading-[0.95] tracking-[-0.02em]">
+                  <p className="CormorantGaramond text-[44px] sm:text-[64px] lg:text-[88px] font-light text-white leading-[0.95]">
                   {first}
                   {rest && (
                     <>
@@ -125,7 +125,7 @@ export default function Locations() {
                       {a.count ?? a.properties_count}
                       <span className="text-[20px] lg:text-[32px] text-[#E0C98A]">+</span>
                     </p>
-                    <p className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/45 mt-[4px]">
+                    <p className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/72 mt-[4px]">
                       Properties Available
                     </p>
                   </div>
@@ -159,7 +159,7 @@ export default function Locations() {
       </div>
 
       {/* Thumbnail tabs */}
-      <div className="flex border-b-[0.5px] border-[#3536351F] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex border-b-[0.5px] border-[#35363540] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {areas.map((a, idx) => {
           const isActive = idx === activeIdx;
           return (
@@ -167,7 +167,7 @@ export default function Locations() {
               key={a.id ?? a.slug ?? `tab-${idx}`}
               type="button"
               onClick={() => setActiveIdx(idx)}
-              className={`relative flex-1 flex flex-col items-center gap-[10px] p-[16px] lg:py-[22px] lg:px-[16px] cursor-pointer border-r-[0.5px] last:border-r-0 border-[#3536351F] transition-colors duration-200 hover:bg-[#F8F6F2] min-w-[140px]`}
+              className={`relative flex-1 flex flex-col items-center gap-[10px] p-[16px] lg:py-[22px] lg:px-[16px] cursor-pointer border-r-[0.5px] last:border-r-0 border-[#35363540] transition-colors duration-200 hover:bg-[#F8F6F2] min-w-[140px]`}
             >
               <img
                 loading="lazy"
@@ -179,7 +179,7 @@ export default function Locations() {
                 {a.name || a.title}
               </div>
               {(a.count ?? a.properties_count) != null && (
-                <div className="Jakarta text-[9px] tracking-[0.08em] text-[#888580]">
+                <div className="Jakarta text-[9px] tracking-[0.08em] text-[#4B4840]">
                   {a.count ?? a.properties_count}+ listings
                 </div>
               )}

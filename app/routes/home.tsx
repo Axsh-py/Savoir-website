@@ -59,17 +59,19 @@ export default function Home() {
       <div className="w-full mt-[31px] lg:mt-[29px]">
         <HomeProperties />
       </div>
-      <div className="w-full mt-[31px] lg:mt-[60px]">
-        <Suspense fallback={<div className="w-full h-[400px] bg-[#0A0A0A]" />}>
-          <GlobalProjects />
-        </Suspense>
-      </div>
       <div className="w-full">
         <Suspense fallback={<div className="w-full h-[500px] bg-[#F8F6F2]" />}>
           <OffPlanProjects />
         </Suspense>
       </div>
-      <GlobalAccess />
+      <div className="w-full mt-[31px] lg:mt-[60px]">
+        <Suspense fallback={<div className="w-full h-[400px] bg-[#0A0A0A]" />}>
+          <GlobalProjects />
+        </Suspense>
+      </div>
+      <div className="w-full mt-[42px] lg:mt-[88px]">
+        <GlobalAccess />
+      </div>
       <div className="w-full">
         <Suspense fallback={<div className="w-full h-[500px] bg-white" />}>
           <NewsInsights />

@@ -11,44 +11,42 @@ export type RentFilters = {
 };
 
 type Props = {
-  value?: RentFilters; // Controlled
-  onChange?: (next: RentFilters) => void; // Fires on selection
+  value?: RentFilters;
+  onChange?: (next: RentFilters) => void;
   label?: string;
   placeholder?: string;
   maxWidthClass?: string;
 };
 
-const DEFAULT_VALUE: RentFilters = { interested: "Rent", status: "All" };
+const DEFAULT_VALUE: RentFilters = { interested: "Buy", status: "All" };
 
 export default function FilterRent({
   value,
   onChange,
-  label = "Rent",
-  placeholder = "Select Your Type",
+  label = "Property Type",
+  placeholder = "Buy",
   maxWidthClass = "max-w-[185.68px]",
 }: Props) {
   const arrow = useArrow();
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
-  // Local draft state for dropdown
-  // Validate initial state: Rent + Off-plan is not allowed
   const getValidInitialState = (): RentFilters => {
     const initial = { ...DEFAULT_VALUE, ...value };
+
     if (initial.interested === "Rent" && initial.status === "Off-plan") {
-      return { ...initial, status: "All" };
+      return { interested: "Buy", status: "Off-plan" };
     }
+
     return initial;
   };
+
   const [draft, setDraft] = useState<RentFilters>(getValidInitialState());
 
-  // Sync draft when parent value changes
   useEffect(() => {
     if (value) {
-      // Validate: Rent + Off-plan is not allowed
       if (value.interested === "Rent" && value.status === "Off-plan") {
-        // Auto-fix: change status to "All"
-        const fixed = { ...value, status: "All" as Status };
+        const fixed: RentFilters = { interested: "Buy", status: "Off-plan" };
         setDraft(fixed);
         onChange?.(fixed);
       } else {
@@ -57,61 +55,50 @@ export default function FilterRent({
     }
   }, [value, onChange]);
 
-  // Outside click
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
       if (!wrapperRef.current) return;
       if (!wrapperRef.current.contains(e.target as Node)) setOpen(false);
     };
+
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  const triggerSummary = useMemo(() => `${draft.interested} • ${draft.status}`, [draft]);
+  const triggerSummary = useMemo(() => {
+    if (draft.status === "Off-plan") return "Off plan";
+    return draft.interested;
+  }, [draft]);
 
-  // Check if Off-plan is disabled (when Rent is selected)
-  const isOffPlanDisabled = draft.interested === "Rent";
-
-  // Update draft and notify parent immediately
-  const setInterested = (v: Interested) => {
+  const setOption = (option: "Buy" | "Rent" | "Off-plan") => {
     let next: RentFilters;
-    
-    // If selecting Rent and current status is Off-plan, change status to All
-    if (v === "Rent" && draft.status === "Off-plan") {
-      next = { interested: v, status: "All" };
+
+    if (option === "Buy") {
+      next = {
+        interested: "Buy",
+        status: "All",
+      };
+    } else if (option === "Rent") {
+      next = {
+        interested: "Rent",
+        status: "All",
+      };
     } else {
-      next = { ...draft, interested: v };
+      next = {
+        interested: "Buy",
+        status: "Off-plan",
+      };
     }
-    
+
     setDraft(next);
     onChange?.(next);
-  };
-
-  const setStatus = (v: Status) => {
-    let next: RentFilters;
-    
-    // If selecting Off-plan and current interested is Rent, change interested to Buy
-    if (v === "Off-plan" && draft.interested === "Rent") {
-      next = { interested: "Buy", status: v };
-    } else {
-      next = { ...draft, status: v };
-    }
-    
-    setDraft(next);
-    onChange?.(next);
-  };
-
-  const resetAll = () => {
-    setDraft(DEFAULT_VALUE);
-    onChange?.(DEFAULT_VALUE);
+    setOpen(false);
   };
 
   const filled =
-    "bg-[#B59B62] text-[16px] text-white font-medium py-[6px] w-full border border-white rounded-[9px] h-[43px]";
+    "bg-[#B59B62] text-white border-[#B59B62] shadow-[0_10px_24px_rgba(0,0,0,0.18)]";
   const outline =
-    "bg-transparent text-[16px] text-white font-medium py-[6px] w-full border border-white rounded-[9px] h-[43px]";
-  const disabled =
-    "bg-transparent text-[16px] text-white/50 font-medium py-[6px] w-full border border-white/50 rounded-[9px] h-[43px] cursor-not-allowed";
+    "bg-transparent text-white border-white/80 hover:bg-white/10 hover:border-white";
 
   return (
     <div className={`relative w-full ${maxWidthClass}`} ref={wrapperRef}>
@@ -124,9 +111,13 @@ export default function FilterRent({
         aria-expanded={open}
       >
         <div className="flex flex-col items-start">
-          <p className="text-white text-[15.84px] font-semibold">Property Type</p>
+          <p className="text-white text-[15.84px] font-semibold">{label}</p>
+
           <div className="flex items-center gap-[13.2px]">
-            <p className="text-white text-[14.08px] truncate">{triggerSummary || placeholder}</p>
+            <p className="text-white text-[14.08px] truncate">
+              {triggerSummary || placeholder}
+            </p>
+
             <img
               loading="lazy"
               src={arrow.smallBoldWhite}
@@ -141,81 +132,44 @@ export default function FilterRent({
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            style={{ overflow: "hidden" }}
-            className="absolute w-[307px] lg:w-[382px] top-[160%] rounded-[20px] bg-[#4A4A4A] backdrop-blur-[20px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] z-10"
+            initial={{ opacity: 0, y: -8, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.96 }}
+            transition={{ duration: 0.18, ease: "easeOut" }}
+            className="absolute right-0 top-[145%] z-10 w-[230px] rounded-[18px] border border-white/15 bg-[#3F3F3F]/95 p-[12px] backdrop-blur-[20px] shadow-[0_24px_60px_rgba(0,0,0,0.28)] lg:w-[260px]"
           >
-            <div className="flex flex-col items-start gap-[28px] px-[18px] py-[23px]">
-              {/* Interested */}
-              <div className="flex flex-col items-start gap-[12px] w-full">
-                <p className="text-white text-[18px] font-semibold">Interested to :</p>
-                <div className="flex items-center gap-[11px] w-full">
-                  <button
-                    type="button"
-                    onClick={() => setInterested("Buy")}
-                    className={draft.interested === "Buy" ? filled : outline}
-                  >
-                    Buy
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setInterested("Rent")}
-                    className={draft.interested === "Rent" ? filled : outline}
-                  >
-                    Rent
-                  </button>
-                </div>
-              </div>
+            <div className="flex flex-col gap-[9px]">
+              <button
+                type="button"
+                onClick={() => setOption("Buy")}
+                className={`h-[42px] rounded-[10px] border text-[15px] font-semibold transition-all duration-200 ${
+                  draft.interested === "Buy" && draft.status !== "Off-plan"
+                    ? filled
+                    : outline
+                }`}
+              >
+                Buy
+              </button>
 
-              {/* Status */}
-              <div className="flex flex-col items-start gap-[12px] w-full">
-                <p className="text-white text-[18px] font-semibold">Property status :</p>
-                <div className="flex items-center gap-[7px] w-full">
-                  <button
-                    type="button"
-                    onClick={() => setStatus("All")}
-                    className={draft.status === "All" ? filled : outline}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStatus("Ready")}
-                    className={draft.status === "Ready" ? filled : outline}
-                  >
-                    Ready
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setStatus("Off-plan")}
-                    disabled={isOffPlanDisabled}
-                    className={
-                      isOffPlanDisabled
-                        ? disabled
-                        : draft.status === "Off-plan"
-                          ? filled
-                          : outline
-                    }
-                    aria-label={isOffPlanDisabled ? "Off-plan is not available for Rent" : "Select Off-plan"}
-                  >
-                    Off plan
-                  </button>
-                </div>
-              </div>
+              <button
+                type="button"
+                onClick={() => setOption("Rent")}
+                className={`h-[42px] rounded-[10px] border text-[15px] font-semibold transition-all duration-200 ${
+                  draft.interested === "Rent" ? filled : outline
+                }`}
+              >
+                Rent
+              </button>
 
-              {/* Footer */}
-              <div className="flex items-center justify-between w-full">
-                <button
-                  type="button"
-                  onClick={resetAll}
-                  className="text-white underline text-[16px] font-medium"
-                >
-                  Reset
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setOption("Off-plan")}
+                className={`h-[42px] rounded-[10px] border text-[15px] font-semibold transition-all duration-200 ${
+                  draft.status === "Off-plan" ? filled : outline
+                }`}
+              >
+                Off plan
+              </button>
             </div>
           </motion.div>
         )}

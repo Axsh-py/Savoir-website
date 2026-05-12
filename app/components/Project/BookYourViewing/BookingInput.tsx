@@ -53,7 +53,6 @@ export default function BookingInput({
           placeholder={placeholder || "Enter Phone number"}
           name={name}
           required={required}
-          autoComplete={autoComplete}
           className="w-full relative"
           inputClassName={`!bg-transparent !border-0 !outline-none !shadow-none !ring-0 !w-full !font-medium ${
             white
@@ -65,6 +64,7 @@ export default function BookingInput({
             minLength,
             maxLength,
             pattern,
+            autoComplete,
             inputMode,
           }}
           countrySelectorStyleProps={{

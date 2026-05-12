@@ -1,89 +1,109 @@
 import React, { useEffect, useRef, useState } from "react";
 import Title from "~/UI/Title";
 import SponsorsSwiper from "./SponsorsSwiper";
-import { motion, useAnimation, type Variants, useScroll, useMotionValueEvent } from "framer-motion";
+import {
+  motion,
+  useAnimation,
+  type Variants,
+  useScroll,
+  useMotionValueEvent,
+} from "framer-motion";
 import { useLoaderData } from "react-router";
 
 export default function Sponsors() {
   const { home } = useLoaderData() as { home: any };
-  // Controls for each step
+
   const title1Ctrl = useAnimation();
   const body1Ctrl = useAnimation();
   const title2Ctrl = useAnimation();
   const body2Ctrl = useAnimation();
 
-  // Variants (fade + slide up)
   const variants: Variants = {
-    hidden: { opacity: 0, y: 60, transition: { duration: 0.35, ease: "easeOut" } },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: {
+      opacity: 0,
+      y: 60,
+      transition: { duration: 0.35, ease: "easeOut" },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
-  // Scroll direction
   const { scrollY } = useScroll();
   const prev = useRef(0);
   const dir = useRef<"down" | "up">("down");
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     dir.current = latest > prev.current ? "down" : "up";
     prev.current = latest;
   });
 
-  // Gate Section 2; track if Title 2 is in view and if its seq is running
   const [section2Allowed, setSection2Allowed] = useState(false);
   const title2InView = useRef(false);
   const seq1Running = useRef(false);
   const seq2Running = useRef(false);
 
-  // Try to start Section 2 whenever possible (no direction check)
   const tryStartSection2 = async () => {
     if (seq2Running.current) return;
     if (!section2Allowed) return;
     if (!title2InView.current) return;
 
     seq2Running.current = true;
+
     await title2Ctrl.start("visible");
+
     await body2Ctrl.start({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay: 0.15 },
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        delay: 0.15,
+      },
     });
+
     seq2Running.current = false;
   };
 
-  // Also react when the gate opens while Title 2 is already in view
   useEffect(() => {
     if (section2Allowed) {
-      // fire-and-forget; we don't need to await in an effect
       tryStartSection2();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section2Allowed]);
 
-  // SECTION 1: Title -> Body, unlock section 2 right after Title 1
   const onEnterTitle1 = async () => {
     if (dir.current !== "down" || seq1Running.current) return;
+
     seq1Running.current = true;
 
     await title1Ctrl.start("visible");
 
-    // Unlock Section 2 as soon as Title 1 is revealed
     setSection2Allowed(true);
-    // If Title 2 is already in view, start it immediately
+
     tryStartSection2();
 
-    // Then animate Body 1 (with a small pause)
     await body1Ctrl.start({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay: 0.15 },
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        delay: 0.15,
+      },
     });
 
     seq1Running.current = false;
   };
 
-  // Reset everything if we scroll up past Title 1
   const onLeaveTitle1 = async () => {
     if (dir.current !== "up") return;
+
     setSection2Allowed(false);
+
     await Promise.all([
       body2Ctrl.start("hidden"),
       title2Ctrl.start("hidden"),
@@ -92,7 +112,6 @@ export default function Sponsors() {
     ]);
   };
 
-  // SECTION 2: keep an explicit in-view flag; reset ONLY when scrolling up
   const onEnterTitle2 = async () => {
     title2InView.current = true;
     await tryStartSection2();
@@ -100,9 +119,12 @@ export default function Sponsors() {
 
   const onLeaveTitle2 = async () => {
     title2InView.current = false;
-    // Only reset when user is scrolling UP — keeps it visible when leaving while scrolling DOWN
+
     if (dir.current === "up") {
-      await Promise.all([body2Ctrl.start("hidden"), title2Ctrl.start("hidden")]);
+      await Promise.all([
+        body2Ctrl.start("hidden"),
+        title2Ctrl.start("hidden"),
+      ]);
     }
   };
 
@@ -116,10 +138,21 @@ export default function Sponsors() {
           animate={title1Ctrl}
           viewport={{ amount: 0.35, once: false }}
           onViewportEnter={onEnterTitle1}
-          
+          onViewportLeave={onLeaveTitle1}
           style={{ willChange: "transform, opacity" }}
+          className="w-full max-w-[1280px] px-[24px] sm:px-[40px] lg:px-[80px]"
         >
-          <Title className="text-[15px] lg:text-[45px]">MARKETING CHANNELS</Title>
+          <div className="flex flex-col items-start max-w-[620px]">
+            <span className="mb-[14px] tracking-[0.35em] text-[12px] font-semibold uppercase text-[#C5A15A]">
+              Our Network
+            </span>
+
+            <Title className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
+              Marketing <em className="italic font-normal">Channels</em>
+            </Title>
+
+            <div className="mt-[22px] h-px w-full max-w-[420px] bg-[#D8D2C7]" />
+          </div>
         </motion.div>
 
         <motion.div
@@ -127,12 +160,13 @@ export default function Sponsors() {
           initial="hidden"
           animate={body1Ctrl}
           style={{ willChange: "transform, opacity" }}
+          className="w-full"
         >
           <SponsorsSwiper logos={home.marketChannels} />
         </motion.div>
       </div>
 
-      {/* ---------- Section 2 (unlocked after Title 1) ---------- */}
+      {/* ---------- Section 2 ---------- */}
       <div className="flex flex-col items-center gap-[20px] lg:gap-[67px] w-full">
         <motion.div
           variants={variants}
@@ -140,12 +174,22 @@ export default function Sponsors() {
           animate={title2Ctrl}
           viewport={{ amount: 0.35, once: false }}
           onViewportEnter={onEnterTitle2}
-          
+          onViewportLeave={onLeaveTitle2}
           style={{ willChange: "transform, opacity" }}
+          className="w-full max-w-[1280px] px-[24px] sm:px-[40px] lg:px-[80px]"
         >
-          <Title className="text-[15px] lg:text-[45px]">
-            LISTING SYNDICATION AND AFFILIATED WEBSITES
-          </Title>
+          <div className="flex flex-col items-start max-w-[900px]">
+            <span className="mb-[14px] tracking-[0.35em] text-[12px] font-semibold uppercase text-[#C5A15A]">
+              Listing Reach
+            </span>
+
+            <Title className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
+              Listing Syndication{" "}
+              <em className="italic font-normal">and Affiliated Websites</em>
+            </Title>
+
+            <div className="mt-[22px] h-px w-full max-w-[720px] bg-[#D8D2C7]" />
+          </div>
         </motion.div>
 
         <motion.div
@@ -153,6 +197,7 @@ export default function Sponsors() {
           initial="hidden"
           animate={body2Ctrl}
           style={{ willChange: "transform, opacity" }}
+          className="w-full"
         >
           <SponsorsSwiper logos={home.listingSyndications} />
         </motion.div>
