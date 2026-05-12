@@ -1,0 +1,1 @@
+import{A as e}from"./apiClient-BgZq8WMI.js";const n=new e;async function r(a){return n.get(`/api/popular-areas/${a}`)}async function o(a){return n.get(`/api/area-transactions?area_name=${encodeURIComponent(a)}`)}export{r as a,o as g};

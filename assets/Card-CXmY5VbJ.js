@@ -1,0 +1,1 @@
+import{p as c}from"./chunk-ZYFC6VSF-DFKJfhEe.js";const d="_card_13ctj_1",o="_luxury_13ctj_29",r={card:d,luxury:o};function a({children:u,className:s,luxury:t}){return c.jsx("div",{className:`${r.card} ${t?r.luxury:""} ${s||""} !rounded-[15px] lg:!rounded-[15.5px]`,children:u})}export{a as C};
