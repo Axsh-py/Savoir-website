@@ -1,1 +1,0 @@
-import{p as a}from"./chunk-ZYFC6VSF-DFKJfhEe.js";function t({children:r,className:s}){return a.jsxs("div",{className:"relative",children:[a.jsx("p",{className:`CormorantGaramond ${s}`,children:r}),a.jsx("div",{className:"w-full h-[4px] mt-[5px]",style:{background:"linear-gradient(90deg,rgba(255, 255, 255, 0) 0%, #C6A45A 50%, rgba(255, 255, 255, 0) 100%)"}})]})}export{t as T};
