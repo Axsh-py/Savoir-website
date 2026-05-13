@@ -38,8 +38,6 @@ export default function NewsInsights() {
     return null;
   }
 
-  const [featured, ...rest] = insights;
-
   return (
     <section
       ref={containerRef}
@@ -51,7 +49,7 @@ export default function NewsInsights() {
     >
       <div className="max-w-[1280px] mx-auto w-full px-[24px] lg:px-[52px] py-[60px] lg:py-[96px]">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#35363540]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[36px]">
           <div>
             <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
               Editorial
@@ -62,7 +60,7 @@ export default function NewsInsights() {
           </div>
           <Link
             to="/news"
-            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#0A0A0A] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
           >
             All Stories
             <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -70,65 +68,35 @@ export default function NewsInsights() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.5px_1fr_0.5px_1fr]">
-          {/* Featured */}
-          <Link
-            to={`/news/${featured.slug}`}
-            className="group block py-[40px] lg:pr-[36px]"
-          >
-            <div className="relative overflow-hidden mb-[22px] aspect-[16/9] bg-[#F8F6F2]">
-              <img
-                loading="lazy"
-                src={featured.image}
-                alt={featured.title}
-                className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.05]"
-              />
-            </div>
-            {featured.category && (
-              <div className="Jakarta text-[9px] font-medium tracking-[0.18em] uppercase text-[#C6A45A] mb-[9px]">
-                {featured.category}
+        <div className="grid grid-cols-1 gap-[22px] md:grid-cols-3 lg:gap-[32px]">
+          {insights.map((item, idx) => (
+            <Link
+              key={item.id ?? item.slug ?? idx}
+              to={`/news/${item.slug}`}
+              className="group flex h-full flex-col bg-white p-[14px] shadow-[0_22px_64px_rgba(53,54,53,0.08)] transition-transform duration-300 hover:-translate-y-[3px] hover:shadow-[0_28px_82px_rgba(53,54,53,0.12)] lg:p-[18px]"
+            >
+              <div className="relative mb-[20px] aspect-[16/9] overflow-hidden bg-[#F8F6F2]">
+                <img
+                  loading="lazy"
+                  src={item.image}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-[700ms] ease-out group-hover:scale-[1.05]"
+                />
               </div>
-            )}
-            <p className="CormorantGaramond text-[22px] lg:text-[24px] font-normal text-[#0A0A0A] leading-[1.35] mb-[10px] group-hover:text-[#8C6E32] transition-colors line-clamp-3">
-              {featured.title}
-            </p>
-            {featured.created_at && (
-              <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.04em]">
-                {featured.created_at}
-              </p>
-            )}
-          </Link>
-
-          {rest.map((item, idx) => (
-            <React.Fragment key={item.id ?? item.slug ?? idx}>
-              <div className="hidden lg:block bg-[#35363540]" />
-              <Link
-                to={`/news/${item.slug}`}
-                className="group block py-[40px] lg:px-[36px] border-t-[0.5px] lg:border-t-0 border-[#35363540] first:[&:not(:first-child)]:border-t-0"
-              >
-                <div className="relative overflow-hidden mb-[22px] aspect-[16/9] bg-[#F8F6F2]">
-                  <img
-                    loading="lazy"
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.05]"
-                  />
+              {item.category && (
+                <div className="Jakarta mb-[9px] text-[9px] font-medium uppercase tracking-[0.18em] text-[#C6A45A]">
+                  {item.category}
                 </div>
-                {item.category && (
-                  <div className="Jakarta text-[9px] font-medium tracking-[0.18em] uppercase text-[#C6A45A] mb-[9px]">
-                    {item.category}
-                  </div>
-                )}
-                <p className="CormorantGaramond text-[18px] lg:text-[19px] font-normal text-[#0A0A0A] leading-[1.35] mb-[10px] group-hover:text-[#8C6E32] transition-colors line-clamp-3">
-                  {item.title}
+              )}
+              <p className="CormorantGaramond mb-[12px] min-h-[82px] text-[21px] font-normal leading-[1.32] text-[#0A0A0A] transition-colors line-clamp-3 group-hover:text-[#8C6E32] lg:text-[24px]">
+                {item.title}
+              </p>
+              {item.created_at && (
+                <p className="Jakarta mt-auto text-[10px] tracking-[0.04em] text-[#0A0A0A]">
+                  {item.created_at}
                 </p>
-                {item.created_at && (
-                  <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.04em]">
-                    {item.created_at}
-                  </p>
-                )}
-              </Link>
-            </React.Fragment>
+              )}
+            </Link>
           ))}
         </div>
       </div>

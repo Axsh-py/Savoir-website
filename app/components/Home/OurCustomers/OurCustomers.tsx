@@ -52,7 +52,7 @@ export default function OurCustomers() {
     >
       <div className="max-w-[1280px] mx-auto w-full px-[24px] lg:px-[52px] py-[60px] lg:py-[96px]">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#35363540]">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] pb-[24px] lg:pb-[36px]">
           <div>
             <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
               Client Stories
@@ -63,7 +63,7 @@ export default function OurCustomers() {
           </div>
           <Link
             to="/contact-us"
-            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+            className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#0A0A0A] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
           >
             All Reviews
             <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -71,16 +71,8 @@ export default function OurCustomers() {
         </div>
 
         {/* Testimonials stage */}
-        <div className="relative pt-[36px] lg:pt-[72px] pb-[20px] lg:pb-[56px]">
-          {/* Ghost quote */}
-          <span
-            aria-hidden
-            className="CormorantGaramond absolute top-[-20px] left-[12px] lg:left-[44px] text-[120px] lg:text-[240px] font-light leading-[1] text-[#E0D8CD] select-none pointer-events-none z-0"
-          >
-            “
-          </span>
-
-          <div className="relative z-[1] border-t-[0.5px] border-[#35363540]">
+        <div className="relative pt-[10px] lg:pt-[18px] pb-[20px] lg:pb-[56px]">
+          <div className="relative z-[1]">
             <Swiper
               modules={[Autoplay]}
               loop={testimonials.length > 1}
@@ -91,13 +83,13 @@ export default function OurCustomers() {
               }}
               speed={6000}
               slidesPerView={1}
-              spaceBetween={0}
+              spaceBetween={28}
               breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
+                640: { slidesPerView: 2, spaceBetween: 28 },
+                1024: { slidesPerView: 3, spaceBetween: 32 },
               }}
               allowTouchMove
-              className="!ease-linear [&_.swiper-wrapper]:!ease-linear"
+              className="!overflow-visible !ease-linear [&_.swiper-wrapper]:!ease-linear"
             >
               {testimonials.map((t, idx) => {
                 const rating = Number(t.rating ?? 5);
@@ -106,21 +98,20 @@ export default function OurCustomers() {
                     key={t.id ?? idx}
                     className="!h-auto"
                   >
-                    <div className="h-full p-[28px] lg:p-[44px] border-r-[0.5px] border-[#35363540] transition-colors duration-200 hover:bg-[rgba(198,164,90,0.03)]">
-                      <span className="block CormorantGaramond text-[40px] lg:text-[52px] leading-[0.6] text-[#B59657] font-light mb-[16px] lg:mb-[18px]">
-                        “
+                    <div className="flex h-full min-h-[300px] flex-col rounded-[6px] border-[0.5px] border-[#E8DDC8] bg-[#FFFEFB] p-[26px] shadow-[0_18px_54px_rgba(53,54,53,0.07)] transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#FBF8F1] hover:shadow-[0_26px_78px_rgba(53,54,53,0.11)] lg:min-h-[344px] lg:p-[34px]">
+                      <span className="block CormorantGaramond text-[38px] lg:text-[48px] leading-[0.6] text-[#B59657] font-light mb-[16px] lg:mb-[18px]">
+                        &ldquo;
                       </span>
-                      <p className="CormorantGaramond text-[15px] lg:text-[16px] italic font-normal leading-[1.65] text-[#24231F] mb-[20px] lg:mb-[24px] line-clamp-6">
+                      <p className="CormorantGaramond text-[15px] lg:text-[16px] italic font-normal leading-[1.65] text-[#0A0A0A] mb-[22px] lg:mb-[26px] line-clamp-6">
                         {t.message}
                       </p>
-                      <div className="h-[0.5px] bg-[#35363540] mb-[16px] lg:mb-[18px]" />
-                      <div className="flex items-center gap-[12px]">
+                      <div className="mt-auto flex items-center gap-[12px]">
                         {t.image && (
                           <img
                             loading="lazy"
                             src={t.image}
                             alt={t.name}
-                            className="w-[42px] h-[42px] rounded-full object-cover border-[0.5px] border-[#35363540] shrink-0"
+                            className="w-[42px] h-[42px] rounded-full object-cover border-[0.5px] border-[#C6A45A]/50 shrink-0"
                           />
                         )}
                         <div>
@@ -128,7 +119,7 @@ export default function OurCustomers() {
                             {t.name}
                           </p>
                           {t.position && (
-                            <p className="Jakarta text-[10px] text-[#4B4840] mt-[2px]">
+                            <p className="Jakarta text-[10px] text-[#0A0A0A] mt-[2px]">
                               {t.position}
                             </p>
                           )}

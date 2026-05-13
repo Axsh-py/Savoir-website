@@ -11,43 +11,40 @@ on:
       - develop
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      # ✅ Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
 
-      # ✅ Step 2: Setup pnpm first (so setup-node knows how to cache it)
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 9
           run_install: false
 
-      # ✅ Step 3: Setup Node.js and enable pnpm cache
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
+          cache: pnpm
 
-      # ✅ Step 4: Verify pnpm is installed
-      - name: Verify pnpm version
-        run: pnpm -v
-
-      # ✅ Step 5: Install dependencies (lockfile optional)
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      # ✅ Step 6: Build app
+      - name: Typecheck
+        run: pnpm run typecheck
+
       - name: Build app
         run: pnpm run build
 
-      # ✅ Step 7: Deploy via SSH
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
       - name: Deploy to server via SSH
         uses: appleboy/ssh-action@v0.1.7
         with:
@@ -56,16 +53,17 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            cd ls /home/savoirproperties/htdocs/savoirproperties.com/savoir-react
+            set -e
+            cd /home/savoirproperties/htdocs/savoirproperties.com/savoir-react
             git fetch origin main
+            git checkout main
             git pull origin main --rebase
-            
-            if ! command -v pnpm &> /dev/null; then
-              echo "Installing pnpm..."
+
+            if ! command -v pnpm >/dev/null 2>&1; then
               npm install -g pnpm
             fi
 
-
-            pnpm install
+            pnpm install --frozen-lockfile
+            pnpm run typecheck
             pnpm run build
             pm2 restart savoir-react --update-env

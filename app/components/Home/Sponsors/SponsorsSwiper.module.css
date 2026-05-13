@@ -4,9 +4,9 @@
   width: min(calc(100% - 48px), 1176px);
   margin-inline: auto;
   padding-inline: clamp(1rem, 3vw, 2rem);
-  border: 1px solid rgba(53, 54, 53, 0.16);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 22px 70px rgba(53, 54, 53, 0.06);
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
@@ -30,16 +30,6 @@
   align-items: center;
   justify-content: center;
   position: relative;
-}
-
-.item::after {
-  position: absolute;
-  height: 58%;
-  width: 1px;
-  background-color: rgba(53, 54, 53, 0.28);
-  content: "";
-  left: -1rem;
-  top: 21%;
 }
 
 .item img {

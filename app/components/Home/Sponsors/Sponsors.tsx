@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Title from "~/UI/Title";
 import SponsorsSwiper from "./SponsorsSwiper";
 import {
   motion,
@@ -147,11 +146,9 @@ export default function Sponsors() {
               Our Network
             </span>
 
-            <Title className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
+            <p className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
               Marketing <em className="italic font-normal">Channels</em>
-            </Title>
-
-            <div className="mt-[22px] h-px w-full max-w-[420px] bg-[#D8D2C7]" />
+            </p>
           </div>
         </motion.div>
 
@@ -183,12 +180,10 @@ export default function Sponsors() {
               Listing Reach
             </span>
 
-            <Title className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
+            <p className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
               Listing Syndication{" "}
               <em className="italic font-normal">and Affiliated Websites</em>
-            </Title>
-
-            <div className="mt-[22px] h-px w-full max-w-[720px] bg-[#D8D2C7]" />
+            </p>
           </div>
         </motion.div>
 

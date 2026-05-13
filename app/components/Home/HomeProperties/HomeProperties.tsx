@@ -95,7 +95,7 @@ export default function HomeProperties() {
                     className={`Jakarta text-[11px] font-normal tracking-[0.06em] border-[0.5px] px-[16px] lg:px-[20px] py-[7px] rounded-full whitespace-nowrap transition-all duration-200 cursor-pointer ${
                       tab === t
                         ? "bg-[#0A0A0A] border-[#0A0A0A] text-white"
-                        : "bg-transparent border-[#35363540] text-[#4B4840] hover:border-[#C6A45A] hover:text-[#C6A45A]"
+                        : "bg-transparent border-[#35363540] text-[#0A0A0A] hover:border-[#C6A45A] hover:text-[#C6A45A]"
                     }`}
                   >
                     {t}
@@ -104,7 +104,7 @@ export default function HomeProperties() {
               </div>
               <Link
                 to="/search"
-                className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+                className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#0A0A0A] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
               >
                 View All
                 <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
@@ -157,7 +157,7 @@ export default function HomeProperties() {
               </Link>
             ) : (
               <div className="flex items-center justify-center bg-[#F8F6F2] aspect-[4/3] min-h-[420px] lg:aspect-auto lg:min-h-0">
-                <p className="Jakarta text-[12px] text-[#4B4840]">
+                <p className="Jakarta text-[12px] text-[#0A0A0A]">
                   No properties available
                 </p>
               </div>
@@ -192,14 +192,14 @@ export default function HomeProperties() {
                             {p.property_type}
                           </span>
                         )}
-                        <span className="Jakarta text-[8px] font-medium tracking-[0.16em] uppercase text-[#4B4840] border-[0.5px] border-[#35363540] px-[8px] py-[3px]">
+                        <span className="Jakarta text-[8px] font-medium tracking-[0.16em] uppercase text-[#0A0A0A] border-[0.5px] border-[#35363540] px-[8px] py-[3px]">
                           {offeringShort(p.offering_type, tab)}
                         </span>
                       </div>
                       <p className="CormorantGaramond text-[15px] lg:text-[16px] font-normal text-[#0A0A0A] leading-[1.3] mb-[4px] group-hover:text-[#8C6E32] transition-colors line-clamp-2">
                         {p.title_en}
                       </p>
-                      <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.03em] mb-[12px] line-clamp-1">
+                      <p className="Jakarta text-[10px] text-[#0A0A0A] tracking-[0.03em] mb-[12px] line-clamp-1">
                         {formatLocation(p)}
                       </p>
                       <div className="flex flex-wrap gap-x-[14px] gap-y-[6px]">
@@ -207,7 +207,7 @@ export default function HomeProperties() {
                           <span className="Jakarta text-[12px] text-[#0A0A0A]">
                             {p.bedroom ?? "-"}
                           </span>
-                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
+                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#0A0A0A]">
                             Beds
                           </span>
                         </div>
@@ -215,7 +215,7 @@ export default function HomeProperties() {
                           <span className="Jakarta text-[12px] text-[#0A0A0A]">
                             {p.bathroom ?? "-"}
                           </span>
-                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
+                          <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#0A0A0A]">
                             Baths
                           </span>
                         </div>
@@ -224,7 +224,7 @@ export default function HomeProperties() {
                             <span className="Jakarta text-[12px] text-[#0A0A0A]">
                               {p.size}
                             </span>
-                            <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#4B4840]">
+                            <span className="Jakarta text-[8px] tracking-[0.12em] uppercase text-[#0A0A0A]">
                               sq ft
                             </span>
                           </div>
@@ -236,7 +236,7 @@ export default function HomeProperties() {
                         {formatPrice(p.price)} {p.currency || "AED"}
                       </span>
                       {p.offering_type === "RR" && (
-                        <span className="Jakarta text-[8px] tracking-[0.1em] uppercase text-[#4B4840] ml-[4px]">
+                        <span className="Jakarta text-[8px] tracking-[0.1em] uppercase text-[#0A0A0A] ml-[4px]">
                           / yr
                         </span>
                       )}
@@ -246,7 +246,7 @@ export default function HomeProperties() {
               ))}
               {properties.length === 0 && (
                 <div className="flex items-center justify-center py-[60px]">
-                  <p className="Jakarta text-[12px] text-[#4B4840]">
+                  <p className="Jakarta text-[12px] text-[#0A0A0A]">
                     No properties available
                   </p>
                 </div>
@@ -256,7 +256,7 @@ export default function HomeProperties() {
 
           {/* Footer */}
           <div className="max-w-[1280px] mx-auto w-full flex items-center justify-between px-[24px] lg:px-[52px] pt-[16px]">
-            <p className="Jakarta text-[10px] text-[#4B4840] tracking-[0.06em]">
+            <p className="Jakarta text-[10px] text-[#0A0A0A] tracking-[0.06em]">
               Showing{" "}
               <strong className="text-[#0A0A0A] font-medium">
                 {Math.min(totalCount, activeIdx + 1)}

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Title from "~/UI/Title";
 import GlobeViewer from "~/components/Home/GlobeViewer";
 import useIcons from "~/hooks/imageHooks/useIcons";
 import styles from "./GlobalAccess.module.css";
@@ -68,12 +67,15 @@ export default function GlobalAccess() {
           animate={titleCtrl}
           viewport={{ amount: 0.5 }}
           onViewportEnter={onEnter}
-
           style={{ willChange: "transform, opacity" }}
         >
-          <Title className="text-[#353635] text-[16px] lg:text-[31px]">
-            UNLOCK ENDLESS REAL ESTATE OPPORTUNITIES WITH GLOBAL ACCESS
-          </Title>
+          <span className="block mb-[8px] uppercase tracking-[0.32em] text-[#B59B62] text-[10px] lg:text-[12px] font-semibold">
+            WE’RE LOCAL WE’RE GLOBAL
+          </span>
+
+          <p className="CormorantGaramond text-[#353635] text-[22px] lg:text-[42px] leading-[1.05]">
+            Local Roots, <span className="italic">Global Reach</span>
+          </p>
         </motion.div>
 
         {/* Paragraph (appears after title completes) */}
@@ -190,8 +192,6 @@ export default function GlobalAccess() {
         </StatPin>
 
         <GlobeViewer height={isMobile ? 180 : 600} />
-
-
       </div>
     </div>
   );
