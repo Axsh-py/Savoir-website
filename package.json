@@ -12,7 +12,7 @@
     "typecheck": "react-router typegen && tsc",
 
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build/client"
+    "deploy": "node scripts/deploy-gh-pages.mjs"
   },
 
   "dependencies": {
