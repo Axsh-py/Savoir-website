@@ -1,5 +1,4 @@
 import React from "react";
-import GoldTitle from "~/UI/GoldTitle";
 
 type AboutGlobalProps = {
   country: string;
@@ -9,8 +8,10 @@ type AboutGlobalProps = {
 const AboutGlobal: React.FC<AboutGlobalProps> = ({ country, description }) => {
   return (
     <div className="flex flex-col items-start gap-[33px] w-full">
-      <GoldTitle className="!text-[34px] capitalize">About {country}</GoldTitle>
-      <p className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%] ">{description}</p>
+      <p className="CormorantGaramond text-[28px] font-semibold leading-[1.05] text-[#111111] lg:text-[44px]">
+        About {country}
+      </p>
+      <p className="text-[14px] font-semibold leading-[160%] text-[#111111] lg:text-[18px]">{description}</p>
     </div>
   );
 };

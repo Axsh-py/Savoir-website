@@ -7,24 +7,61 @@ export default function NewsBody() {
   const { newsItem } = useLoaderData() as { newsItem: any };
 
   return (
-    <div className="flex flex-col items-start gap-[53px] w-full relative z-10">
+    <div
+      className="
+        relative z-10 flex w-full flex-col items-start gap-[53px]
+
+        [&_article]:!text-[#111111]
+        [&_article]:!font-semibold
+        [&_article]:!opacity-100
+        [&_article_p]:!text-[#111111]
+        [&_article_p]:!font-semibold
+        [&_article_p]:!opacity-100
+        [&_article_span]:!text-[#111111]
+        [&_article_span]:!font-semibold
+        [&_article_span]:!opacity-100
+
+        [&_.news-share-icons_a]:!bg-[#111111]
+        [&_.news-share-icons_button]:!bg-[#111111]
+        [&_.news-share-icons_img]:brightness-0
+        [&_.news-share-icons_img]:invert
+      "
+    >
       {/* title_details */}
       {newsItem.title_details && (
         <article
-          className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+          className="text-[14px] leading-[160%] lg:text-[18px]"
+          style={{
+            color: "#111111",
+            fontWeight: 600,
+            opacity: 1,
+          }}
           dangerouslySetInnerHTML={{ __html: newsItem.title_details }}
         />
       )}
 
       {/* description_one_title and description_one */}
       {newsItem.description_one_title && (
-        <div className="flex flex-col items-start gap-[22px] w-full">
-          <h2 className="text-[16px] lg:text-[20px] font-semibold CormorantGaramond undefined">
+        <div className="flex w-full flex-col items-start gap-[22px]">
+          <h2
+            className="CormorantGaramond text-[20px] leading-[1.18] lg:text-[28px]"
+            style={{
+              color: "#111111",
+              fontWeight: 700,
+              opacity: 1,
+            }}
+          >
             {newsItem.description_one_title}
           </h2>
+
           {newsItem.description_one && (
             <article
-              className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+              className="text-[14px] leading-[160%] lg:text-[18px]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
               dangerouslySetInnerHTML={{ __html: newsItem.description_one }}
             />
           )}
@@ -33,28 +70,30 @@ export default function NewsBody() {
 
       {/* Three images */}
       {newsItem.first_image && (
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-[22px] w-full">
+        <div className="grid w-full grid-cols-1 items-start gap-[22px] lg:grid-cols-5">
           <img
             loading="lazy"
             src={newsItem.first_image}
             alt=""
-            className="w-full aspect-[676/564] rounded-[15px] lg:col-span-3 object-cover"
+            className="aspect-[676/564] w-full rounded-[15px] object-cover lg:col-span-3"
           />
-          <div className="flex flex-col items-start gap-[22px] w-full lg:col-span-2">
+
+          <div className="flex w-full flex-col items-start gap-[22px] lg:col-span-2">
             {newsItem.second_image && (
               <img
                 loading="lazy"
                 src={newsItem.second_image}
                 alt=""
-                className="w-full aspect-[453/271] rounded-[15px] object-cover"
+                className="aspect-[453/271] w-full rounded-[15px] object-cover"
               />
             )}
+
             {newsItem.third_image && (
               <img
                 loading="lazy"
                 src={newsItem.third_image}
                 alt=""
-                className="w-full aspect-[453/271] rounded-[15px] object-cover"
+                className="aspect-[453/271] w-full rounded-[15px] object-cover"
               />
             )}
           </div>
@@ -63,13 +102,26 @@ export default function NewsBody() {
 
       {/* description_two_title and description_two */}
       {newsItem.description_two_title && (
-        <div className="flex flex-col items-start gap-[22px] w-full">
-          <h2 className="text-[21px] text-[#353635] font-semibold">
+        <div className="flex w-full flex-col items-start gap-[22px]">
+          <h2
+            className="CormorantGaramond text-[20px] leading-[1.18] lg:text-[28px]"
+            style={{
+              color: "#111111",
+              fontWeight: 700,
+              opacity: 1,
+            }}
+          >
             {newsItem.description_two_title}
           </h2>
+
           {newsItem.description_two && (
             <article
-              className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+              className="text-[14px] leading-[160%] lg:text-[18px]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
               dangerouslySetInnerHTML={{ __html: newsItem.description_two }}
             />
           )}
@@ -78,13 +130,26 @@ export default function NewsBody() {
 
       {/* description_three_title and description_three */}
       {newsItem.description_three_title && (
-        <div className="flex flex-col items-start gap-[22px] w-full">
-          <h2 className="text-[21px] text-[#353635] font-semibold">
+        <div className="flex w-full flex-col items-start gap-[22px]">
+          <h2
+            className="CormorantGaramond text-[20px] leading-[1.18] lg:text-[28px]"
+            style={{
+              color: "#111111",
+              fontWeight: 700,
+              opacity: 1,
+            }}
+          >
             {newsItem.description_three_title}
           </h2>
+
           {newsItem.description_three && (
             <article
-              className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+              className="text-[14px] leading-[160%] lg:text-[18px]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
               dangerouslySetInnerHTML={{ __html: newsItem.description_three }}
             />
           )}
@@ -93,13 +158,26 @@ export default function NewsBody() {
 
       {/* description_four_title and description_four */}
       {newsItem.description_four_title && (
-        <div className="flex flex-col items-start gap-[22px] w-full">
-          <h2 className="text-[21px] text-[#353635] font-semibold">
+        <div className="flex w-full flex-col items-start gap-[22px]">
+          <h2
+            className="CormorantGaramond text-[20px] leading-[1.18] lg:text-[28px]"
+            style={{
+              color: "#111111",
+              fontWeight: 700,
+              opacity: 1,
+            }}
+          >
             {newsItem.description_four_title}
           </h2>
+
           {newsItem.description_four && (
             <article
-              className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+              className="text-[14px] leading-[160%] lg:text-[18px]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
               dangerouslySetInnerHTML={{ __html: newsItem.description_four }}
             />
           )}

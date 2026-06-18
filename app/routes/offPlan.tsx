@@ -98,15 +98,17 @@ export default function offPlan() {
         <div className="flex flex-col items-center">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-[13px] w-full mt-[90px]">
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-[13px]">
-              <p className="text-[24px] font-semibold">{property.title}</p>
+              <p className="CormorantGaramond text-[28px] font-bold leading-[1.08] text-[#111111] lg:text-[34px]">
+                {property.title}
+              </p>
               <div className="flex items-center gap-[7px]">
                 <img loading="lazy" src={icon.locationBlack} alt="" className="w-[16px]" />
-                <p className="text-[14px] font-medium">{property.location}</p>
+                <p className="Jakarta text-[14px] font-bold text-[#111111]">{property.location}</p>
               </div>
             </div>
             <div className="flex flex-col items-start gap-[2px]">
-              <p className="text-[14px] font-medium">Price</p>
-              <p className="text-[#C6A45A] text-[27px] font-bold">
+              <p className="Jakarta text-[14px] font-bold text-[#111111]">Price</p>
+              <p className="CormorantGaramond text-[27px] font-bold text-[#111111]">
                 {formatPrice(property.starting_price)}
               </p>
             </div>
@@ -127,7 +129,7 @@ export default function offPlan() {
         </div>
         <ProjectFeatures />
         <div className="flex flex-col items-center gap-[53px] w-full mt-[90px]">
-          <p className="text-black text-[16px] lg:text-[36px] CormorantGaramond">
+          <p className="CormorantGaramond text-[28px] leading-[1.05] text-black lg:text-[44px]">
             FAQs about offPlan properties in Dubai
           </p>
           <FAQs questions={faq} />

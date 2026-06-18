@@ -18,6 +18,7 @@ export default function Locations() {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
+
         if (entry.isIntersecting && !isVisible) {
           setIsVisible(true);
           observer.disconnect();
@@ -37,9 +38,11 @@ export default function Locations() {
 
   useEffect(() => {
     if (areas.length <= 1) return;
+
     const id = setInterval(() => {
       setActiveIdx((i) => (i + 1) % areas.length);
     }, 5000);
+
     return () => clearInterval(id);
   }, [areas.length]);
 
@@ -49,7 +52,9 @@ export default function Locations() {
 
   const splitName = (name: string) => {
     const parts = (name || "").trim().split(" ");
+
     if (parts.length <= 1) return { first: name, rest: "" };
+
     return { first: parts[0], rest: parts.slice(1).join(" ") };
   };
 
@@ -61,39 +66,44 @@ export default function Locations() {
       ref={containerRef}
       className={`w-full bg-white transition-all duration-700 ease-out ${
         isVisible || isMobile
-          ? "opacity-100 translate-x-0"
-          : "opacity-0 -translate-x-[200px]"
+          ? "translate-x-0 opacity-100"
+          : "-translate-x-[200px] opacity-0"
       }`}
     >
       {/* Header */}
-      <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pt-[36px] lg:pt-[64px] pb-[24px] lg:pb-[40px] border-b-[0.5px] border-[#35363540]">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col justify-between gap-[20px] border-b-[0.5px] border-[#35363540] px-[24px] pb-[24px] pt-[36px] lg:flex-row lg:items-end lg:px-[52px] lg:pb-[40px] lg:pt-[64px]">
         <div>
-          <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#C6A45A] mb-[10px]">
+          <div className="Jakarta mb-[10px] text-[10px] font-medium uppercase tracking-[0.22em] text-[#C6A45A]">
             Location Intelligence
           </div>
-          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-[#0A0A0A]">
+
+          <p className="CormorantGaramond text-[28px] leading-[1.05] text-[#0A0A0A] lg:text-[44px]">
             Explore <span className="italic">Popular</span> Areas
           </p>
         </div>
+
         <Link
           to="/popular-areas"
-          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-[#4B4840] hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+          className="Jakarta group inline-flex items-center gap-[8px] text-[10px] font-medium uppercase tracking-[0.2em] text-[#4B4840] transition-colors hover:text-[#C6A45A]"
         >
           View Map
-          <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
+          <span className="block h-[0.5px] w-[24px] bg-current transition-all duration-300 group-hover:w-[40px]" />
         </Link>
       </div>
 
       {/* Cinematic slider */}
-      <div className="relative h-[420px] lg:h-[580px] overflow-hidden bg-[#0A0A0A]">
+      <div className="relative h-[420px] overflow-hidden bg-[#0A0A0A] lg:h-[580px]">
         {areas.map((a, idx) => {
           const { first, rest } = splitName(a.name || a.title);
           const isActive = idx === activeIdx;
+
           return (
             <div
               key={a.id ?? a.slug ?? idx}
               className={`absolute inset-0 transition-opacity duration-[800ms] ease-out ${
-                isActive ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                isActive
+                  ? "pointer-events-auto opacity-100"
+                  : "pointer-events-none opacity-0"
               }`}
             >
               <div
@@ -103,29 +113,41 @@ export default function Locations() {
                   transform: isActive ? "scale(1)" : "scale(1.04)",
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.80)] via-[rgba(10,10,10,0.3)] to-[rgba(10,10,10,0.05)]" />
-              <div className="absolute bottom-0 left-0 right-0 px-[24px] lg:px-[64px] py-[32px] lg:py-[52px] flex items-end justify-between gap-[16px]">
+
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.84)] via-[rgba(10,10,10,0.34)] to-[rgba(10,10,10,0.08)]" />
+
+              <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between gap-[16px] px-[24px] py-[32px] lg:px-[64px] lg:py-[52px]">
                 <Link
                   to={`/popular-areas/${a.slug}`}
-                  className="hover:opacity-80 transition-opacity"
+                  className="transition-opacity hover:opacity-80"
                 >
-                  <p className="CormorantGaramond text-[44px] sm:text-[64px] lg:text-[88px] font-light text-white leading-[0.95]">
-                  {first}
-                  {rest && (
-                    <>
-                    <br />
-                    <span className="italic text-[#E0C98A]">{rest}</span>
-                    </>
-                  )}
+                  <p
+                    className="CormorantGaramond text-[44px] font-light leading-[0.95] sm:text-[64px] lg:text-[88px]"
+                    style={{ color: "#FFFFFF", opacity: 1 }}
+                  >
+                    {first}
+                    {rest && (
+                      <>
+                        <br />
+                        <span className="italic text-[#E0C98A]">{rest}</span>
+                      </>
+                    )}
                   </p>
                 </Link>
+
                 {(a.count ?? a.properties_count) != null && (
-                  <div className="text-right shrink-0">
-                    <p className="CormorantGaramond text-[32px] lg:text-[52px] font-light text-white leading-[1]">
+                  <div className="shrink-0 text-right">
+                    <p
+                      className="CormorantGaramond text-[32px] font-light leading-[1] lg:text-[52px]"
+                      style={{ color: "#FFFFFF", opacity: 1 }}
+                    >
                       {a.count ?? a.properties_count}
-                      <span className="text-[20px] lg:text-[32px] text-[#E0C98A]">+</span>
+                      <span className="text-[20px] text-[#E0C98A] lg:text-[32px]">
+                        +
+                      </span>
                     </p>
-                    <p className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/72 mt-[4px]">
+
+                    <p className="Jakarta mt-[4px] text-[10px] font-medium uppercase tracking-[0.2em] text-white/72">
                       Properties Available
                     </p>
                   </div>
@@ -142,15 +164,16 @@ export default function Locations() {
               type="button"
               onClick={() => navTo(-1)}
               aria-label="Previous area"
-              className="absolute top-1/2 left-[16px] lg:left-[28px] -translate-y-1/2 w-[42px] h-[42px] lg:w-[52px] lg:h-[52px] border-[0.5px] border-white/30 bg-[rgba(10,10,10,0.25)] backdrop-blur-[4px] flex items-center justify-center text-white text-[18px] hover:bg-[#C6A45A] hover:border-[#C6A45A] transition-colors z-10 cursor-pointer"
+              className="absolute left-[16px] top-1/2 z-10 flex h-[42px] w-[42px] -translate-y-1/2 cursor-pointer items-center justify-center border-[0.5px] border-white/30 bg-[rgba(10,10,10,0.25)] text-[18px] text-white backdrop-blur-[4px] transition-colors hover:border-[#C6A45A] hover:bg-[#C6A45A] lg:left-[28px] lg:h-[52px] lg:w-[52px]"
             >
               ←
             </button>
+
             <button
               type="button"
               onClick={() => navTo(1)}
               aria-label="Next area"
-              className="absolute top-1/2 right-[16px] lg:right-[28px] -translate-y-1/2 w-[42px] h-[42px] lg:w-[52px] lg:h-[52px] border-[0.5px] border-white/30 bg-[rgba(10,10,10,0.25)] backdrop-blur-[4px] flex items-center justify-center text-white text-[18px] hover:bg-[#C6A45A] hover:border-[#C6A45A] transition-colors z-10 cursor-pointer"
+              className="absolute right-[16px] top-1/2 z-10 flex h-[42px] w-[42px] -translate-y-1/2 cursor-pointer items-center justify-center border-[0.5px] border-white/30 bg-[rgba(10,10,10,0.25)] text-[18px] text-white backdrop-blur-[4px] transition-colors hover:border-[#C6A45A] hover:bg-[#C6A45A] lg:right-[28px] lg:h-[52px] lg:w-[52px]"
             >
               →
             </button>
@@ -159,32 +182,50 @@ export default function Locations() {
       </div>
 
       {/* Thumbnail tabs */}
-      <div className="flex border-b-[0.5px] border-[#35363540] overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex overflow-x-auto border-b-[0.5px] border-[#35363540] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {areas.map((a, idx) => {
           const isActive = idx === activeIdx;
+
           return (
             <button
               key={a.id ?? a.slug ?? `tab-${idx}`}
               type="button"
               onClick={() => setActiveIdx(idx)}
-              className={`relative flex-1 flex flex-col items-center gap-[10px] p-[16px] lg:py-[22px] lg:px-[16px] cursor-pointer border-r-[0.5px] last:border-r-0 border-[#35363540] transition-colors duration-200 hover:bg-[#F8F6F2] min-w-[140px]`}
+              className="relative flex min-w-[140px] flex-1 cursor-pointer flex-col items-center gap-[10px] border-r-[0.5px] border-[#35363540] bg-white p-[16px] transition-colors duration-200 last:border-r-0 hover:bg-white lg:px-[16px] lg:py-[22px]"
             >
               <img
                 loading="lazy"
                 src={a.image}
                 alt={a.name || a.title}
-                className="w-full aspect-[3/2] object-cover bg-[#F8F6F2] transition-transform duration-400 hover:scale-[1.03]"
+                className="aspect-[3/2] w-full bg-white object-cover transition-transform duration-400 hover:scale-[1.03]"
               />
-              <div className="CormorantGaramond text-[13px] lg:text-[14px] font-normal text-center leading-[1.2] transition-colors capitalize" style={{ color: isActive ? "#8C6E32" : "#353635" }}>
+
+              <div
+                className="CormorantGaramond text-center text-[14px] capitalize leading-[1.2] transition-colors lg:text-[16px]"
+                style={{
+                  color: isActive ? "#000000" : "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
                 {a.name || a.title}
               </div>
+
               {(a.count ?? a.properties_count) != null && (
-                <div className="Jakarta text-[9px] tracking-[0.08em] text-[#4B4840]">
+                <div
+                  className="Jakarta text-[9px] tracking-[0.08em]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 500,
+                    opacity: 1,
+                  }}
+                >
                   {a.count ?? a.properties_count}+ listings
                 </div>
               )}
+
               <span
-                className={`absolute bottom-0 left-0 right-0 h-[2px] bg-[#C6A45A] origin-left transition-transform duration-300 ${
+                className={`absolute bottom-0 left-0 right-0 h-[2px] origin-left bg-[#C6A45A] transition-transform duration-300 ${
                   isActive ? "scale-x-100" : "scale-x-0"
                 }`}
               />

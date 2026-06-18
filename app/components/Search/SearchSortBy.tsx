@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from "react";
 import { useLocation, useNavigate } from "react-router";
-import useArrow from "~/hooks/imageHooks/useArrow";
 import useIcons from "~/hooks/imageHooks/useIcons";
 
 const SORT_FIELD_MAP: { [key: string]: string } = {
@@ -23,7 +22,6 @@ type Props = {
 
 export default function SearchSortBy({ items = ["Name", "Date", "Price"] }: Props) {
   const icon = useIcons();
-  const arrow = useArrow();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -93,7 +91,7 @@ export default function SearchSortBy({ items = ["Name", "Date", "Price"] }: Prop
     <div className="relative shrink-0" ref={wrapperRef}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center justify-between gap-[22px] lg:gap-[51px] p-[6px] lg:p-[16px] rounded-[4px] lg:rounded-[10px] bg-[#EEE]"
+        className="flex items-center justify-between gap-[18px] rounded-[8px] border border-[#111111] bg-white p-[9px] shadow-[0_10px_24px_rgba(0,0,0,0.08)] lg:h-[52px] lg:min-w-[232px] lg:gap-[28px] lg:p-[13px]"
       >
         <div className="flex items-center gap-[2px] lg:gap-[8px]">
           <button
@@ -102,36 +100,34 @@ export default function SearchSortBy({ items = ["Name", "Date", "Price"] }: Prop
               e.stopPropagation();
               handleToggleOrder();
             }}
-            className={`cursor-pointer focus:outline-none rounded-[2px] lg:rounded-[4px] p-[2px] lg:p-[4px] transition-colors ${
-              sortOrder === "asc" ? "bg-[#C6A45A]" : ""
+            className={`cursor-pointer focus:outline-none rounded-[2px] lg:rounded-[4px] p-[2px] lg:p-[3px] transition-colors ${
+              sortOrder === "asc" ? "bg-[#111111]" : ""
             }`}
             aria-label={`Sort order: ${sortOrder === "asc" ? "Ascending" : "Descending"}`}
           >
-            <img loading="lazy" src={icon.sortOrder} alt="" className="w-[12px] lg:w-[30px]" />
+            <img loading="lazy" src={icon.sortOrder} alt="" className={`w-[12px] lg:w-[24px] ${sortOrder === "asc" ? "brightness-0 invert" : "brightness-0"}`} />
           </button>
-          <hr className="border-0 w-[1px] h-[9px] lg:h-[22px] bg-[#262626]" />
-          <p className="text-[6px] lg:text-[14px] font-medium">Sort by : {selected}</p>
+          <hr className="border-0 w-[1px] h-[9px] lg:h-[20px] bg-[#111111]" />
+          <p className="text-[12px] font-bold text-[#111111] lg:text-[15px]">Sort by : {selected}</p>
         </div>
-        <div>
-          <img
-            loading="lazy"
-            src={arrow.circleShortGold}
-            alt=""
-            className={`w-[11px] lg:w-[26px] duration-100 ${open && "rotate-180"}`}
-          />
+        <div
+          className={`flex h-[22px] w-[22px] items-center justify-center rounded-full bg-[#111111] text-[13px] font-bold leading-none text-white duration-100 lg:h-[26px] lg:w-[26px] ${open ? "rotate-180" : ""}`}
+          aria-hidden="true"
+        >
+          v
         </div>
       </button>
 
       {open && (
-        <div className="flex flex-col items-start gap-[5px] lg:gap-[10px] p-[6px] lg:p-[16px] rounded-[4px] lg:rounded-[10px] bg-[#EEE] absolute w-full top-[26px] lg:top-[65px] z-10">
+        <div className="absolute top-[42px] z-50 flex w-full flex-col items-start gap-[5px] rounded-[8px] border border-[#111111] bg-white p-[6px] shadow-[0_18px_36px_rgba(0,0,0,0.12)] lg:top-[58px] lg:gap-[8px] lg:p-[12px]">
           {items.map((item, index) => (
             <button
               key={index}
               type="button"
               onClick={() => handleSelect(item)}
-              className="flex p-[5px] rounded-[5px] w-full hover:bg-[#c3c3c3] text-left"
+              className="flex w-full rounded-[5px] p-[5px] text-left hover:bg-[#f2f2f2]"
             >
-              <p className="text-[6px] lg:text-[14px] font-medium">{item}</p>
+              <p className="text-[12px] font-bold text-[#111111] lg:text-[14px]">{item}</p>
             </button>
           ))}
         </div>

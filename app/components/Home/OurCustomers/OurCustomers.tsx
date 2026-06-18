@@ -98,7 +98,7 @@ export default function OurCustomers() {
                     key={t.id ?? idx}
                     className="!h-auto"
                   >
-                    <div className="flex h-full min-h-[300px] flex-col rounded-[6px] border-[0.5px] border-[#E8DDC8] bg-[#FFFEFB] p-[26px] shadow-[0_18px_54px_rgba(53,54,53,0.07)] transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#FBF8F1] hover:shadow-[0_26px_78px_rgba(53,54,53,0.11)] lg:min-h-[344px] lg:p-[34px]">
+                    <div className="flex h-full min-h-[300px] flex-col rounded-[6px] border-[0.5px] border-[#E8DDC8] bg-white p-[26px] shadow-[0_18px_54px_rgba(53,54,53,0.07)] transition-all duration-300 hover:-translate-y-[3px] hover:bg-white hover:shadow-[0_26px_78px_rgba(53,54,53,0.11)] lg:min-h-[344px] lg:p-[34px]">
                       <span className="block CormorantGaramond text-[38px] lg:text-[48px] leading-[0.6] text-[#B59657] font-light mb-[16px] lg:mb-[18px]">
                         &ldquo;
                       </span>

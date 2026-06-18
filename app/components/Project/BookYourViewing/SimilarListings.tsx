@@ -9,11 +9,11 @@ export default function SimilarListings() {
 
   return (
     <div className="flex flex-col items-start gap-[33px] w-full mt-[90px]">
-      <p className="text-[21px] font-semibold">Similar Listings :</p>
-      <ThreeSwiper>
+      <p className="savoir-section-heading">Similar Listings </p>
+      <ThreeSwiper desktopSlidesPerView={4} spaceBetween={24}>
         {similar.map((project: any, index: number) => (
           <SwiperSlide key={index}>
-            <ProjectCard project={project} />
+            <ProjectCard project={project} compact />
           </SwiperSlide>
         ))}
       </ThreeSwiper>

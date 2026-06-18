@@ -124,11 +124,15 @@ export default function OffPlanDescription() {
 
   return (
     <div className="flex flex-col items-start gap-[29px] w-full">
-      <p className="text-[21px] font-semibold">{property.title}</p>
+      <p className="CormorantGaramond text-[24px] font-bold leading-[1.12] text-[#111111] lg:text-[30px]">
+        {property.title}
+      </p>
       <div className="flex flex-col items-start gap-[4px] w-full">
-        <p className="text--[27px] font-semibold">Description</p>
+        <p className="CormorantGaramond text-[26px] font-bold leading-[1.1] text-[#111111] lg:text-[32px]">
+          Description
+        </p>
         <div
-          className="text-[#505050] text-[18px] leading-[180%]"
+          className="Jakarta text-[14px] font-semibold leading-[165%] text-[#111111] lg:text-[18px]"
           dangerouslySetInnerHTML={{
             __html: truncatedDescription,
           }}
@@ -142,7 +146,7 @@ export default function OffPlanDescription() {
                 handleOpenPopup();
               }
             }}
-            className="text-[#C6A45A] text-[14px] lg:text-[18px] font-medium mt-[8px] hover:underline focus:outline-none focus:underline"
+            className="Jakarta mt-[8px] text-[14px] font-bold text-[#111111] underline hover:opacity-70 focus:outline-none focus:underline lg:text-[17px]"
             aria-label="Read more"
             tabIndex={0}
           >
@@ -153,14 +157,14 @@ export default function OffPlanDescription() {
       {showPopup && (
         <div className="flex items-center justify-center w-full h-screen fixed top-0 left-0 z-[99999] bg-[#00000066] px-[16px]">
           <div className="w-full max-w-[759.75px] max-h-[75vh] rounded-[15.711px] lg:rounded-[37.5px] bg-white relative z-10 flex flex-col">
-            <div className="flex items-center justify-between w-full px-[21px] lg:px-[40px] py-[14px] lg:py-[27px] bg-[#C6A45A33] flex-shrink-0">
-              <p className="text-[15px] lg:text-[29px] font-bold">{property.title}</p>
+            <div className="flex items-center justify-between w-full px-[21px] lg:px-[40px] py-[14px] lg:py-[27px] bg-[#111111] flex-shrink-0">
+              <p className="text-[15px] lg:text-[29px] font-bold text-white">{property.title}</p>
               <button onClick={handleClosePopup}>
                 <img
                   loading="lazy"
                   src={icon.popupClose}
                   alt=""
-                  className="w-[12px] lg:w-[24px]"
+                  className="w-[12px] brightness-0 invert lg:w-[24px]"
                 />
               </button>
             </div>
@@ -172,7 +176,7 @@ export default function OffPlanDescription() {
             />
             <div className="overflow-y-auto flex-1 px-[21px] lg:px-[40px] pb-[40px] lg:pb-[60px] pt-[20px]">
               <div
-                className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+                className="Jakarta text-[14px] font-semibold leading-[160%] text-[#111111] lg:text-[18px]"
                 dangerouslySetInnerHTML={{
                   __html: fullDescriptionWithBreaks,
                 }}

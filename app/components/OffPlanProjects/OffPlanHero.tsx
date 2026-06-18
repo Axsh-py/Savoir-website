@@ -3,26 +3,32 @@ import OffPlanFilter from "./OffPlanFilter";
 
 export default function OffPlanHero() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen relative">
+    <div className="relative flex h-[520px] w-full flex-col items-center justify-center overflow-hidden lg:h-[460px]">
       <img
         loading="lazy"
         src="/images/placeholders/hero.webp"
         alt=""
-        className="w-full h-screen object-cover"
+        className="h-full w-full object-cover brightness-[0.42]"
       />
-      <div className="flex flex-col items-center justify-center w-full h-screen absolute top-0 left-0 px-[16px] lg:px-[45px]">
-        <div className="flex flex-col items-center gap-[12px] lg:gap-[61px] w-full">
-          <div className="flex flex-col items-center gap-[7.92px] lg:gap-[17px] w-full">
-            <p className="text-white text-[16px] lg:text-[58px] text-center">
-              Discover the Best Off-Plan Projects
-            </p>
-          </div>
+
+      <div className="absolute inset-0 bg-black/20" />
+
+      <div className="absolute left-0 top-0 z-10 flex h-full w-full flex-col items-center justify-start pt-[74px] lg:pt-[78px]">
+        <div className="flex w-full flex-col items-center gap-[12px] lg:gap-[26px]">
           <OffPlanFilter />
+
+          <div className="mt-[55px] flex w-full flex-col items-center px-[16px] lg:mt-[58px] lg:px-[45px]">
+            <h1 className="max-w-[1250px] text-center text-[34px] leading-[1.15] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] lg:text-[76px]">
+              Discover the Best Off-Plan Projects
+            </h1>
+          </div>
         </div>
+
         <div
-          className="absolute bottom-0 left-0 w-full h-[200px]"
+          className="absolute bottom-0 left-0 z-10 h-[140px] w-full lg:h-[160px]"
           style={{
-            background: "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
+            background:
+              "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
           }}
         />
       </div>

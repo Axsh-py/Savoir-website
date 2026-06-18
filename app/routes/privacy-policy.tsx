@@ -7,18 +7,18 @@ export default function PrivacyPolicy() {
     <div>
       <PageLayout>
         <div className="flex flex-col items-start gap-[30px] lg:gap-[40px] w-full py-[30px] lg:py-[60px]">
-          <Header className="text-[24px] lg:text-[48px]">Privacy Policy</Header>
+          <Header className="text-[28px] leading-[1.05] lg:text-[44px]">Privacy Policy</Header>
           
           <div className="flex flex-col gap-[24px] lg:gap-[32px] text-[14px] lg:text-[18px] leading-[180%]">
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">1. Introduction</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">1. Introduction</h2>
               <p>
               SAVOIR ("we", "us", "our") respects your privacy and is committed to protecting your personal data. This Privacy Policy describes how we collect, use, store, and disclose your information when you visit or use our website www.savoirproperties.com (the "Website"), subscribe to our newsletter or market reports, or otherwise interact with us. By using our Website or providing us with your information, you agree to this Policy.
               </p>
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">2. What Information We Collect</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">2. What Information We Collect</h2>
               <p>We collect personal and non-personal data from you depending on your interactions with us:</p>
               
               <div className="flex flex-col gap-[12px] ml-[16px]">
@@ -56,7 +56,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">3. How We Use Your Information</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">3. How We Use Your Information</h2>
               <p>We use the collected data for several purposes:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>To respond to your inquiries or requests</li>
@@ -71,7 +71,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">4. Legal Basis for Processing</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">4. Legal Basis for Processing</h2>
               <p>Where applicable, our processing of your personal data is based on one or more of the following legal grounds:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>Your consent (e.g. for marketing communications)</li>
@@ -82,7 +82,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">5. Cookies & Tracking Technologies</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">5. Cookies & Tracking Technologies</h2>
               <p>We use cookies and similar technologies to:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>Enable website functionality</li>
@@ -94,7 +94,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">6. Sharing and Disclosure of Your Information</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">6. Sharing and Disclosure of Your Information</h2>
               <p>We may share your personal information with:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>Service providers, contractors, or third parties who assist us (e.g. email service providers, payment processors, website hosting, analytics tools)</li>
@@ -106,7 +106,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">7. Data Security</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">7. Data Security</h2>
               <p>We take appropriate technical, administrative, and organizational measures to protect your personal data from unauthorized access, disclosure, alteration, or destruction. These include:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>Secure servers and encrypted connections (e.g. SSL/TLS)</li>
@@ -117,12 +117,12 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">8. Data Retention</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">8. Data Retention</h2>
               <p>We retain your personal data only as long as necessary for the purposes for which it was collected, or as required by law. Once no longer needed, we will securely delete, anonymize, or archive your data.</p>
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">9. Your Rights</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">9. Your Rights</h2>
               <p>Depending on applicable laws (e.g. UAE's Personal Data Protection Law), you may have rights over your personal data, including:</p>
               <ul className="list-disc ml-[24px] flex flex-col gap-[8px]">
                 <li>Access to the personal data we hold about you</li>
@@ -136,22 +136,22 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">10. Third-party Links</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">10. Third-party Links</h2>
               <p>Our Website may contain links to other websites. We are not responsible for the privacy practices or policies of those sites. Once you leave our Website, you should review their privacy policies.</p>
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">11. Children's Privacy</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">11. Children's Privacy</h2>
               <p>Our Website and services are not intended for children under 16 (or the age required by local law). We do not knowingly collect personal data from children below that age. If you believe we have collected data from a child, please contact us so we can delete it.</p>
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">12. Changes to This Privacy Policy</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">12. Changes to This Privacy Policy</h2>
               <p>We may update this Policy from time to time. When we do, we will post the new version on this page and update the "Last Updated" date. If changes are significant, we may notify you via email or via a notice on our Website.</p>
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">13. Contact Us</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">13. Contact Us</h2>
               <p>If you have any questions about this Privacy Policy or our data practices, or want to exercise any of your rights, you can contact us:</p>
               <div className="flex flex-col gap-[8px] ml-[16px]">
                 <p className="font-semibold">SAVOIR</p>
@@ -162,7 +162,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="flex flex-col gap-[16px]">
-              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#C6A45A]">14. Governing Law</h2>
+              <h2 className="text-[18px] lg:text-[24px] font-semibold text-[#111111]">14. Governing Law</h2>
               <p>This Privacy Policy and any disputes or claims arising out of or in connection with it shall be governed by the laws of the United Arab Emirates.</p>
             </section>
 

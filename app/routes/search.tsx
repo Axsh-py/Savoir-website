@@ -4,19 +4,28 @@ import { getSuggestionSearch, search as searchApi } from "~/api/home.service";
 import SearchFIlterItems from "~/components/Search/SearchFIlterItems";
 import SearchHero from "~/components/Search/SearchHero";
 import SearchResults from "~/components/Search/SearchResults";
-import PageLayout from "~/layouts/PageLayout";
 import FAQs from "~/UI/FAQs";
 import CustomPagination from "~/UI/CustomPagination";
 import { getFAQ } from "~/api/faq.service";
 import useIcons from "~/hooks/imageHooks/useIcons";
 
+const SEARCH_PAGE_SIZE = 11;
+
+const getResponseProjects = (res: any) => (Array.isArray(res?.data) ? res.data : []);
+
+const getResponseTotal = (res: any, fallbackLength: number) =>
+  Number(res?.total ?? res?.pagination?.total ?? res?.meta?.total ?? 0) || fallbackLength;
+
+const getResponseTotalPages = (res: any) =>
+  Number(res?.total_pages ?? res?.last_page ?? res?.pagination?.total_pages ?? res?.meta?.last_page ?? 0) || 1;
+
 export async function clientLoader({ request }: { request: Request }) {
   const url = new URL(request.url);
   const params = new URLSearchParams(url.search);
-  
+
   const status = params.get("status") || "All";
   const interested = params.get("interested") || "Buy";
-  
+
   // Determine FAQ type based on search params
   let faqtype = "buy"; // default
   if (status === "Off-plan") {
@@ -26,7 +35,7 @@ export async function clientLoader({ request }: { request: Request }) {
   } else if (interested === "Buy") {
     faqtype = "buy";
   }
-  
+
   try {
     const searchRes: any = await getSuggestionSearch();
     const resFAQ: any = await getFAQ(faqtype);
@@ -36,12 +45,18 @@ export async function clientLoader({ request }: { request: Request }) {
   }
 }
 
-export function shouldRevalidate({ currentUrl, nextUrl }: { currentUrl: URL; nextUrl: URL }) {
+export function shouldRevalidate({
+  currentUrl,
+  nextUrl,
+}: {
+  currentUrl: URL;
+  nextUrl: URL;
+}) {
   const currentStatus = currentUrl.searchParams.get("status") || "All";
   const currentInterested = currentUrl.searchParams.get("interested") || "Buy";
   const nextStatus = nextUrl.searchParams.get("status") || "All";
   const nextInterested = nextUrl.searchParams.get("interested") || "Buy";
-  
+
   // Revalidate if status or interested params change (affects FAQ type)
   return currentStatus !== nextStatus || currentInterested !== nextInterested;
 }
@@ -100,10 +115,42 @@ export default function Search() {
     };
 
     try {
-      const res: any = await searchApi(page, 5, body, sortField, sortOrder);
-      setProjects(res.data);
-      // Use total_pages from API response (e.g., 37 pages for 183 items with 5 per page)
-      setTotalPages(res.total_pages || 1);
+      const metaRes: any = await searchApi(1, SEARCH_PAGE_SIZE, body, sortField, sortOrder);
+      const metaProjects = getResponseProjects(metaRes);
+      const backendPageSize = Math.max(
+        1,
+        Number(metaRes?.per_page) || metaProjects.length || SEARCH_PAGE_SIZE
+      );
+      const backendTotalPages = getResponseTotalPages(metaRes);
+      const totalItems = getResponseTotal(metaRes, backendPageSize * backendTotalPages);
+      const uiStartIndex = (page - 1) * SEARCH_PAGE_SIZE;
+      const firstBackendPage = Math.floor(uiStartIndex / backendPageSize) + 1;
+      const firstBackendOffset = uiStartIndex % backendPageSize;
+
+      let aggregatedProjects: any[] = [];
+      let backendPage = firstBackendPage;
+
+      while (aggregatedProjects.length < SEARCH_PAGE_SIZE && backendPage <= backendTotalPages) {
+        const pageRes: any =
+          backendPage === 1
+            ? metaRes
+            : await searchApi(backendPage, SEARCH_PAGE_SIZE, body, sortField, sortOrder);
+        const pageProjects = getResponseProjects(pageRes);
+        if (!pageProjects.length) break;
+
+        const usableProjects =
+          backendPage === firstBackendPage
+            ? pageProjects.slice(firstBackendOffset)
+            : pageProjects;
+
+        aggregatedProjects = [...aggregatedProjects, ...usableProjects];
+        backendPage += 1;
+      }
+
+      setProjects(aggregatedProjects.slice(0, SEARCH_PAGE_SIZE));
+
+      // Desktop renders 11 listings + 1 promo tile for a complete 4x3 grid.
+      setTotalPages(Math.max(1, Math.ceil(totalItems / SEARCH_PAGE_SIZE)));
     } catch (err) {
       console.error("Search API error:", err);
     }
@@ -124,7 +171,7 @@ export default function Search() {
     const params = new URLSearchParams(location.search);
     const status = params.get("status") || "All";
     const interested = params.get("interested") || "Buy";
-    
+
     if (status === "Off-plan") {
       return "FAQs about offPlan properties in Dubai";
     } else if (interested === "Rent") {
@@ -132,33 +179,48 @@ export default function Search() {
     } else if (interested === "Buy") {
       return "FAQs about properties for sale in Dubai";
     }
+
     return "FAQs about properties in Dubai";
   };
 
   return (
     <div className="relative">
-      <SearchHero />
+      <div className="[&_h1]:-translate-y-[32px] lg:[&_h1]:-translate-y-[70px] [&_h1]:transition-transform [&_h1]:duration-300">
+        <SearchHero />
+      </div>
 
-      <PageLayout>
-        <div style={{ backgroundImage: `url(${icon.vLetter})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
+      <div className="relative z-20 -mt-[142px] px-[16px] pb-[30px] lg:-mt-[225px] lg:px-[45px] lg:pb-[40px]">
+        <div className="mx-auto w-full max-w-[1404px]">
+          <div
+            style={{
+              backgroundImage: `url(${icon.vLetter})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            <div className="flex flex-col items-start gap-[30px] lg:gap-[34px]">
+              <SearchFIlterItems />
 
-        <div className="flex flex-col items-start gap-[47px]">
-          <SearchFIlterItems />
-          <SearchResults projects={projects} />
-          <CustomPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+              <SearchResults projects={projects} currentPage={currentPage} />
+
+              <CustomPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+
+            <div className="mt-[66px] flex w-full flex-col items-center gap-[22px] lg:gap-[53px]">
+              <p className="CormorantGaramond text-[28px] leading-[1.05] text-black lg:text-[44px]">
+                {getFAQTitle()}
+              </p>
+
+              <FAQs questions={faq} />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col items-center gap-[22px] lg:gap-[53px] w-full mt-[66px]">
-          <p className="text-black text-[16px] lg:text-[36px] CormorantGaramond">
-            {getFAQTitle()}
-          </p>
-          <FAQs questions={faq} />
-        </div>
-        </div>
-      </PageLayout>
+      </div>
     </div>
   );
 }

@@ -16,9 +16,14 @@ import { useIsMobile } from "~/hooks/functionHooks/useIsMobile";
 type Props = {
   children: React.ReactNode;
   spaceBetween?: number;
+  desktopSlidesPerView?: number;
 };
 
-export default function ThreeSwiper({ children, spaceBetween = 30 }: Props) {
+export default function ThreeSwiper({
+  children,
+  spaceBetween = 30,
+  desktopSlidesPerView = 3,
+}: Props) {
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
   const icon = useIcons();
   const isMobile = useIsMobile();
@@ -26,7 +31,7 @@ export default function ThreeSwiper({ children, spaceBetween = 30 }: Props) {
   return (
     <div className="w-full">
       <Swiper
-        slidesPerView={isMobile ? 1 : 3}
+        slidesPerView={isMobile ? 1 : desktopSlidesPerView}
         loop={true}
         spaceBetween={spaceBetween}
         modules={[Navigation, Autoplay]}

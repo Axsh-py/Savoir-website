@@ -1,26 +1,33 @@
 import React from "react";
-import SearchFilter from "~/layouts/Filter/SearchFilter";
 
 export default function AboutHero() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-[85vh] lg:h-screen relative">
+    <div className="relative flex h-[85vh] w-full flex-col items-center justify-center overflow-hidden lg:h-screen">
       <img
         loading="lazy"
         src="/images/placeholders/our-team2.jpg"
         alt=""
-        className="w-full h-[85vh] lg:h-screen object-contain lg:object-cover brightness-50"
+        className="h-[85vh] w-full object-contain brightness-[0.42] lg:h-screen lg:object-cover"
       />
-      <div className="flex flex-col items-center justify-center w-full h-[85vh] lg:h-screen absolute top-0 left-0 px-[16px] lg:px-[45px]">
-        <div className="flex flex-col items-center gap-[61px] w-full">
-          <div className="flex flex-col items-center gap-[9px]">
-            <h1 className="text-white text-[25px] lg:text-[91px]">About US</h1>
-            <p className="text-white text-[18px] lg:text-[68px]">A New Era of Real Estate Excellence</p>
-          </div>
+
+      <div className="absolute left-0 top-0 flex h-[85vh] w-full flex-col items-center justify-center px-[16px] lg:h-screen lg:px-[45px]">
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="relative z-10 flex w-full flex-col items-center">
+          <h1 className="text-center text-[30px] leading-[1.15] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] lg:text-[86px]">
+            About Us
+          </h1>
+
+          <p className="mt-[12px] text-center text-[22px] leading-[1.2] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] lg:text-[58px]">
+            Savoir Beyond Excellence
+          </p>
         </div>
+
         <div
-          className="absolute bottom-0 left-0 w-full h-[200px]"
+          className="absolute bottom-0 left-0 h-[200px] w-full"
           style={{
-            background: "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
+            background:
+              "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
           }}
         />
       </div>

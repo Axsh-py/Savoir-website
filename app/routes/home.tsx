@@ -60,7 +60,7 @@ export default function Home() {
         <HomeProperties />
       </div>
       <div className="w-full">
-        <Suspense fallback={<div className="w-full h-[500px] bg-[#F8F6F2]" />}>
+        <Suspense fallback={<div className="w-full h-[500px] bg-white" />}>
           <OffPlanProjects />
         </Suspense>
       </div>

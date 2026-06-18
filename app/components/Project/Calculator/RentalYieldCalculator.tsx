@@ -20,6 +20,7 @@ function fmtCurrency(n: number, currency: string = "AED"): string {
     maximumFractionDigits: 0,
   }).format(Math.max(0, Math.round(n)));
 }
+
 function fmtPct(n: number): string {
   const val = isFinite(n) ? n : 0;
   return `${val.toFixed(2)}%`;
@@ -30,8 +31,7 @@ export default function RentalYieldCalculator() {
 
   const propertyPrice = parseNumber(property.price || 0);
   const currency = property.currency || "AED";
-  
-  // Calculate defaults: annual rental = 7% of price, service charges = 0
+
   const defaultAnnualRent = Math.round(propertyPrice * 0.07);
   const defaultServiceCharges = 0;
 
@@ -40,11 +40,10 @@ export default function RentalYieldCalculator() {
   const [extra, setExtra] = useState<string>("0");
   const [rent, setRent] = useState<string>(defaultAnnualRent.toLocaleString("en-US"));
 
-  // Update values when property changes
   useEffect(() => {
     const newPropertyPrice = parseNumber(property.price || 0);
     const newDefaultAnnualRent = Math.round(newPropertyPrice * 0.07);
-    
+
     setPrice(newPropertyPrice.toLocaleString("en-US"));
     setSvc("0");
     setRent(newDefaultAnnualRent.toLocaleString("en-US"));
@@ -74,15 +73,44 @@ export default function RentalYieldCalculator() {
 
   return (
     <Card>
-      <div className="flex flex-col items-start gap-[30px] w-full p-[24px] lg:p-[45px] pt-[24px] lg:pt-[41px]">
+      <div
+        className="
+          flex w-full flex-col items-start gap-[30px] p-[24px] pt-[24px]
+          lg:p-[45px] lg:pt-[41px]
+
+          [&_input]:!text-[#111111]
+          [&_input]:!font-semibold
+          [&_input::placeholder]:!text-[#111111]
+          [&_input::placeholder]:!opacity-100
+          [&_label]:!text-[#111111]
+          [&_label]:!font-semibold
+        "
+      >
         <div className="flex flex-col items-start gap-[8px]">
-          <p className="text-[21px] font-semibold">Rental Yield Calculator</p>
-          <p className="text-[#999999] text-[18px]">
+          <p
+            className="CormorantGaramond text-[28px] leading-[1.05] lg:text-[44px]"
+            style={{
+              color: "#111111",
+              fontWeight: 700,
+              opacity: 1,
+            }}
+          >
+            Rental Yield Calculator
+          </p>
+
+          <p
+            className="text-[15px] leading-[165%] lg:text-[18px]"
+            style={{
+              color: "#111111",
+              fontWeight: 600,
+              opacity: 1,
+            }}
+          >
             Calculate the gross and net rental yields on a property.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-[15px] gap-y-[27px] w-full">
+        <div className="grid w-full grid-cols-2 gap-x-[15px] gap-y-[27px]">
           <CalculatorInput
             label="Property Price"
             unit={currency}
@@ -92,6 +120,7 @@ export default function RentalYieldCalculator() {
             onBlur={() => setPrice(formatThousands(price))}
             type="text"
           />
+
           <CalculatorInput
             label="Annual services charges"
             unit={currency}
@@ -101,6 +130,7 @@ export default function RentalYieldCalculator() {
             onBlur={() => setSvc(formatThousands(svc))}
             type="text"
           />
+
           <CalculatorInput
             label="Additional charges"
             unit={currency}
@@ -110,6 +140,7 @@ export default function RentalYieldCalculator() {
             onBlur={() => setExtra(formatThousands(extra))}
             type="text"
           />
+
           <CalculatorInput
             label="Annual rental price"
             unit={currency}
@@ -121,29 +152,102 @@ export default function RentalYieldCalculator() {
           />
         </div>
 
-        <div className="flex flex-col items-start gap-[19px] w-full">
-          <div className="flex flex-col items-start gap-[11px] w-full max-w-[360px]">
-            <div className="flex items-center justify-between w-full">
-              <p className="text-[18px]">Net Rent</p>
-              <p className="text-[18px]">NET ROI</p>
+        <div className="flex w-full flex-col items-start gap-[19px]">
+          <div className="flex w-full max-w-[360px] flex-col items-start gap-[11px]">
+            <div className="flex w-full items-center justify-between">
+              <p
+                className="text-[18px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                Net Rent
+              </p>
+
+              <p
+                className="text-[18px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                NET ROI
+              </p>
             </div>
-            <div className="flex items-center justify-between w-full">
-              <p className="text-black text-[21px] font-semibold">{fmtCurrency(calc.net, currency)}</p>
-              <p className="text-black text-[21px] font-semibold">{fmtPct(calc.netRoi)}</p>
+
+            <div className="flex w-full items-center justify-between">
+              <p
+                className="text-[21px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 700,
+                  opacity: 1,
+                }}
+              >
+                {fmtCurrency(calc.net, currency)}
+              </p>
+
+              <p
+                className="text-[21px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 700,
+                  opacity: 1,
+                }}
+              >
+                {fmtPct(calc.netRoi)}
+              </p>
             </div>
-            <div className="flex items-center justify-between w-full">
-              <p className="text-[14px] text-[#666]">Gross ROI</p>
-              <p className="text-[14px] text-[#000] font-medium">{fmtPct(calc.grossRoi)}</p>
+
+            <div className="flex w-full items-center justify-between">
+              <p
+                className="text-[14px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                Gross ROI
+              </p>
+
+              <p
+                className="text-[14px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 700,
+                  opacity: 1,
+                }}
+              >
+                {fmtPct(calc.grossRoi)}
+              </p>
             </div>
           </div>
 
           {invalid ? (
-            <p className="text-[#C44] text-[12px]">
+            <p
+              className="text-[12px]"
+              style={{
+                color: "#C44",
+                fontWeight: 600,
+                opacity: 1,
+              }}
+            >
               Enter a positive price. Other fields must be zero or positive.
             </p>
           ) : null}
 
-          <p className="text-[#999] text-[15px]">
+          <p
+            className="text-[15px] leading-[160%]"
+            style={{
+              color: "#111111",
+              fontWeight: 600,
+              opacity: 1,
+            }}
+          >
             *Net ROI is an estimate. Actuals vary by property type, location, and service charges.
           </p>
         </div>

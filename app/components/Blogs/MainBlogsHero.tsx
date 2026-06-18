@@ -2,25 +2,28 @@ import React from "react";
 
 export default function MainBlogsHero() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-screen relative">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <img
         loading="lazy"
         src="/images/placeholders/hero.webp"
         alt=""
-        className="w-full h-screen object-cover"
+        className="h-screen w-full object-cover brightness-[0.42]"
       />
-      <div className="flex flex-col items-center justify-center w-full h-screen absolute top-0 left-0 px-[16px] lg:px-[45px]">
-        <div className="flex flex-col items-center gap-[53.68px] w-full max-w-[1226px]">
-          <div className="flex flex-col items-center gap-[17px] w-full">
-            <h1 className="text-white text-[16px] lg:text-[51.04px] text-center ">
-              Our Blogs
-            </h1>
-          </div>
+
+      <div className="absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center px-[16px] lg:px-[45px]">
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="relative z-10 flex w-full max-w-[1226px] flex-col items-center">
+          <h1 className="text-center text-[34px] leading-[1.15] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.75)] lg:text-[86px]">
+            Our Blogs
+          </h1>
         </div>
+
         <div
-          className="absolute bottom-0 left-0 w-full h-[176px] z-10"
+          className="absolute bottom-0 left-0 z-10 h-[176px] w-full"
           style={{
-            background: "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
+            background:
+              "linear-gradient(0deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%)",
           }}
         />
       </div>

@@ -7,7 +7,6 @@ import FilterBedroom, { type BedBathValue } from "./FilterBedroom";
 import FilterPriceRange, { type PriceRangeValue } from "./FilterPriceRange";
 import SelectSearch from "./SelectSearch";
 
-// Allowed options
 const TYPE_OPTIONS: TypeOption[] = [
   { code: "AP", label: "Apartment" },
   { code: "BU", label: "Bulk Units" },
@@ -62,7 +61,6 @@ export default function SearchFilter() {
     max: null,
   });
 
-  // Load filters from URL params
   useEffect(() => {
     const params = new URLSearchParams(location.search);
 
@@ -99,7 +97,6 @@ export default function SearchFilter() {
     });
   }, [location.search]);
 
-  // Handle Search button click
   const handleSearch = () => {
     const params = new URLSearchParams();
 
@@ -108,20 +105,19 @@ export default function SearchFilter() {
 
     params.set("interested", rentFilters.interested);
     params.set("status", rentFilters.status);
-
     params.set("bedrooms", bedBath.bedrooms);
     params.set("bathrooms", bedBath.bathrooms);
 
-    // Always include current price state
     if (price.min !== null) params.set("min", price.min.toString());
     if (price.max !== null) params.set("max", price.max.toString());
 
     if (location.pathname === "/") {
-      // Redirect from home page to /search
       navigate(`/search?${params.toString()}`, { preventScrollReset: true });
     } else {
-      // Already on /search, just update URL
-      navigate({ search: params.toString() }, { replace: true, preventScrollReset: true });
+      navigate(
+        { search: params.toString() },
+        { replace: true, preventScrollReset: true }
+      );
     }
   };
 
@@ -129,61 +125,114 @@ export default function SearchFilter() {
 
   return (
     <div
-      className={`relative z-20 flex rounded-[17.6px] bg-[#FFFFFF40] py-[12px] backdrop-blur-[13.8px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] lg:py-[16.72px] ${
+      className={
         isHome
-          ? "mx-auto w-full max-w-full flex-col gap-[12px] px-3 sm:px-4  lg:w-[70vw] lg:px-[34.32px]"
-          : "w-full max-w-[1226px] flex-col items-center justify-end gap-[8px] px-[24px] lg:flex-row lg:gap-[20px] lg:px-[34.32px]"
-      }`}
+          ? "Jakarta search-filter-white-text relative z-20 flex rounded-[17.6px] bg-[#FFFFFF40] py-[12px] backdrop-blur-[13.8px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] lg:py-[14px] mx-auto w-full max-w-full flex-col gap-[10px] px-3 sm:px-4 lg:w-fit lg:px-[18px]"
+          : "Jakarta relative z-20 flex w-full flex-col bg-white shadow-[0_12px_34px_rgba(0,0,0,0.1)] lg:h-[58px] lg:flex-row lg:items-stretch"
+      }
       data-aos="fade-up"
     >
       {isHome ? (
         <>
-          {/* Phones & tablets: full width, stacked — avoids cramped 60/40 row */}
-          <div className="flex w-full flex-col gap-[12px] lg:hidden">
-            <SelectSearch variant="home" search={search} onChange={setQuery} value={query} />
+          <div className="flex w-full flex-col gap-[10px] lg:hidden">
+            <SelectSearch
+              variant="home"
+              search={search}
+              onChange={setQuery}
+              value={query}
+            />
+
             <FilterRent
               value={rentFilters}
               onChange={setRentFilters}
               maxWidthClass="max-w-full"
             />
+
             <SearchButton onClick={handleSearch} />
           </div>
-          {/* Large screens: 50vw bar, 70% location / 30% filters + search */}
-          <div className="hidden w-full flex-nowrap items-center gap-[17.6px] lg:flex lg:gap-[20px]">
-            <div className="lg:w-[60%] w-[70%] min-w-0 shrink-0">
-              <SelectSearch variant="home" search={search} onChange={setQuery} value={query} />
+
+          <div className="hidden w-fit flex-nowrap items-center gap-[6px] lg:flex">
+            <div className="w-[560px] min-w-0 shrink-0">
+              <SelectSearch
+                variant="home"
+                search={search}
+                onChange={setQuery}
+                value={query}
+              />
             </div>
-            <div className="flex w-[50%] min-w-0 shrink-0 items-center justify-end gap-[8px] overflow-visible lg:w-[40%]">
-              <div className="min-w-0 flex-1 w-[50%] lg:w-[50%]">
-                <FilterRent value={rentFilters} onChange={setRentFilters} />
-              </div>
-              <div className="shrink-0 lg:w-[50%] w-[50%]">
-                <SearchButton onClick={handleSearch} />
-              </div>
+
+            <div className="flex h-[49.28px] w-[86px] shrink-0 items-center justify-center">
+              <FilterRent
+                value={rentFilters}
+                onChange={setRentFilters}
+                maxWidthClass="max-w-[86px]"
+              />
+            </div>
+
+            <div className="w-fit shrink-0">
+              <SearchButton onClick={handleSearch} />
             </div>
           </div>
         </>
       ) : (
         <>
-          <div className="grid w-full grid-cols-2 justify-between gap-[17.6px] lg:flex">
-            <FilterRent value={rentFilters} onChange={setRentFilters} />
-            <FilterType
-              options={TYPE_OPTIONS}
-              selected={types}
-              onChange={setTypes}
-              label="Type"
-              placeholder="Select Your Type"
-              maxWidthClass="max-w-[185.68px]"
-            />
-            <FilterBedroom value={bedBath} onChange={setBedBath} />
-            <FilterPriceRange
-              value={price}
-              onChange={setPrice}
-              onDraftChange={(draft) => setPrice(draft)}
+          <div className="grid w-full grid-cols-2 border-b border-[#E6E6E6] lg:flex lg:w-auto lg:border-b-0">
+            <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[150px]">
+              <FilterRent
+                value={rentFilters}
+                onChange={setRentFilters}
+                placeholder="Select Your Type"
+                maxWidthClass="max-w-full"
+                variant="listing"
+              />
+            </div>
+
+            <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[190px]">
+              <FilterType
+                options={TYPE_OPTIONS}
+                selected={types}
+                onChange={setTypes}
+                label="Type"
+                placeholder="Select Your Type"
+                maxWidthClass="max-w-full"
+                variant="listing"
+              />
+            </div>
+
+            <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[190px]">
+              <FilterBedroom
+                value={bedBath}
+                onChange={setBedBath}
+                maxWidthClass="max-w-full"
+                variant="listing"
+              />
+            </div>
+
+            <div className="flex min-h-[54px] items-center px-[16px] lg:h-[58px] lg:w-[220px] lg:border-r lg:border-[#D5D5D5]">
+              <FilterPriceRange
+                value={price}
+                onChange={setPrice}
+                onDraftChange={(draft) => setPrice(draft)}
+                maxWidthClass="max-w-full"
+                variant="listing"
+              />
+            </div>
+          </div>
+
+          <div className="flex min-h-[54px] min-w-0 flex-1 items-center px-[10px] lg:h-[58px] lg:min-w-[320px]">
+            <SelectSearch
+              variant="listing"
+              search={search}
+              onChange={setQuery}
+              value={query}
+              placeholder="Search by location, project or keyword..."
+              hideIndicators
             />
           </div>
-          <SelectSearch variant="compact" search={search} onChange={setQuery} value={query} />
-          <SearchButton onClick={handleSearch} />
+
+          <div className="w-full shrink-0 lg:w-[112px]">
+            <SearchButton onClick={handleSearch} variant="listing" showIcon={false} />
+          </div>
         </>
       )}
     </div>

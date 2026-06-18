@@ -9,12 +9,10 @@ export default function ProjectDescription() {
 
   useEffect(() => {
     if (showPopup) {
-      // disable scrolling
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = "hidden";
 
       return () => {
-        // re-enable scrolling on unmount
         document.body.style.overflow = originalStyle;
       };
     }
@@ -23,120 +21,134 @@ export default function ProjectDescription() {
   const icon = useIcons();
   const isBrowser = typeof document !== "undefined";
 
-  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const stripHtml = (html: string) =>
+    html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
-  // Helper function to count words from HTML content
   const countWords = (html: string): number => {
     if (!html) return 0;
-    if (!isBrowser) return stripHtml(html).split(/\s+/).filter((word) => word.length > 0).length;
+
+    if (!isBrowser) {
+      return stripHtml(html)
+        .split(/\s+/)
+        .filter((word) => word.length > 0).length;
+    }
+
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
+
     const text = tempDiv.textContent || tempDiv.innerText || "";
-    const words = text.trim().split(/\s+/).filter((word) => word.length > 0);
+    const words = text
+      .trim()
+      .split(/\s+/)
+      .filter((word) => word.length > 0);
+
     return words.length;
   };
 
   const truncateHtml = (html: string, wordLimit: number): string => {
     if (!html) return "";
+
     if (!isBrowser) {
-      const words = stripHtml(html).split(/\s+/).filter((word) => word.length > 0);
+      const words = stripHtml(html)
+        .split(/\s+/)
+        .filter((word) => word.length > 0);
+
       if (words.length <= wordLimit) return stripHtml(html);
+
       return `${words.slice(0, wordLimit).join(" ")}...`;
     }
-    
+
     const wordCount = countWords(html);
+
     if (wordCount <= wordLimit) {
       return html;
     }
 
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
-    
-    // Walk through text nodes and count words
+
     const walker = document.createTreeWalker(
       tempDiv,
       NodeFilter.SHOW_TEXT,
       null
     );
-    
+
     let wordCountSoFar = 0;
     let node: Node | null = null;
-    let cutNode: Node | null = null;
     const nodesToRemove: Node[] = [];
-    
+
     while ((node = walker.nextNode())) {
       const nodeText = node.textContent || "";
-      const words = nodeText.trim().split(/\s+/).filter((word) => word.length > 0);
+      const words = nodeText
+        .trim()
+        .split(/\s+/)
+        .filter((word) => word.length > 0);
+
       const nodeWordCount = words.length;
-      
+
       if (wordCountSoFar + nodeWordCount >= wordLimit) {
-        cutNode = node;
-        // Calculate how many words we need from this node
         const wordsNeeded = wordLimit - wordCountSoFar;
-        
+
         if (wordsNeeded <= 0) {
-          // We've already reached the limit, mark this node for removal
           nodesToRemove.push(node);
         } else {
-          // Take only the needed words from this node
-          const wordsToKeep = words.slice(0, wordsNeeded);
-          
-          // Find the position in the original text where these words end
           let searchPos = 0;
           let charPos = 0;
+
           for (let i = 0; i < wordsNeeded && i < words.length; i++) {
             const wordIndex = nodeText.indexOf(words[i], searchPos);
+
             if (wordIndex >= 0) {
               charPos = wordIndex + words[i].length;
               searchPos = charPos;
             }
           }
-          
-          // Find the last space to cut at word boundary
+
           const textBeforeCut = nodeText.substring(0, charPos);
           const lastSpaceIndex = textBeforeCut.lastIndexOf(" ");
           const cutPosition = lastSpaceIndex > 0 ? lastSpaceIndex : charPos;
-          
+
           if (node.textContent) {
             node.textContent = nodeText.substring(0, cutPosition).trim() + "...";
           }
         }
-        
-        // Mark all remaining nodes for removal
+
         while ((node = walker.nextNode())) {
           nodesToRemove.push(node);
         }
+
         break;
       }
-      
+
       wordCountSoFar += nodeWordCount;
     }
-    
-    // Remove all marked nodes
-    nodesToRemove.forEach(nodeToRemove => {
+
+    nodesToRemove.forEach((nodeToRemove) => {
       if (nodeToRemove.parentNode) {
         nodeToRemove.parentNode.removeChild(nodeToRemove);
       }
     });
-    
-    // Remove empty parent elements that might be left behind
+
     const emptyElements = tempDiv.querySelectorAll("*");
+
     emptyElements.forEach((el) => {
       if (el.textContent?.trim() === "" && el.children.length === 0) {
         el.remove();
       }
     });
-    
+
     return tempDiv.innerHTML;
   };
 
   const truncatedDescription = useMemo(() => {
     if (!property.description_en) return "";
+
     return truncateHtml(property.description_en, 40);
   }, [property.description_en]);
 
   const shouldShowReadMore = useMemo(() => {
     if (!property.description_en) return false;
+
     return countWords(property.description_en) > 40;
   }, [property.description_en]);
 
@@ -149,7 +161,6 @@ export default function ProjectDescription() {
   };
 
   const items = [
-
     {
       title: "Area",
       icon: icon.searchSquare,
@@ -173,18 +184,25 @@ export default function ProjectDescription() {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row items-start gap-[53px] w-full mt-[34px]">
-      <div className="flex flex-col items-start gap-[31px] w-full">
-        <div className="flex flex-col items-start gap-[17px] w-full">
-          <p className="text-[21px] font-semibold">{property.title_en}</p>
-          <div className="flex flex-col items-start gap-[4px] w-full">
-            <p className="text--[27px] font-semibold">Description</p>
+    <div className="mt-[34px] flex w-full flex-col items-start gap-[53px] lg:flex-row">
+      <div className="flex w-full flex-col items-start gap-[31px]">
+        <div className="flex w-full flex-col items-start gap-[17px]">
+          <p className="CormorantGaramond text-[24px] font-bold leading-[1.12] text-[#111111] lg:text-[30px]">
+            {property.title_en}
+          </p>
+
+          <div className="flex w-full flex-col items-start gap-[4px]">
+            <p className="CormorantGaramond text-[26px] font-bold leading-[1.1] text-[#111111] lg:text-[32px]">
+              Description
+            </p>
+
             <div
-              className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+              className="Jakarta text-[14px] font-semibold leading-[165%] text-[#111111] lg:text-[18px]"
               dangerouslySetInnerHTML={{
                 __html: truncatedDescription,
               }}
             />
+
             {shouldShowReadMore && (
               <button
                 onClick={handleOpenPopup}
@@ -194,7 +212,7 @@ export default function ProjectDescription() {
                     handleOpenPopup();
                   }
                 }}
-                className="text-[#C6A45A] text-[14px] lg:text-[18px] font-medium mt-[8px] hover:underline focus:outline-none focus:underline"
+                className="Jakarta mt-[8px] text-[14px] font-bold text-[#111111] underline hover:opacity-70 focus:outline-none focus:underline lg:text-[17px]"
                 aria-label="Read more"
                 tabIndex={0}
               >
@@ -203,41 +221,58 @@ export default function ProjectDescription() {
             )}
           </div>
         </div>
+
         <div className="flex items-start gap-[17px]">
           {items.map((item: any, index: number) => (
             <div
               key={index}
-              className="flex flex-col items-start gap-[4px] lg:gap-[8px] pr-[6px] lg:pr-[6px] border-r border-[#353635]"
+              className="flex flex-col items-start gap-[4px] border-r border-[#353635] pr-[6px] lg:gap-[8px] lg:pr-[6px]"
             >
               <div className="flex items-center gap-[3px] lg:gap-[7px]">
-                <img loading="lazy" src={item.icon} alt="" className="w-[12px] lg:w-[25px]" />
-                <p className="text-[#505050] text-[8px] lg:text-[16px] font-medium">{item.title} {item.value}</p>
+                <img
+                  loading="lazy"
+                  src={item.icon}
+                  alt=""
+                  className="w-[12px] lg:w-[25px]"
+                />
+
+                <p className="Jakarta text-[8px] font-bold text-[#111111] lg:text-[16px]">
+                  {item.title} {item.value}
+                </p>
               </div>
-            
             </div>
           ))}
-      
         </div>
       </div>
+
       {property?.user && <ProjectListedByContact user={property.user} />}
+
       {showPopup && (
-        <div className="flex items-center justify-center w-full h-screen fixed top-0 left-0 z-[99999] bg-[#00000066] px-[16px]">
-          <div className="w-full max-w-[759.75px] max-h-[75vh] rounded-[15.711px] lg:rounded-[37.5px] bg-white relative z-10 flex flex-col">
-            <div className="flex items-center justify-between w-full px-[21px] lg:px-[40px] py-[14px] lg:py-[27px] bg-[#C6A45A33] flex-shrink-0">
-              <p className="text-[15px] lg:text-[29px] font-bold">{property.title_en}</p>
-              <button onClick={handleClosePopup}>
-                <img loading="lazy" src={icon.popupClose} alt="" className="w-[12px] lg:w-[24px]" />
+        <div className="fixed left-0 top-0 z-[99999] flex h-screen w-full items-center justify-center bg-[#00000066] px-[16px]">
+          <div className="relative z-10 flex max-h-[75vh] w-full max-w-[759.75px] flex-col overflow-hidden rounded-[15.711px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.35)] lg:rounded-[37.5px]">
+            <div className="flex w-full flex-shrink-0 items-center justify-between bg-[#111111] px-[21px] py-[14px] lg:px-[40px] lg:py-[27px]">
+              <p className="text-[15px] font-bold text-white lg:text-[29px]">
+                {property.title_en}
+              </p>
+
+              <button
+                type="button"
+                onClick={handleClosePopup}
+                className="flex h-[30px] w-[30px] items-center justify-center rounded-full transition-opacity duration-200 hover:opacity-70 lg:h-[38px] lg:w-[38px]"
+                aria-label="Close popup"
+              >
+                <img
+                  loading="lazy"
+                  src={icon.popupClose}
+                  alt=""
+                  className="w-[12px] brightness-0 invert lg:w-[24px]"
+                />
               </button>
             </div>
-            <img
-              loading="lazy"
-              src={icon.popupPaterrn}
-              alt=""
-              className="absolute bottom-0 right-0 z-[-1] w-[187px] lg:w-[358px]"
-            />
-            <div className="overflow-y-auto flex-1 px-[21px] lg:px-[40px] pb-[40px] lg:pb-[60px] pt-[20px]">
+
+            <div className="flex-1 overflow-y-auto bg-white px-[21px] pb-[40px] pt-[20px] lg:px-[40px] lg:pb-[60px]">
               <div
-                className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%]"
+                className="text-[14px] leading-[160%] text-[#111111] lg:text-[18px]"
                 dangerouslySetInnerHTML={{
                   __html: property.description_en,
                 }}

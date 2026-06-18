@@ -36,7 +36,7 @@ export default function PropertiesSwiper({ properties }: any) {
             <div className="flex flex-col items-start gap-[15px] lg:gap-[29px] w-full">
               <div className="flex flex-col items-start w-full">
                 <div className="flex items-center justify-between w-full py-[12px] lg:py-[23px]">
-                  <p className="text-[#353635] text-[14px] lg:text-[26px] Jakarta font-bold">
+                  <p className="Jakarta text-[14px] font-bold text-[#111111] lg:text-[26px]">
                     {formatPrice(item.price)} AED
                   </p>
                   <div
@@ -52,7 +52,7 @@ export default function PropertiesSwiper({ properties }: any) {
                   </div>
                 </div>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-[2px] lg:gap-[5px] Jakarta text-[11px] lg:text-[17px] font-medium">
+                  <div className="Jakarta flex items-center gap-[2px] text-[11px] font-bold text-[#111111] lg:gap-[5px] lg:text-[17px]">
                     <p>{item.bedroom} beds</p>
                     <div className="w-[2px] lg:w-[5px] aspect-square bg-[#353635] rounded-full" />
                     <p>{item.bathroom} baths</p>
@@ -61,7 +61,7 @@ export default function PropertiesSwiper({ properties }: any) {
                   </div>
                   <div className="flex items-center gap-[4px] lg:gap-[8px]">
                     <img loading="lazy" src={icon.Clock} alt="" className="w-[12px] lg:w-[23px]" />
-                    <p className="text-[11px] lg:text-[17px] font-medium Jakarta">
+                    <p className="Jakarta text-[11px] font-bold text-[#111111] lg:text-[17px]">
                       {item.added_at}
                     </p>
                   </div>
@@ -77,7 +77,7 @@ export default function PropertiesSwiper({ properties }: any) {
               </Link>
               <Link
                 to={`/project/${item.slug}`}
-                className="text-[#353635] text-[12px] lg:text-[23px] font-medium leading-[19.5px] lg:leading-[35px]"
+                className="text-[12px] font-bold leading-[19.5px] text-[#111111] lg:text-[23px] lg:leading-[35px]"
               >
                 {item.title_en}
               </Link>

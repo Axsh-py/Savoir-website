@@ -71,35 +71,54 @@ export default function OffPlanFilter() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-between gap-[8px] lg:gap-[20px] rounded-[17.6px] bg-[#FFFFFF40] backdrop-blur-[13.8px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] py-[12px] lg:py-[16.72px] px-[24px] lg:px-[34.32px] w-full relative z-20 max-w-[1226px]">
+    <div className="relative z-20 flex w-full max-w-[1226px] flex-col bg-white shadow-[0_12px_34px_rgba(0,0,0,0.1)] lg:h-[58px] lg:flex-row lg:items-stretch">
       {/* Single-select components that keep array API for compatibility */}
-      <OffPlanOption
-        options={developerOptions}
-        selected={developer}
-        onChange={setDeveloper}
-        label="Developer"
-        placeholder="Select Developer"
-        maxWidthClass="max-w-[185.68px]"
-      />
-      <OffPlanOption
-        options={dateOptions}
-        selected={date}
-        onChange={setDate}
-        label="Completion Date"
-        placeholder="Completion Date"
-        maxWidthClass="max-w-[185.68px]"
-      />
-      <SelectSearch search={searchRes.locations} onChange={setLocations} value={locations} />
+      <div className="grid w-full grid-cols-1 border-b border-[#E6E6E6] sm:grid-cols-2 lg:flex lg:w-auto lg:border-b-0">
+        <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[220px]">
+          <OffPlanOption
+            options={developerOptions}
+            selected={developer}
+            onChange={setDeveloper}
+            label="Developer"
+            placeholder="Select Developer"
+            maxWidthClass="max-w-full"
+          />
+        </div>
 
-      <div className="flex items-center gap-2">
-        <SearchButton onClick={handleSearch} />
+        <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[220px]">
+          <OffPlanOption
+            options={dateOptions}
+            selected={date}
+            onChange={setDate}
+            label="Completion Date"
+            placeholder="Completion Date"
+            maxWidthClass="max-w-full"
+          />
+        </div>
+      </div>
+
+      <div className="flex min-h-[54px] min-w-0 flex-1 items-center px-[10px] lg:h-[58px] lg:min-w-[320px]">
+        <SelectSearch
+          variant="listing"
+          search={searchRes.locations}
+          onChange={setLocations}
+          value={locations}
+          placeholder="Search by location or project..."
+          hideIndicators
+        />
+      </div>
+
+      <div className="flex w-full shrink-0 items-stretch lg:w-auto">
+        <div className="w-full shrink-0 lg:w-[112px]">
+          <SearchButton onClick={handleSearch} variant="listing" showIcon={false} />
+        </div>
         {hasActive && (
           <button
             type="button"
             onClick={handleReset}
-            className="text-sm underline text-white/90 hover:text-white"
+            className="Jakarta w-full border-t border-[#D5D5D5] px-[14px] text-[12px] font-semibold uppercase tracking-[0.08em] text-[#111111] underline hover:text-[#C6A45A] lg:w-auto lg:border-l lg:border-t-0"
           >
-            Reset filters
+            Reset
           </button>
         )}
       </div>

@@ -2,25 +2,32 @@
 
 @font-face {
   font-family: "Century Gothic";
-  src: url("../public/fonts/centurygothic.ttf");
+  src: url("/fonts/centurygothic.ttf");
 }
 
 @font-face {
   font-family: "Didot";
-  src: url("../public/fonts/Didot.ttf");
+  src: url("/fonts/Didot.ttf");
 }
 
 @font-face {
   font-family: "Poppins-Regular";
-  src: url("../public/fonts/Poppins-Regular.ttf");
+  src: url("/fonts/Poppins-Regular.ttf");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "CormorantGaramond";
-  src: url("../public/fonts/CormorantGaramond-Light.ttf");
+  src: url("/fonts/CormorantGaramond-Light.ttf");
   font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CormorantGaramond";
+  src: url("/fonts/CormorantGaramond-Regular.ttf");
+  font-weight: 400;
   font-style: normal;
 }
 
@@ -33,7 +40,7 @@
 
 html,
 body {
-  color: #353635;
+  color: #111111;
   overflow-x: hidden;
   scroll-behavior: smooth;
   font-family: "Poppins-Regular", "Poppins", ui-sans-serif, system-ui, sans-serif;
@@ -47,7 +54,7 @@ h4,
 h5,
 h6 {
   font-family: "CormorantGaramond", serif;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .font-medium {
@@ -57,6 +64,12 @@ h6 {
 
 button {
   cursor: pointer;
+}
+
+/* Button ke andar text parent ka color follow karega */
+button p,
+button span {
+  color: inherit;
 }
 
 iframe {
@@ -75,7 +88,7 @@ iframe {
 
 .CormorantGaramond {
   font-family: "CormorantGaramond", serif;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .swiper-3d .swiper-slide-shadow {
@@ -119,7 +132,6 @@ input[type="number"] {
   right: 30px !important;
 }
 
-
 #chatbot-iframe-container {
   padding-top: 15px;
 }
@@ -135,6 +147,7 @@ input[type="number"] {
     height: 80vh !important;
     padding-top: 15px;
   }
+
   #chatbot-iframe-container button {
     right: 0 !important;
     top: 0 !important;
@@ -171,12 +184,130 @@ input[type="number"] {
   }
 }
 
-.faq p , .faq h3{
+.faq p,
+.faq h3 {
   font-family: "CormorantGaramond", serif;
   font-weight: 500;
 }
 
-p{
-    font-family: "CormorantGaramond", serif;
+/* Important fix:
+   Paragraph font same rahega, lekin color force nahi karega.
+   Jaha parent/text-white hoga waha white rahega, jaha black hoga waha black rahega. */
+p {
+  font-family: "CormorantGaramond", serif;
+  color: inherit;
+  font-weight: 500;
+}
 
+article {
+  color: #111111;
+  font-weight: 500;
+}
+
+.readable-copy,
+.readable-copy :where(p, span, li, article, div) {
+  color: #111111 !important;
+  font-weight: 500;
+}
+
+.readable-copy :where(h1, h2, h3, h4, h5, h6, strong, b) {
+  color: #0a0a0a !important;
+  font-weight: 600;
+}
+
+.readable-copy :where(a) {
+  color: #0a0a0a !important;
+  font-weight: 600;
+}
+
+/* Jaha bhi Tailwind text-white use hua hai, wo actual white hi rahe */
+.text-white,
+[class*="text-white"] {
+  color: #ffffff !important;
+}
+
+/* text-white/opacity wale text ko white rakhega */
+.text-white\/70,
+.text-white\/72,
+.text-white\/75,
+.text-white\/78,
+.text-white\/80,
+.text-white\/85,
+.text-white\/90 {
+  color: #ffffff !important;
+}
+
+/* Search hero filter: Buy/Search text white */
+.search-filter-white-text button,
+.search-filter-white-text button p,
+.search-filter-white-text button span {
+  color: #ffffff !important;
+}
+
+/* Dark newsletter / subscribe section text white */
+.newsletter-section,
+.newsletter-section p,
+.newsletter-section h1,
+.newsletter-section h2,
+.newsletter-section h3,
+.newsletter-section h4,
+.newsletter-section h5,
+.newsletter-section h6,
+.newsletter-section span,
+.newsletter-section strong,
+.newsletter-section b,
+.newsletter-section div {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.newsletter-section input,
+.newsletter-section input::placeholder {
+  color: #8f8f8f !important;
+}
+
+.newsletter-section button,
+.newsletter-section button p,
+.newsletter-section button span {
+  color: #ffffff !important;
+}
+
+/* Dark / image overlay sections me white text ko black hone se bachana */
+.dark-text-white,
+.dark-text-white p,
+.dark-text-white span,
+.dark-text-white h1,
+.dark-text-white h2,
+.dark-text-white h3,
+.dark-text-white h4,
+.dark-text-white h5,
+.dark-text-white h6 {
+  color: #ffffff !important;
+}
+
+/* Faded grey classes ko readable black rakho only light sections ke liye */
+.text-\[\#505050\],
+.text-\[\#353635\],
+.text-\[\#444444\],
+.text-\[\#4B4840\],
+.text-\[\#3A3A3A\],
+.text-\[\#232222\],
+.text-\[\#A7A7A7\],
+.text-\[\#8E8E93\],
+.text-\[\#666666\],
+.text-\[\#666\],
+.text-\[\#999999\],
+.text-\[\#999\],
+.text-gray-500,
+.text-gray-600,
+.text-gray-700,
+.text-neutral-500,
+.text-neutral-600,
+.text-stone-500,
+.text-stone-600,
+.text-slate-500,
+.text-slate-600,
+.text-zinc-500,
+.text-zinc-600 {
+  color: #111111 !important;
 }

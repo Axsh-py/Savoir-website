@@ -7,7 +7,7 @@ type Props = {
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  type?: React.HTMLInputTypeAttribute; // "text" | "number" | ...
+  type?: React.HTMLInputTypeAttribute;
   step?: number | string;
   min?: number;
   max?: number;
@@ -36,12 +36,15 @@ export default function CalculatorInput({
   containerClassName = "",
 }: Props) {
   return (
-    <div className={`flex flex-col items-start gap-[11px] w-full ${containerClassName}`}>
-      <label htmlFor={id} className="text-[15px] font-semibold h-[35px] lg:h-auto">
+    <div className={`flex flex-col items-start gap-[10px] w-full ${containerClassName}`}>
+      <label
+        htmlFor={id}
+        className="text-[15px] lg:text-[16px] font-semibold text-[#111111]"
+      >
         {label}
       </label>
 
-      <div className="flex items-center justify-between px-[15px] py-[17px] w-full h-[51px] rounded-[6px] bg-white">
+      <div className="flex items-center justify-between w-full h-[58px] rounded-[7px] border border-[#DCDCDC] bg-white px-[18px] shadow-[0_8px_24px_rgba(0,0,0,0.035)]">
         <input
           id={id}
           name={name}
@@ -55,9 +58,14 @@ export default function CalculatorInput({
           max={max}
           disabled={disabled}
           inputMode={type === "number" ? "decimal" : undefined}
-          className={`flex-1 border-0 outline-0 bg-transparent text-[#353635B2] text-[13px] ${inputClassName}`}
+          className={`flex-1 border-0 outline-0 bg-transparent text-[#222222] text-[15px] lg:text-[16px] font-normal placeholder:text-[#777777] ${inputClassName}`}
         />
-        {unit ? <span className="hidden lg:inline text-[#353635B2] text-[13px] select-none">{unit}</span> : null}
+
+        {unit ? (
+          <span className="hidden lg:inline text-[#333333] text-[13px] font-medium select-none">
+            {unit}
+          </span>
+        ) : null}
       </div>
     </div>
   );

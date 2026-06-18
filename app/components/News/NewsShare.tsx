@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLoaderData, useLocation } from "react-router";
-import useIcons from "~/hooks/imageHooks/useIcons";
 import { getNewsShare } from "~/api/news.service";
 
 export default function NewsShare() {
-  const icon = useIcons();
   const { newsItem } = useLoaderData() as { newsItem: any };
   const location = useLocation();
 
@@ -13,7 +11,9 @@ export default function NewsShare() {
   const [hasShared, setHasShared] = useState(false);
 
   const isClient = typeof window !== "undefined";
-  const shareUrl = isClient ? `${window.location.origin}${location.pathname}` : location.pathname;
+  const shareUrl = isClient
+    ? `${window.location.origin}${location.pathname}`
+    : location.pathname;
   const STORAGE_KEY = isClient ? `news_shared_${newsItem.id}` : "";
 
   useEffect(() => {
@@ -25,7 +25,6 @@ export default function NewsShare() {
     if (pending) return;
     setPending(true);
 
-    // Always copy link
     try {
       if (navigator?.clipboard?.writeText) {
         await navigator.clipboard.writeText(shareUrl);
@@ -44,46 +43,53 @@ export default function NewsShare() {
       // ignore copy failures
     }
 
-    // Prevent duplicate server increments
     if (hasShared) {
       setPending(false);
       return;
     }
 
     const prev = shares;
-    setShares(prev + 1); // optimistic
+    setShares(prev + 1);
 
     try {
-      await getNewsShare(newsItem.id); // call only once
+      await getNewsShare(newsItem.id);
       if (isClient) {
         localStorage.setItem(STORAGE_KEY, "1");
       }
       setHasShared(true);
     } catch {
-      setShares(prev); // rollback on failure
+      setShares(prev);
     } finally {
       setPending(false);
     }
   }, [pending, hasShared, shares, shareUrl, newsItem?.id, isClient, STORAGE_KEY]);
 
+  const iconBoxClass =
+    "flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#111111] shadow-[0_10px_24px_rgba(17,17,17,0.18)] transition-all duration-300 hover:bg-[#000000] hover:scale-[1.04] lg:h-[58px] lg:w-[58px]";
+
+  const iconTextClass =
+    "flex items-center justify-center text-[24px] font-bold leading-none text-white lg:text-[27px]";
+
   return (
-    <div className="flex flex-row lg:flex-col items-start gap-[33.6px]">
+    <div className="flex flex-row items-start gap-[33.6px] lg:flex-col">
       <div className="flex flex-col items-start gap-[27px]">
         <div className="flex flex-col items-start">
-          <p className="text-[#121416] text-[32px]">{shares}</p>
-          <p className="text-[#A7A7A7] text-[20px]">Shares</p>
+          <p className="text-[32px] text-[#121416]">{shares}</p>
+          <p className="text-[20px] text-[#111111]">Shares</p>
         </div>
-        <hr className="w-full border-[#E9ECEF] hidden lg:block" />
+
+        <hr className="hidden w-full border-[#E9ECEF] lg:block" />
       </div>
 
-      <div className="flex flex-row lg:flex-col items-start gap-[11px]">
+      <div className="flex flex-row items-start gap-[11px] lg:flex-col">
         <Link
           to="https://www.facebook.com/"
           onClick={copyToClipboard}
           aria-label="Share on Facebook"
           target="_blank"
+          className={iconBoxClass}
         >
-          <img loading="lazy" src={icon.facebookShare} alt="Facebook" />
+          <span className={iconTextClass}>f</span>
         </Link>
 
         <Link
@@ -91,8 +97,11 @@ export default function NewsShare() {
           onClick={copyToClipboard}
           aria-label="Share on Instagram"
           target="_blank"
+          className={iconBoxClass}
         >
-          <img loading="lazy" src={icon.instagramShare} alt="Instagram" />
+          <span className="flex h-[24px] w-[24px] items-center justify-center rounded-[7px] border-[2px] border-white text-[15px] font-bold leading-none text-white lg:h-[27px] lg:w-[27px] lg:text-[16px]">
+            ◎
+          </span>
         </Link>
 
         <Link
@@ -100,8 +109,11 @@ export default function NewsShare() {
           onClick={copyToClipboard}
           aria-label="Share on LinkedIn"
           target="_blank"
+          className={iconBoxClass}
         >
-          <img loading="lazy" src={icon.linkedinShare} alt="LinkedIn" />
+          <span className="text-[19px] font-bold leading-none text-white lg:text-[21px]">
+            in
+          </span>
         </Link>
 
         <button
@@ -109,10 +121,19 @@ export default function NewsShare() {
           onClick={copyToClipboard}
           disabled={pending}
           aria-label="Copy link"
-          title={pending ? "Working..." : hasShared ? "Link copied. Already counted." : "Copy link"}
-          className={pending ? "opacity-60 cursor-not-allowed" : ""}
+          title={
+            pending
+              ? "Working..."
+              : hasShared
+              ? "Link copied. Already counted."
+              : "Copy link"
+          }
+          className={`${iconBoxClass} ${pending ? "cursor-not-allowed opacity-60" : ""}`}
         >
-          <img loading="lazy" src={icon.bodyShare} alt="Copy link" />
+          <span className="relative h-[24px] w-[24px] lg:h-[27px] lg:w-[27px]">
+            <span className="absolute left-[2px] top-[5px] h-[17px] w-[14px] rounded-[2px] border-[2px] border-white lg:h-[19px] lg:w-[16px]" />
+            <span className="absolute left-[8px] top-[1px] h-[17px] w-[14px] rounded-[2px] border-[2px] border-white bg-[#111111] lg:h-[19px] lg:w-[16px]" />
+          </span>
         </button>
       </div>
     </div>

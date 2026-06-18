@@ -55,7 +55,7 @@ export default function BookingDropdown({ placeholder, value, onChange, options 
       {open && (
         <div
           role="listbox"
-          className="flex flex-col items-start gap-[10px] p-[16px] rounded-[10px] bg-[#EEE] absolute w-full top-[65px] z-10"
+          className="flex flex-col items-start gap-[10px] p-[16px] rounded-[10px] bg-white absolute w-full top-[65px] z-10"
         >
           {options.map((opt) => (
             <button

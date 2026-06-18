@@ -7,8 +7,8 @@ export default function NewsAbout() {
   const arrow = useArrow();
   return (
     <div className="flex flex-col items-start gap-[18px] w-full">
-      <Header className="text-[34px]">About SAVOIR :</Header>
-      <p className="text-[#353635] text-[22px] leading-[203.333%]">
+      <Header className="text-[28px] leading-[1.05] lg:text-[44px]">About SAVOIR :</Header>
+      <p className="text-[15px] font-semibold leading-[175%] text-[#111111] lg:text-[20px]">
         SAVOIR is honored and proud to announce its exclusive representation of the
         prestigious Elounda Hills project in the GCC region. We are excited to bring this
         exceptional opportunity to investors and homebuyers seeking a luxurious and sophisticated

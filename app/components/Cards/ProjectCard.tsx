@@ -1,153 +1,116 @@
 import React from "react";
-import styles from "./ProjectCard.module.css";
 import { Link } from "react-router";
-import Card from "~/UI/Card";
-import useIcons from "~/hooks/imageHooks/useIcons";
 import { formatPrice } from "~/utils/formatPrice";
 
 type props = {
   project: any;
+  compact?: boolean;
 };
 
-export default function ProjectCard({ project }: props) {
-  const icon = useIcons();
-  
+export default function ProjectCard({ project, compact = false }: props) {
+  const location = [project.subcommunity, project.community, project.city]
+    .filter(Boolean)
+    .join(", ");
+
+  const area = formatPrice(project.size);
+  const currency = project.currency === "AED" ? "AED" : project.currency || "";
+
+  const status = String(project.status || project.completion_status || "").toLowerCase();
+  const isOffPlan = status.includes("off");
+
+  const statusLabel = isOffPlan
+    ? "Off-plan"
+    : project.offering_type === "RR"
+      ? "For RENT"
+      : "For SALE";
+
+  const cardClass = compact
+    ? "h-full w-full overflow-hidden rounded-[9px] bg-white shadow-[0_5px_16px_rgba(0,0,0,0.14)]"
+    : "w-full max-w-[390px] overflow-hidden rounded-[9px] bg-white shadow-[0_5px_16px_rgba(0,0,0,0.14)]";
+
+  const contentClass = compact
+    ? "px-[16px] pb-[18px] pt-[16px]"
+    : "px-[20px] pb-[23px] pt-[22px]";
+
+  const titleClass = compact
+    ? "CormorantGaramond min-h-[56px] text-black text-[18px] font-bold leading-[1.3] line-clamp-2"
+    : "CormorantGaramond min-h-[66px] text-black text-[24px] font-bold leading-[1.35] line-clamp-2";
+
+  const locationClass = compact
+    ? "Jakarta mt-[4px] truncate text-black text-[14px] font-semibold leading-[1.2]"
+    : "Jakarta mt-[5px] truncate text-black text-[17px] font-bold leading-[1.25]";
+
+  const priceClass = compact
+    ? "CormorantGaramond mt-[8px] text-black text-[22px] font-semibold leading-none"
+    : "CormorantGaramond mt-[10px] text-black text-[30px] font-semibold leading-none";
+
+  const metaClass = compact
+    ? "Jakarta mt-[12px] flex items-center gap-[10px] overflow-hidden text-black text-[14px] font-semibold leading-none"
+    : "Jakarta mt-[15px] flex items-center gap-[14px] text-black text-[17px] font-bold leading-none";
+
+  const diamondClass = compact
+    ? "h-[7px] w-[7px] shrink-0 rotate-45 bg-[#dec7b1]"
+    : "h-[8px] w-[8px] shrink-0 rotate-45 bg-[#dec7b1]";
+
   return (
-    <Card luxury={project.featured === 1} className="!rounded-[46.534px]">
-      <Link to={`/project/${project.slug}`} className="block px-[24px] pb-[28px] pt-[21px]">
-        <div className="flex items-center justify-between w-full py-[8px]">
-          <p
-            className={`text-[21px] font-semibold ${project.featured === 1 ? styles.priceLuxury : styles.price}`}
-          >
-            {formatPrice(project.price)} {project.currency}
-          </p>
-          {project.featured === 1 ? (
-            <div className="flex items-center justify-center px-[7px] py-[3px] rounded-[6px] h-[22px] bg-[#C6A45A] w-[81px]">
-              <p className="text-white text-[10px] Jakarta font-bold">LUXURY</p>
-            </div>
-          ) : (
-            <div
-              className="px-[7px] py-[3px] rounded-[6px] h-[21px]"
-              style={{
-                background:
-                  "linear-gradient(90deg, rgba(53, 54, 53, 0.40) 0.02%, rgba(255, 255, 255, 0.00) 180.22%)",
-              }}
-            >
-              <p className="Text-[#353635] text-[10px] Jakarta font-bold">
-                For {project.offering_type === "RS" ? "SALE" : "RENT"}
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="flex items-center gap-[4px] w-full mt-[6px]">
+    <div className={cardClass}>
+      <Link to={`/project/${project.slug}`} className="flex h-full w-full flex-col">
+        <div className="relative w-full">
           <img
             loading="lazy"
-            src={project.featured === 1 ? icon.locationWhite : icon.locationBlack}
+            src={project.photo}
             alt=""
-            className="w-[18px]"
+            className="block aspect-[386/238] w-full object-cover"
           />
-          <p
-            className={`text-[13px] font-medium Jakarta ${project.featured === 1 && "text-white"}`}
+
+          <span
+            className={`Jakarta absolute left-[14px] top-[14px] rounded-[7px] bg-black text-white shadow-[0_2px_8px_rgba(0,0,0,0.12)] ${
+              compact ? "px-[11px] py-[6px] text-[12px]" : "px-[13px] py-[7px] text-[14px]"
+            } font-semibold leading-none`}
           >
-            {[project.subcommunity, project.community, project.city]
-              .filter(Boolean)
-              .join(", ")}
+            {statusLabel}
+          </span>
+
+          <span
+            aria-hidden="true"
+            className={`absolute right-[16px] top-[16px] flex items-center justify-center rounded-full bg-white/85 text-black shadow-[0_2px_8px_rgba(0,0,0,0.12)] ${
+              compact ? "h-[44px] w-[44px]" : "h-[52px] w-[52px]"
+            }`}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className={compact ? "h-[24px] w-[24px]" : "h-[30px] w-[30px]"}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19.5 12.6 12 20l-7.5-7.4A5 5 0 0 1 12 6a5 5 0 0 1 7.5 6.6Z" />
+            </svg>
+          </span>
+        </div>
+
+        <div className={contentClass}>
+          <p className={titleClass}>{project.title_en}</p>
+
+          <p className={locationClass}>{location}</p>
+
+          <p className={priceClass}>
+            {currency} {formatPrice(project.price)}
           </p>
-        </div>
-        <img
-          loading="lazy"
-          src={project.photo}
-          alt=""
-          className="w-full aspect-[375.733/242.119] object-cover rounded-[10px] mt-[22px]"
-        />
-        <p
-          className={`text-[#353635] text-[14px] Jakarta font-medium leading-[150%] max-w-[227px] mt-[17px] ${project.featured === 1 && "text-white"} `}
-        >
-          {project.title_en}
-        </p>
-        <div className="flex items-center justify-between w-full mt-[18px]">
-          <div className="flex items-center gap-[8px]">
-            <img
-              loading="lazy"
-              src={project.featured === 1 ? icon.bedroomWhite : icon.searchBedroom}
-              alt=""
-              className="w-[22px]"
-            />
-            <p
-              className={`text-black text-[14px] shrink-0 ${project.featured === 1 && "text-white"}`}
-            >
-              {project.bedroom} Beds
-            </p>
-          </div>
-          <div className="flex items-center gap-[8px]">
-            <img
-              loading="lazy"
-              src={project.featured === 1 ? icon.bathroomWhite : icon.searchBathRoom}
-              alt=""
-              className="w-[22px]"
-            />
-            <p
-              className={`text-black text-[14px] shrink-0 ${project.featured === 1 && "text-white"}`}
-            >
-              {project.bathroom} Bathroom
-            </p>
-          </div>
-          <div className="flex items-center gap-[8px]">
-            <img
-              loading="lazy"
-              src={project.featured === 1 ? icon.squareWhite : icon.searchSquare}
-              alt=""
-              className="w-[22px]"
-            />
-            <p
-              className={`text-black text-[14px] shrink-0 ${project.featured === 1 && "text-white"}`}
-            >
-              {project.size}
-            </p>
-          </div>
-        </div>
-        <hr className="w-full border-[#00000099] mt-[34px]" />
-        <div className="flex items-center justify-between w-full mt-[18px]">
-          <div className="flex items-center gap-[9px]">
-            <img
-              loading="lazy"
-              src={project.user.image}
-              alt=""
-              className="w-[46px] aspect-square object-cover"
-            />
-            <div className="flex flex-col items-start gap-[2px]">
-              <p className="text-[#353635B2] text-[13px]">Listed By</p>
-              <p className="text-[15px]">{project.user.name}</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-[14px]">
-            <a
-              href={`https://wa.me/${project.user.phone}`}
-              target="_blank"
-              rel="noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.stopPropagation();
-                }
-              }}
-            >
-              <img loading="lazy" src={icon.whatsapp} alt="" className="w-[34px]" />
-            </a>
-            <a
-              href={`tel:${project.user.phone}`}
-              onClick={(e) => e.stopPropagation()}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.stopPropagation();
-                }
-              }}
-            >
-              <img loading="lazy" src={icon.callProjectCard} alt="" className="w-[39px]" />
-            </a>
+
+          <div className={metaClass}>
+            <span className="whitespace-nowrap">{project.bedroom} Bedroom</span>
+            <span className={diamondClass} />
+            <span className="whitespace-nowrap">{project.bathroom} Baths</span>
+            <span className={diamondClass} />
+            <span className="whitespace-nowrap">
+              {area ? `${area} sq ft` : project.size}
+            </span>
           </div>
         </div>
       </Link>
-    </Card>
+    </div>
   );
 }

@@ -71,7 +71,7 @@ function SlideCard({ item }: { item: any }) {
         />
       </div>
 
-      <p className="text-[#353635] text-[10px] lg:text-[15px] max-w-[353px] leading-[170%] ml-[10px]">
+      <p className="ml-[10px] max-w-[353px] text-[10px] font-bold leading-[170%] text-[#111111] lg:text-[15px]">
         {item.title}
       </p>
     </Link>

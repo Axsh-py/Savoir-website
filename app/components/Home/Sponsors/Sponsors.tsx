@@ -146,7 +146,7 @@ export default function Sponsors() {
               Our Network
             </span>
 
-            <p className="CormorantGaramond text-left text-[40px] sm:text-[45px] lg:text-[52px] leading-[100%] text-[#0A0A0A]">
+            <p className="CormorantGaramond text-left text-[28px] sm:text-[20px] lg:text-[44px] leading-[100%] text-[#0A0A0A]">
               Marketing <em className="italic font-normal">Channels</em>
             </p>
           </div>

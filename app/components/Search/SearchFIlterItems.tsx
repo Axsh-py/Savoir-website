@@ -194,35 +194,34 @@ export default function SearchFIlterItems() {
   if (items.length === 0) return null;
 
   return (
-    <div className="flex flex-col items-start gap-[9px] lg:gap-[20px] w-full">
-      <div className="flex flex-wrap items-center gap-[7px] lg:gap-[17px] w-full">
-        <div className="grid grid-cols-3 lg:grid-cols-5 gap-[7px] lg:gap-[17px] flex-1 min-w-0">
+    <div className="flex w-full flex-col items-start gap-[8px] lg:gap-[16px]">
+      <div className="flex w-full flex-wrap items-center justify-between gap-[10px] lg:gap-[17px]">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-[7px] lg:gap-[17px]">
           {items.map((item) => (
             <div
               key={item.label}
-              className="flex items-center justify-between w-full p-[8px] lg:p-[16px] rounded-[4px] lg:rounded-[10px] bg-[#EEE]"
+              className="flex w-full items-center justify-between rounded-[8px] border border-[#111111] bg-white p-[9px] shadow-[0_10px_24px_rgba(0,0,0,0.08)] lg:h-[52px] lg:w-[168px] lg:p-[13px]"
             >
               <div className="flex items-center gap-[4px] lg:gap-[8px]">
-                <img loading="lazy" src={item.icon} alt="" className="w-[9px] lg:w-[19px]" />
-                <hr className="border-0 w-[1px] h-[11px] lg:h-[22px] bg-[#262626]" />
-                <p className="text-[7px] lg:text-[14px] font-medium">{item.label}</p>
+                <img loading="lazy" src={item.icon} alt="" className="w-[9px] brightness-0 lg:w-[17px]" />
+                <hr className="border-0 w-[1px] h-[11px] lg:h-[20px] bg-[#111111]" />
+                <p className="text-[12px] font-bold text-[#111111] lg:text-[15px]">{item.label}</p>
               </div>
-              <button onClick={item.onClear} aria-label={`clear ${item.key}`}>
-                <img
-                  loading="lazy"
-                  src={icon.searchCloseButton}
-                  alt=""
-                  className="w-[12px] lg:w-[26px]"
-                />
+              <button
+                onClick={item.onClear}
+                aria-label={`clear ${item.key}`}
+                className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#111111] text-[12px] font-bold leading-none text-white lg:h-[26px] lg:w-[26px]"
+              >
+                x
               </button>
             </div>
           ))}
         </div>
-        {!isMobile && <div className="ml-auto"><SearchSortBy /></div>}
+        {!isMobile && <div className="ml-auto shrink-0"><SearchSortBy /></div>}
       </div>
      
       <button onClick={resetAll} aria-label="reset all filters">
-        <p className="text-[12px] lg:text-[24px] font-medium underline">Reset all filters</p>
+        <p className="text-[12px] font-semibold underline lg:text-[14px]">Reset all filters</p>
       </button>
     </div>
   );

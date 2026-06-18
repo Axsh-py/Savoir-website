@@ -13,63 +13,81 @@ export default function FindYourPartner() {
   const icon = useIcons();
 
   return (
-    <section className="flex flex-col lg:flex-row items-center gap-[33px] w-full">
-      <div className="flex flex-col items-start gap-[15px] lg:w-[447px] shrink-0 hidden lg:block">
-        <p className="text-black text-[20px] lg:text-[42px] font-medium">FIND YOUR PARTNER</p>
-        <p className="text-[15px] lg:text-[27px] leading-[170%]">
-          Our team is highly experienced and knowledgeable across all aspects of the real estate
-          industry.
+    <section className="flex w-full flex-col items-start gap-[22px] lg:flex-row lg:items-start lg:gap-[24px]">
+      <div className="hidden shrink-0 flex-col items-start gap-[14px] lg:flex lg:w-[348px] lg:pt-[18px]">
+        <div className="flex flex-col items-start gap-[10px]">
+          <h2 className="CormorantGaramond text-left text-[28px] leading-[1.05] text-[#111111] lg:text-[44px]">
+            FIND YOUR
+            <br />
+            PARTNER
+          </h2>
+
+          <span className="block h-px w-[285px] bg-[linear-gradient(90deg,#C6A45A_0%,rgba(198,164,90,0)_100%)]" />
+        </div>
+
+        <p className="max-w-[320px] text-[14px] leading-[160%] text-[#111111] lg:text-[18px]">
+          Our team is highly experienced and knowledgeable across all aspects of
+          the real estate industry.
         </p>
       </div>
 
-      <div className="lg:block relative w-full">
+      <div className="relative w-full overflow-hidden lg:block">
         <Swiper
           modules={[Autoplay]}
-          slidesPerView={2}
-          breakpoints={{
-            1024: {
-              slidesPerView: 3,
-            },
-          }}
-          centeredSlides={false} // active is LEFT
+          slidesPerView="auto"
+          spaceBetween={4}
+          centeredSlides={false}
           loop={true}
           autoplay={{
-            delay: 5000, // ⏱ autoplay every 5 seconds
-            disableOnInteraction: false, // keeps autoplay running even after user interacts
+            delay: 5000,
+            disableOnInteraction: false,
           }}
           onSwiper={(swiper) => setSwiperInstance(swiper)}
-          slidesOffsetBefore={0} // ensure far-left alignment
+          slidesOffsetBefore={0}
           slidesOffsetAfter={0}
           slideToClickedSlide
-          className="!px-0 !py-0" // remove padding that was pushing slides in
+          className="!px-0 !py-0"
         >
           {teams.map((member: any, index: number) => (
-            <SwiperSlide key={index} className="cursor-grab select-none">
+            <SwiperSlide
+              key={index}
+              className="!w-[275px] cursor-grab select-none"
+            >
               <TeamCard member={member} />
             </SwiperSlide>
           ))}
         </Swiper>
 
-        <div className="flex items-center justify-center gap-[44px] mt-6">
+        <div className="mt-5 flex items-center justify-center gap-[20px] lg:gap-[26px]">
           <button
             type="button"
-            className="cursor-pointer focus:outline-none"
+            className="cursor-pointer transition-all duration-300 hover:scale-[1.03] focus:outline-none"
             onClick={() => swiperInstance?.slidePrev()}
             aria-label="Previous slide"
           >
-            <img loading="lazy" src={icon.propertiesPrev} alt="Previous" />
+            <img
+              loading="lazy"
+              src={icon.propertiesPrev}
+              alt="Previous"
+              className="h-auto w-[105px] lg:w-[145px]"
+            />
           </button>
+
           <button
             type="button"
-            className="cursor-pointer focus:outline-none"
+            className="cursor-pointer transition-all duration-300 hover:scale-[1.03] focus:outline-none"
             onClick={() => swiperInstance?.slideNext()}
             aria-label="Next slide"
           >
-            <img loading="lazy" src={icon.propertiesNext} alt="Next" />
+            <img
+              loading="lazy"
+              src={icon.propertiesNext}
+              alt="Next"
+              className="h-auto w-[105px] lg:w-[145px]"
+            />
           </button>
         </div>
       </div>
-
     </section>
   );
 }

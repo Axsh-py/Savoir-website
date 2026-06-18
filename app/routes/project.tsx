@@ -121,11 +121,13 @@ export default function project() {
     <PageLayout>
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-[13px] w-full mt-[90px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-[13px]">
-          <p className="text-[24px] font-semibold">{property?.title_en || property?.title || "Property"}</p>
+          <p className="CormorantGaramond text-[28px] font-bold leading-[1.08] text-[#111111] lg:text-[34px]">
+            {property?.title_en || property?.title || "Property"}
+          </p>
           {(property?.community || property?.city) && (
             <div className="flex items-center gap-[7px]">
               <img loading="lazy" src={icon.locationBlack} alt="" className="w-[16px]" />
-              <p className="text-[14px] font-medium">
+              <p className="Jakarta text-[14px] font-bold text-[#111111]">
                 {[property?.community, property?.city].filter(Boolean).join(", ")}
               </p>
             </div>
@@ -133,8 +135,8 @@ export default function project() {
         </div>
         {property?.price && (
           <div className="flex flex-col items-start gap-[2px]">
-            <p className="text-[14px] font-medium">Price</p>
-            <p className="text-[#C6A45A] text-[27px] font-bold">
+            <p className="Jakarta text-[14px] font-bold text-[#111111]">Price</p>
+            <p className="CormorantGaramond text-[27px] font-bold text-[#111111]">
               {formatPrice(property.price)} {property?.currency || ""}
             </p>
           </div>

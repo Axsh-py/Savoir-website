@@ -9,23 +9,72 @@ export default function aboutUs() {
   return (
     <div>
       <AboutHero />
+
       <PageLayout>
         <AboutWhoWeAre />
         <AboutCoreValues />
-        <div
-          className="flex flex-col items-center gap-[17px] w-full pt-[27px] pb-[20px] p-[16px] lg:p-[60px] border-l-[8px] border-[#C6A45A] mt-[108px]"
-          style={{
-            background:
-              "linear-gradient(90deg,rgba(255, 255, 255, 0) 0%, rgba(240, 232, 214, 1) 50%, rgba(255, 255, 255, 0) 100%)",
-          }}
-        >
-          <p className=" text-[15px] lg:text-[31px] text-center leading-[176.19%]">
-            “To be successful in real estate, you must always and consistently put your clients’
-            best interests first. When you do, your personal needs will be realized beyond your
-            greatest expectations.”
-          </p>
-          <p className="text-[15px] lg:text-[31px] font-semibold">Anthony Hitt</p>
+
+        <div className="mt-[88px] flex w-full justify-center px-[16px] lg:px-[42px]">
+          <section className="relative w-full max-w-[1320px] bg-white px-[22px] py-[36px] lg:px-[72px] lg:py-[58px]">
+            <h2
+              className="relative mb-[22px] text-center text-[28px] leading-[1.05] lg:mb-[28px] lg:text-[44px]"
+              style={{
+                color: "#111111",
+                fontWeight: 700,
+                opacity: 1,
+              }}
+            >
+              We're Local, We're Global
+            </h2>
+
+            <div
+              className="relative mx-auto flex w-full max-w-[1120px] flex-col items-center gap-[20px] border-l-[4px] border-[#111111] px-[18px] py-[26px] lg:gap-[24px] lg:px-[34px] lg:py-[34px]"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(17,17,17,0.07) 0%, rgba(255,255,255,0) 76%)",
+              }}
+            >
+              <p
+                className="max-w-[1020px] text-center text-[17px] leading-[180%] lg:text-[31px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                "To be successful in real estate, you must always and
+                consistently put your clients' best interests first. When you
+                do, your personal needs will be realised beyond your greatest
+                expectations."
+              </p>
+
+              <div className="flex flex-col items-center gap-[4px]">
+                <p
+                  className="text-center text-[21px] lg:text-[38px]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 700,
+                    opacity: 1,
+                  }}
+                >
+                  Anthony Hitt
+                </p>
+
+                <p
+                  className="text-center text-[13px] uppercase tracking-[0.12em] lg:text-[17px]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  CEO, LeadingRE
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
+
         <DontMissBeat />
       </PageLayout>
     </div>

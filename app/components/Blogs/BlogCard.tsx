@@ -13,7 +13,7 @@ const decodeHtmlEntities = (html: string): string => {
   const textarea = document.createElement("textarea");
   textarea.innerHTML = html;
   const decoded = textarea.value;
-  // Strip HTML tags and return plain text
+
   const div = document.createElement("div");
   div.innerHTML = decoded;
   return div.textContent || div.innerText || "";
@@ -21,34 +21,87 @@ const decodeHtmlEntities = (html: string): string => {
 
 export default function BlogCard({ blog }: Props) {
   const icon = useIcons();
-  
-  const decodedDescription = blog.title_details ? decodeHtmlEntities(blog.title_details) : "";
+
+  const decodedDescription = blog.title_details
+    ? decodeHtmlEntities(blog.title_details)
+    : "";
 
   return (
     <Card className="!rounded-[46px] p-[27px] pt-[24px]">
-      <div className="flex flex-col items-start gap-[21px] w-full">
+      <div className="flex w-full flex-col items-start gap-[21px]">
         <img
           src={blog.blog_image[0].url}
           alt=""
-          className="w-full aspect-[369/190] rounded-[10px] object-cover"
+          className="aspect-[369/190] w-full rounded-[10px] object-cover"
         />
-        <div className="flex flex-col items-start gap-[15px] w-full">
-          <div className="flex flex-col items-start gap-[7px] w-full">
-            <p className="text-[#353635] text-[15px] font-semibold">{blog.title}</p>
-            <div className="flex items-center gap-[15px] w-full">
+
+        <div className="flex w-full flex-col items-start gap-[15px]">
+          <div className="flex w-full flex-col items-start gap-[7px]">
+            <p
+              className="text-[15px]"
+              style={{
+                color: "#111111",
+                fontWeight: 700,
+                opacity: 1,
+              }}
+            >
+              {blog.title}
+            </p>
+
+            <div className="flex w-full items-center gap-[15px]">
               <div className="flex items-center gap-[4px]">
-                <img src={icon.calendarGray} alt="" />
-                <p className="text-[#636366] text-[12px]">{blog.createdAt}</p>
+                <img src={icon.calendarGray} alt="" className="brightness-0" />
+                <p
+                  className="text-[12px]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  {blog.createdAt}
+                </p>
               </div>
+
               <div className="flex items-center gap-[4px]">
-                <img src={icon.folderGray} alt="" />
-                <p className="text-[#636366] text-[12px]">{blog.category}</p>
+                <img src={icon.folderGray} alt="" className="brightness-0" />
+                <p
+                  className="text-[12px]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  {blog.category}
+                </p>
               </div>
             </div>
           </div>
-          <div className="flex flex-col items-start gap-[6px] w-full">
-            <p className="text-[#636366] text-[15px]">{decodedDescription}</p>
-            <Link to={`/blogs/${blog.slug}`} className="text-[15px] text-[#C6A45A] font-semibold underline">
+
+          <div className="flex w-full flex-col items-start gap-[10px]">
+            <p
+              className="text-[15px] leading-[165%]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
+            >
+              {decodedDescription}
+            </p>
+
+            <Link
+              to={`/blogs/${blog.slug}`}
+              className="
+                flex h-[30px] items-center justify-center rounded-[6px]
+                bg-[#111111] px-[13px]
+                text-[12px] font-semibold text-white
+                shadow-[0_8px_18px_rgba(17,17,17,0.14)]
+                transition-all duration-300 hover:bg-[#000000]
+                lg:h-[32px] lg:px-[15px] lg:text-[13px]
+              "
+            >
               Read more
             </Link>
           </div>

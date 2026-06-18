@@ -16,6 +16,7 @@ type Props = {
   placeholder?: string;
   maxWidthClass?: string; // fits your layout width
   showBathrooms?: boolean; // set false to show only bedrooms
+  variant?: "glass" | "listing";
 };
 
 const DEFAULT_VALUE: BedBathValue = { bedrooms: "Any", bathrooms: "Any" };
@@ -30,8 +31,10 @@ export default function FilterBedroom({
   placeholder = "Choose bedroom Type",
   maxWidthClass = "max-w-[237.6px]",
   showBathrooms = true,
+  variant = "glass",
 }: Props) {
   const arrow = useArrow();
+  const isListing = variant === "listing";
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -140,15 +143,40 @@ export default function FilterBedroom({
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <div className="flex flex-col items-start">
-          <p className="text-white text-[15.84px] font-semibold">{label}</p>
-          <div className="flex items-center gap-[13.2px]">
-            <p className="text-white text-[14.08px] truncate">{triggerSummary || placeholder}</p>
+        <div
+          className={
+            isListing
+              ? "flex w-full items-center justify-between gap-[10px]"
+              : "flex flex-col items-start"
+          }
+        >
+          <p
+            className={
+              isListing
+                ? "Jakarta truncate text-[16px] font-semibold leading-none text-black"
+                : "text-white text-[15.84px] font-semibold"
+            }
+          >
+            {isListing && draft.bedrooms !== "Any" ? triggerSummary : label}
+          </p>
+
+          <div
+            className={
+              isListing ? "flex shrink-0 items-center" : "flex items-center gap-[13.2px]"
+            }
+          >
+            {!isListing && (
+              <p className="text-white text-[14.08px] truncate">
+                {triggerSummary || placeholder}
+              </p>
+            )}
             <img
               loading="lazy"
               src={arrow.smallBoldWhite}
               alt=""
-              className={`transition-transform ${open ? "rotate-180" : ""}`}
+              className={`w-[10px] transition-transform ${
+                open ? "rotate-180" : ""
+              } ${isListing ? "brightness-0" : ""}`}
             />
           </div>
         </div>
@@ -163,7 +191,9 @@ export default function FilterBedroom({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
-            className="absolute flex flex-col items-start gap-[28px]  px-[18px] py-[23px] rounded-[20px] bg-[#4A4A4A] backdrop-blur-[20px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] w-[307px] lg:w-[382px] top-[160%] z-10"
+            className={`absolute flex flex-col items-start gap-[28px] rounded-[20px] bg-[#4A4A4A] px-[18px] py-[23px] backdrop-blur-[20px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] w-[307px] lg:w-[382px] top-[160%] z-10 ${
+              isListing ? "left-[-151px] lg:left-0" : ""
+            }`}
           >
             {/* Bedrooms */}
             <div className="flex flex-col items-start gap-[12px] w-full">

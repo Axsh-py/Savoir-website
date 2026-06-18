@@ -29,7 +29,17 @@ export default function FooterLatestListings() {
   if (loading) {
     return (
       <div className="flex flex-col items-start gap-[8px] lg:gap-[20px] w-full max-w-[315px]">
-        <p className="text-[#C6A45A] text-[14px] lg:text-[24px] font-semibold">LATEST LISTINGS</p>
+        <p
+          className="text-[14px] font-semibold lg:text-[24px]"
+          style={{
+            color: "#000000",
+            fontWeight: 700,
+            opacity: 1,
+          }}
+        >
+          LATEST LISTINGS
+        </p>
+
         <div className="flex flex-col items-start gap-[18px] lg:gap-[30px] w-full">
           {[1, 2, 3].map((index) => (
             <div key={index} className="flex items-center gap-[10px] w-full animate-pulse">
@@ -48,15 +58,44 @@ export default function FooterLatestListings() {
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-start gap-[8px] lg:gap-[20px] w-full max-w-[315px]">
-        <p className="text-[#C6A45A] text-[14px] lg:text-[24px] font-semibold">LATEST LISTINGS</p>
-        <p className="text-[12px] lg:text-[16px] text-gray-500">No listings available</p>
+        <p
+          className="text-[14px] font-semibold lg:text-[24px]"
+          style={{
+            color: "#000000",
+            fontWeight: 700,
+            opacity: 1,
+          }}
+        >
+          LATEST LISTINGS
+        </p>
+
+        <p
+          className="text-[12px] lg:text-[16px]"
+          style={{
+            color: "#000000",
+            fontWeight: 600,
+            opacity: 1,
+          }}
+        >
+          No listings available
+        </p>
       </div>
     );
   }
 
   return (
     <div className="flex flex-col items-start gap-[8px] lg:gap-[20px] w-full max-w-[315px]">
-      <p className="text-[#C6A45A] text-[14px] lg:text-[24px] font-semibold">LATEST LISTINGS</p>
+      <p
+        className="text-[14px] font-semibold lg:text-[24px]"
+        style={{
+          color: "#000000",
+          fontWeight: 700,
+          opacity: 1,
+        }}
+      >
+        LATEST LISTINGS
+      </p>
+
       <div className="flex flex-col items-start gap-[18px] lg:gap-[30px] w-full">
         {items.map((item: any, index: number) => {
           const slug = item.slug || item.id;
@@ -78,9 +117,29 @@ export default function FooterLatestListings() {
                 alt={title}
                 className="w-[57px] lg:w-[99px] h-[49px] lg:h-[84px] rounded-[7px] lg:rounded-[12px] object-cover"
               />
+
               <div className="flex flex-col items-start gap-[6px] lg:gap-[11px] w-full">
-                <p className="text-[11px] lg:text-[18px] line-clamp-2">{title}</p>
-                <p className="text-[#C6A45A] text-[10px] lg:text-[18px]">{price}</p>
+                <p
+                  className="line-clamp-2 text-[11px] lg:text-[18px]"
+                  style={{
+                    color: "#000000",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  {title}
+                </p>
+
+                <p
+                  className="text-[10px] lg:text-[18px]"
+                  style={{
+                    color: "#000000",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  {price}
+                </p>
               </div>
             </Link>
           );

@@ -83,38 +83,32 @@ export default function OurTeamContact() {
   };
 
   return (
-    <div className="flex flex-col items-start gap-[22px] w-full mt-[142px]">
+    <div className="mx-auto mt-[92px] flex w-full max-w-[1080px] flex-col items-start gap-[22px]">
       <form
         ref={formRef}
         onSubmit={handleFormSubmit}
-        className="flex items-center gap-[28px] w-full px-[24px] pt-[40px] pb-[22px] rounded-[9px] border border-[#C6A45A] overflow-hidden relative z-10"
+        className="relative z-10 flex w-full items-center gap-[24px] overflow-hidden rounded-[9px] border border-[#111111] bg-white px-[20px] py-[24px]"
         noValidate={false}
       >
-        <img
-          loading="lazy"
-          src={icon.Ellipse8}
-          alt=""
-          className="absolute bottom-0 right-0 z-[-1] hidden lg:block"
-        />
-        <div className="hidden lg:flex flex-col items-center gap-[12px] w-full max-w-[347px]">
+        <div className="hidden lg:flex flex-col items-center gap-[12px] w-full max-w-[280px]">
           <div className="relative z-10">
             <img
               loading="lazy"
               src="https://res.cloudinary.com/djd3y5gzw/image/fetch/f_auto,q_auto,fl_lossy/https%3A%2F%2Fsavoirbucket.s3.eu-north-1.amazonaws.com%2Fstorage%2Fimage%2FAgent%2FuVx9BuxNjc1uBa0dgcVyichT2koE59IPFIUhe5L9.jpg"
               alt=""
-              className="w-full aspect-[328/482] rounded-[9px] object-cover"
+              className="w-full aspect-[328/440] rounded-[9px] object-cover"
             />
             <img
               loading="lazy"
               src="https://res.cloudinary.com/djd3y5gzw/image/fetch/f_auto,q_auto,fl_lossy/https%3A%2F%2Fsavoirbucket.s3.eu-north-1.amazonaws.com%2Fstorage%2Fimage%2FAgent%2FuVx9BuxNjc1uBa0dgcVyichT2koE59IPFIUhe5L9.jpg"
               alt=""
-              className="w-full aspect-[328/482] rounded-[9px] object-cover rotate-x-180 blur-[50px] absolute left-0 top-[75%]"
+              className="w-full aspect-[328/440] rounded-[9px] object-cover rotate-x-180 blur-[50px] absolute left-0 top-[75%]"
             />
           </div>
         </div>
-        <div className="flex flex-col items-center gap-[64px] w-full">
-          <div className="flex flex-col items-start gap-[67px] w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-[28px] gap-[20px] lg:gap-y-[75px] w-full">
+        <div className="flex w-full flex-col items-center gap-[40px]">
+          <div className="flex w-full flex-col items-start gap-[42px]">
+            <div className="grid w-full grid-cols-1 gap-[20px] gap-x-[28px] lg:grid-cols-2 lg:gap-y-[46px]">
               <BookingInput
                 placeholder="Enter First Name"
                 value={fName}
@@ -177,7 +171,7 @@ export default function OurTeamContact() {
                 size={20}
               />
               <Button
-                className="!rounded-[4px] lg:!px-[78px] !py-[15px] h-[44px] text-[18px]"
+                className="h-[44px] !rounded-[4px] !bg-[#111111] !py-[15px] text-[18px] hover:!bg-[#262626] lg:!px-[78px]"
                 htmlType="submit"
                 aria-label="Send your message"
               >

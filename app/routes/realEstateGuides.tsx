@@ -54,10 +54,10 @@ export default function realEstateGuides() {
       <PageLayout>
         <div className="flex flex-col items-start gap-[89px] w-full">
           <div className="flex flex-col items-start gap-[24px] w-full">
-            <p className="text-[15px] lg:text-[22px] font-semibold CormorantGaramond !text-[34px] capitalize">
+            <p className="CormorantGaramond text-[28px] font-semibold leading-[1.05] capitalize text-[#111111] lg:text-[44px]">
               Real estate guides from industry experts
             </p>
-            <p className="text-[#505050] text-[14px] lg:text-[18px] leading-[160%] ">
+            <p className="text-[14px] font-semibold leading-[160%] text-[#111111] lg:text-[18px]">
               From buying or selling a property to discovering Dubai's key areas and investments,
               the Savior Properties guides are packed with essential information and key market insights.
             </p>

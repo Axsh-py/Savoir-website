@@ -48,47 +48,57 @@ export default function GlobalProjects() {
       }`}
     >
       {/* Header */}
-      <div className="max-w-[1280px] mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-[20px] px-[24px] lg:px-[52px] pt-[36px] lg:pt-[60px] pb-[24px] lg:pb-[48px] border-b-[0.5px] border-white/[0.14]">
+      <div className="mx-auto flex w-full max-w-[1280px] flex-col justify-between gap-[20px] border-b-[0.5px] border-white/[0.14] px-[24px] pb-[24px] pt-[36px] lg:flex-row lg:items-end lg:px-[52px] lg:pb-[48px] lg:pt-[60px]">
         <div>
-          <div className="Jakarta text-[10px] font-medium tracking-[0.22em] uppercase text-[#E0C98A] mb-[10px]">
+          <div className="Jakarta mb-[10px] text-[10px] font-medium uppercase tracking-[0.22em] text-[#E0C98A]">
             Worldwide Presence
           </div>
-          <p className="CormorantGaramond text-[28px] lg:text-[44px] leading-[1.05] text-white">
+
+          <p
+            className="CormorantGaramond text-[28px] leading-[1.05] lg:text-[44px]"
+            style={{ color: "#FFFFFF", opacity: 1 }}
+          >
             <span className="italic">Global</span> Projects
           </p>
         </div>
+
         <Link
           to="/global-projects"
-          className="Jakarta text-[10px] font-medium tracking-[0.2em] uppercase text-white/68 hover:text-[#C6A45A] inline-flex items-center gap-[8px] group transition-colors"
+          className="Jakarta inline-flex items-center gap-[8px] text-[10px] font-medium uppercase tracking-[0.2em] transition-colors group"
+          style={{ color: "#FFFFFF", opacity: 1 }}
         >
           See All Markets
-          <span className="block w-[24px] group-hover:w-[40px] h-[0.5px] bg-current transition-all duration-300" />
+          <span className="block h-[0.5px] w-[24px] bg-white transition-all duration-300 group-hover:w-[40px] group-hover:bg-[#C6A45A]" />
         </Link>
       </div>
 
       {/* Country grid */}
-      <div
-        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:h-[520px]"
-      >
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:h-[520px] lg:grid-cols-6">
         {countries.map((c, idx) => (
           <Link
             key={c.id ?? c.name ?? idx}
             to={`/global-projects?country=${encodeURIComponent(c.name)}`}
-            className="relative overflow-hidden cursor-pointer group block aspect-[3/4] lg:aspect-auto border-r-[0.5px] last:border-r-0 border-white/10"
+            className="group relative block aspect-[3/4] cursor-pointer overflow-hidden border-r-[0.5px] border-white/10 last:border-r-0 lg:aspect-auto"
             style={{ animationDelay: `${idx * 0.06}s` }}
           >
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-[700ms] ease-out group-hover:scale-[1.06]"
               style={{ backgroundImage: `url('${c.image}')` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.88)] to-[rgba(10,10,10,0.1)] group-hover:from-[rgba(10,10,10,0.92)] group-hover:to-[rgba(10,10,10,0.25)] transition-all duration-400" />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(10,10,10,0.88)] to-[rgba(10,10,10,0.1)] transition-all duration-400 group-hover:from-[rgba(10,10,10,0.92)] group-hover:to-[rgba(10,10,10,0.25)]" />
+
             <div className="absolute bottom-0 left-0 right-0 px-[18px] py-[24px]">
-              <p className="CormorantGaramond text-[22px] font-light text-white leading-[1] mb-[8px] capitalize">
+              <p
+                className="CormorantGaramond mb-[8px] text-[22px] font-light capitalize leading-[1]"
+                style={{ color: "#FFFFFF", opacity: 1 }}
+              >
                 {c.name}
               </p>
-              <span className="inline-flex items-center gap-[8px] Jakarta text-[9px] font-medium tracking-[0.2em] uppercase text-[#E0C98A] opacity-0 translate-y-[6px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+
+              <span className="Jakarta inline-flex translate-y-[6px] items-center gap-[8px] text-[9px] font-medium uppercase tracking-[0.2em] text-[#E0C98A] opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                 Explore
-                <span className="block w-[14px] h-[0.5px] bg-[#E0C98A]" />
+                <span className="block h-[0.5px] w-[14px] bg-[#E0C98A]" />
               </span>
             </div>
           </Link>

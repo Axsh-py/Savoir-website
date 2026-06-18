@@ -37,19 +37,18 @@ export default function BookYourViewing({ agent }: Props) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [message, setMessage] = useState("");
-  const [inquiryType, setInquiryType] = useState(""); // from dropdown
+  const [inquiryType, setInquiryType] = useState("");
   const [checked, setChecked] = useState(false);
   const [mixed, setMixed] = useState(true);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Use provided agent, fallback to property.user, or default agent
   const activeAgent = agent || property?.user || DEFAULT_AGENT;
   const TO_EMAIL = activeAgent.email || DEFAULT_AGENT.email;
   const agentName = activeAgent.name || DEFAULT_AGENT.name;
   const agentImage = activeAgent.image || DEFAULT_AGENT.image;
   const agentRole = activeAgent.Job_Description || DEFAULT_AGENT.Job_Description;
   const agentPhone = activeAgent.phone || "";
-  const whatsappLink = agentPhone ? `https://wa.me/${agentPhone}`: undefined;
+  const whatsappLink = agentPhone ? `https://wa.me/${agentPhone}` : undefined;
 
   const handleSendEmail = () => {
     if (!TO_EMAIL || typeof window === "undefined" || typeof document === "undefined") {
@@ -58,7 +57,7 @@ export default function BookYourViewing({ agent }: Props) {
 
     const formattedName = name.trim() || "Prospective Client";
     const propertyTitle = property?.title_en || property?.title || "Property";
-    
+
     const subject = `Property Inquiry — ${formattedName} - ${propertyTitle}`;
     const body = [
       "Dear SAVOIR Team,",
@@ -76,7 +75,8 @@ export default function BookYourViewing({ agent }: Props) {
       `- Preferred Time: ${time || "-"}`,
       "",
       "Message:",
-      message.trim() || "I am interested in scheduling a viewing. Please let me know available slots.",
+      message.trim() ||
+        "I am interested in scheduling a viewing. Please let me know available slots.",
       "",
       "Thank you for your time and assistance. I look forward to hearing from you soon.",
       "",
@@ -98,6 +98,7 @@ export default function BookYourViewing({ agent }: Props) {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     if (!formRef.current) {
       return;
     }
@@ -117,47 +118,71 @@ export default function BookYourViewing({ agent }: Props) {
   };
 
   return (
-    <div className="flex flex-col items-start gap-[22px] w-full mt-[75px]">
+    <div className="mt-[60px] flex w-full flex-col items-start gap-[22px]">
       <div className="flex flex-col items-start gap-[7px]">
-        <p className="text-[21px] font-semibold">Book a Viewing</p>
-    
+        <p
+          className="CormorantGaramond text-[28px] leading-[1.05] lg:text-[44px]"
+          style={{
+            color: "#111111",
+            fontWeight: 700,
+            opacity: 1,
+          }}
+        >
+          Book a Viewing
+        </p>
       </div>
+
       <form
         ref={formRef}
         onSubmit={handleFormSubmit}
-        className="flex items-center gap-[28px] w-full px-[24px] pt-[40px] pb-[22px] rounded-[9px] border border-[#C6A45A] overflow-hidden relative z-10"
+        className="
+          relative z-10 mx-auto flex w-full max-w-[1080px] flex-col
+          overflow-hidden rounded-[16px] border border-[#111111]
+          bg-white px-[16px] py-[18px]
+          shadow-[0_22px_60px_rgba(17,17,17,0.10)]
+          lg:flex-row lg:items-stretch lg:gap-[26px]
+          lg:px-[22px] lg:py-[24px]
+          [&_input]:!text-[#111111]
+          [&_input]:!font-semibold
+          [&_input::placeholder]:!text-[#111111]
+          [&_input::placeholder]:!opacity-100
+          [&_textarea]:!text-[#111111]
+          [&_textarea]:!font-semibold
+          [&_textarea::placeholder]:!text-[#111111]
+          [&_textarea::placeholder]:!opacity-100
+          [&_select]:!text-[#111111]
+          [&_select]:!font-semibold
+          [&_label]:!text-[#111111]
+          [&_label]:!font-semibold
+        "
         noValidate={false}
       >
-        <img
-          loading="lazy"
-          src={icon.Ellipse8}
-          alt=""
-          className="absolute bottom-0 right-0 z-[-1] hidden lg:block"
-        />
-        <div className="hidden lg:flex flex-col items-center gap-[12px] w-full max-w-[347px]">
-          <div className="relative z-10">
+        <div className="hidden w-full max-w-[270px] shrink-0 overflow-hidden rounded-[14px] bg-[#111111] lg:flex lg:flex-col">
+          <div className="relative h-[330px] w-full overflow-hidden">
             <img
               loading="lazy"
               src={agentImage}
               alt={agentName}
-              className="w-full aspect-[347/429] rounded-[9px] object-cover"
+              className="h-full w-full object-cover"
             />
-            <img
-              loading="lazy"
-              src={agentImage}
-              alt=""
-              className="w-full aspect-[347/429] rounded-[9px] object-cover rotate-x-180 blur-[50px] absolute left-0 top-[75%]"
-            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/18 to-transparent" />
           </div>
-          <div className="flex flex-col items-center gap-[3px] relative z-10">
-            <p className="text-[30px] font-medium text-white">{agentName}</p>
-            <p className="text-[#505050] text-[27px] text-white">{agentRole}</p>
+
+          <div className="flex flex-col items-center gap-[4px] bg-[#111111] px-[16px] pb-[20px] pt-[16px]">
+            <p className="text-center text-[24px] font-semibold leading-[1.1] text-white">
+              {agentName}
+            </p>
+
+            <p className="text-center text-[19px] leading-[1.2] text-white/80">
+              {agentRole}
+            </p>
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-[64px] w-full">
-          <div className="flex flex-col items-start gap-[67px] w-full">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-[28px] gap-[20px] lg:gap-y-[75px] w-full">
+        <div className="flex w-full flex-col items-center justify-between gap-[30px] py-[4px] lg:py-[12px]">
+          <div className="flex w-full flex-col items-start gap-[34px]">
+            <div className="grid w-full grid-cols-1 gap-[18px] gap-x-[26px] lg:grid-cols-3 lg:gap-y-[42px]">
               <BookingInput
                 placeholder="Enter Full Name"
                 value={name}
@@ -167,6 +192,7 @@ export default function BookYourViewing({ agent }: Props) {
                 ariaLabel="Enter your full name"
                 autoComplete="name"
               />
+
               <BookingInput
                 placeholder="Enter your Email"
                 value={email}
@@ -176,6 +202,7 @@ export default function BookYourViewing({ agent }: Props) {
                 ariaLabel="Enter your email address"
                 autoComplete="email"
               />
+
               <BookingDropdown
                 placeholder="Select Inquiry Type"
                 value={inquiryType}
@@ -185,6 +212,7 @@ export default function BookYourViewing({ agent }: Props) {
                   { label: "More Information", value: "More Information" },
                 ]}
               />
+
               <BookingInput
                 placeholder="Enter Phone Number"
                 value={phone}
@@ -196,6 +224,7 @@ export default function BookYourViewing({ agent }: Props) {
                 autoComplete="tel"
                 inputMode="tel"
               />
+
               <BookingInput
                 type="date"
                 placeholder="Select Date"
@@ -204,6 +233,7 @@ export default function BookYourViewing({ agent }: Props) {
                 name="date"
                 ariaLabel="Select preferred date"
               />
+
               <BookingInput
                 type="time"
                 placeholder="Select Time"
@@ -212,7 +242,18 @@ export default function BookYourViewing({ agent }: Props) {
                 name="time"
                 ariaLabel="Select preferred time"
               />
-              <div className="lg:col-span-3">
+
+              <div
+                className="
+                  w-full lg:col-span-3 lg:col-start-1 lg:mt-[0px]
+                  [&_*]:!ml-0
+                  [&_*]:!pl-0
+                  [&_textarea]:!ml-0
+                  [&_textarea]:!pl-0
+                  [&_textarea]:!text-left
+                  [&_textarea::placeholder]:!text-left
+                "
+              >
                 <BookingInput
                   type="textAria"
                   placeholder="Enter your Message here.."
@@ -224,7 +265,7 @@ export default function BookYourViewing({ agent }: Props) {
               </div>
             </div>
 
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-[10px] w-full">
+            <div className="flex w-full flex-col items-center justify-between gap-[18px] lg:flex-row">
               <BookingCheckbox
                 checked={checked}
                 onChange={(n) => {
@@ -235,8 +276,15 @@ export default function BookYourViewing({ agent }: Props) {
                 label="I agree with Terms of Use and Privacy Policy"
                 size={20}
               />
+
               <Button
-                className="!rounded-[4px] lg:!px-[78px] !py-[15px] h-[44px] text-[18px]"
+                className="
+                  h-[42px] w-full !rounded-[8px] !bg-[#111111]
+                  !px-[26px] !py-[10px] text-[16px] font-semibold
+                  !text-white shadow-[0_12px_26px_rgba(17,17,17,0.18)]
+                  transition-all duration-300 hover:!bg-[#000000]
+                  lg:w-auto lg:min-w-[250px] lg:!px-[46px]
+                "
                 htmlType="submit"
                 aria-label={`Send email to ${agentName}`}
               >
@@ -245,23 +293,55 @@ export default function BookYourViewing({ agent }: Props) {
             </div>
           </div>
 
-          <div className="flex flex-col lg:flex-row items-center gap-[17px]">
-            <p className="text-black text-[18px] font-medium">Or contact us right now via</p>
+          <div className="flex flex-col items-center gap-[13px] lg:flex-row">
+            <p className="text-[18px] font-semibold text-[#111111]">
+              Or contact us right now via
+            </p>
+
             {whatsappLink ? (
               <Link
                 to={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-[9px]"
+                className="
+                  flex h-[48px] items-center justify-center gap-[10px]
+                  rounded-[10px] bg-[#111111] px-[22px]
+                  text-[18px] font-semibold text-white
+                  shadow-[0_10px_24px_rgba(17,17,17,0.16)]
+                  transition-all duration-300 hover:bg-[#000000]
+                "
                 aria-label={`Chat with ${agentName} on WhatsApp`}
               >
-                <img loading="lazy" src={icon.whatsappGold} alt="" className="w-[27px]" />
-                <p className="text-[#C6A45A] text-[18px] font-medium">Whatsapp</p>
+                <img
+                  loading="lazy"
+                  src={icon.whatsappGold}
+                  alt=""
+                  className="w-[26px]"
+                />
+
+                <p className="text-[18px] font-semibold text-white">
+                  Whatsapp
+                </p>
               </Link>
             ) : (
-              <div className="flex items-center gap-[9px]">
-                <img loading="lazy" src={icon.whatsappGold} alt="" className="w-[27px]" />
-                <p className="text-[#C6A45A] text-[18px] font-medium">Whatsapp</p>
+              <div
+                className="
+                  flex h-[48px] items-center justify-center gap-[10px]
+                  rounded-[10px] bg-[#111111] px-[22px]
+                  text-[18px] font-semibold text-white
+                  shadow-[0_10px_24px_rgba(17,17,17,0.16)]
+                "
+              >
+                <img
+                  loading="lazy"
+                  src={icon.whatsappGold}
+                  alt=""
+                  className="w-[26px]"
+                />
+
+                <p className="text-[18px] font-semibold text-white">
+                  Whatsapp
+                </p>
               </div>
             )}
           </div>

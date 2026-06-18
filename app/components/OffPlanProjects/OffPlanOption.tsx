@@ -62,15 +62,16 @@ export default function OffPlanOption({
         aria-expanded={open}
         aria-label={`${label} filter`}
       >
-        <div className="flex flex-col items-start">
-          <p className="text-white text-[15.84px] font-semibold">{label}</p>
-          <div className="flex items-center gap-[12px]">
-            <p className="text-white text-[14.08px] truncate">{summaryText}</p>
+        <div className="flex w-full items-center justify-between gap-[10px]">
+          <p className="Jakarta truncate text-[16px] font-semibold leading-none text-black">
+            {selected.length > 0 ? summaryText : label}
+          </p>
+          <div className="flex shrink-0 items-center gap-[12px]">
             <img
               loading="lazy"
               src={arrow.smallBoldWhite}
               alt=""
-              className={`transition-transform ${open ? "rotate-180" : ""}`}
+              className={`w-[10px] brightness-0 transition-transform ${open ? "rotate-180" : ""}`}
             />
           </div>
         </div>
@@ -86,7 +87,7 @@ export default function OffPlanOption({
             style={{ overflow: "hidden" }}
             role="listbox"
             aria-multiselectable="false"
-            className="absolute py-[19px] rounded-[20px] bg-[#4A4A4A] backdrop-blur-[20px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] w-[307px] lg:w-[382px] top-[160%] z-10 left-[-161px] lg:left-auto"
+            className="absolute left-0 top-[160%] z-10 w-[307px] rounded-[20px] bg-[#4A4A4A] py-[19px] backdrop-blur-[20px] drop-shadow-[0_41.656px_83.312px_-20.828px_rgba(143,144,188,0.15)] lg:w-[382px]"
           >
             <div className="flex flex-col items-start gap-[14px] w-full h-[272px] overflow-y-scroll small-scroll">
               {options.map((opt, idx) => {

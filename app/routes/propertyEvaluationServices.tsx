@@ -1,48 +1,149 @@
 import AdvisoryHero from "~/components/RealEstateAdvisory/AdvisoryHero";
 import PageLayout from "~/layouts/PageLayout";
-import Content from "~/UI/Content";
 
-export default function propertyEvaluationServices() {
+export default function interiorDesignServices() {
   const items = [
     {
-      title: "Property Evaluation Services",
-      text: "Entrust your property valuation to our seasoned experts who leverage their extensive experience and profound knowledge of Dubai and the UAE real estate landscape. We go far beyond by providing a thorough comparative market study to accurately ascertain the worth of your asset or potential investment. Discover the distinction with SAVOIR's property evaluation expertise. Elevate your experience with our tailored approach that combines precision, insight, and innovation. Partner with us to unlock the full potential of your property and embark on a journey of unparalleled success in the real estate market.",
-      image: "/images/propertyEvaluationServices/image1.jpg",
+      title: "Interior Design",
+      text: "Escape the monotony and sameness of the world of uniform fashion and discover modern elegance and originality with SAVOIR interior design services. Our dedicated team of talented professionals specializes in crafting high-end interior designs that seamlessly blend elegance, innovation, and functionality to create spaces that reflect your unique personality and style. We believe in going beyond mere aesthetics to deliver transformative design solutions that elevate your living or working environment to new heights of opulence and refinement",
+      image: "/images/interiorDesignServices/image1.jpg",
       link: "/contact-us",
     },
     {
-      title: "Navigating the Property Valuation Landscape",
-      text: "Property valuation is a strategic process that requires a thorough comprehension of market dynamics, trends, and possible risks. Our knowledgeable professionals take the time to do in-depth investigation and analysis, taking into account variables including location, property condition, demand in the market, and comparable sales data. We recognize that every property is unique, with its own set of opportunities and challenges. That's why our property valuation services are fully customized to meet your specific needs and objectives. Whether you're looking to sell your property, refinance your mortgage, or make informed investment decisions, our team will provide you with comprehensive insights and recommendations tailored to your situation. In today's competitive real estate market, uncovering hidden value is key to maximizing your investment returns. Our property experts have a keen eye for spotting opportunities and identifying areas where value can be enhanced. Whether it's optimizing property features, improving market positioning, or leveraging strategic partnerships, we'll work tirelessly to ensure that your property achieves its full potential.",
-      image: "/images/propertyEvaluationServices/image2.jpg",
+      title: "Journey to Perfection",
+      text: "Your journey with SAVOIR starts with a deep exploration of your vision, preferences, and lifestyle requirements. Our experienced designers work closely with you to understand your aspirations and translate them into breathtaking design concepts that surpass your expectations. From luxurious residential sanctuaries to sophisticated commercial spaces, we tailor our approach to suit your specific needs, ensuring every detail reflects your individual taste and flair.",
+      image: "/images/interiorDesignServices/image2.jpg",
       link: "/contact-us",
     },
     {
-      title: "Unveil the True Worth of Your Property with SAVOIR's Evaluation Expertise.",
-      text: "Our skilled property specialists provide a detailed evaluation of your home's genuine value by drawing on their vast expertise and in-depth knowledge of Dubai and the UAE. We provide a thorough competitive market study in addition to a standard evaluation to make sure your property stands out from the competition.",
-      image: "/images/propertyEvaluationServices/image3.jpg",
+      title: "A World of Luxury Transformation With SAVOIR.",
+      text: "Step into a realm of elevated luxury and refinement as you explore our visionary design concepts, meticulously crafted to transcend fleeting trends and stand the test of time. Our team of top-tier interior designers and fit-out specialists collaborate seamlessly to bring your vision to life, infusing each space with a harmonious fusion of style, functionality, and grandeur. Whether you seek a serene oasis of tranquility in your home or a captivating ambiance in your commercial establishment, SAVOIR delivers bespoke turnkey solutions that exceed your wildest imagination.",
+      image: "/images/interiorDesignServices/image3.jpg",
       link: "/contact-us",
     },
   ];
-  /** Only items at these indexes show the “visit the site” button. */
-  const visitSiteIndexes: number[] = [2];
+
+  const visitSiteIndexes: number[] = [];
 
   return (
     <div className="mt-[100px]">
       <PageLayout>
-        <div className="flex flex-col items-start gap-[100px] w-full">
-          {items.map((item: any, index: number) => (
-            <Content key={index} item={{
-                ...item,
-                text: item.text.replace(/\./g, ".\n"),
-              }}
-              isRight={index % 2 === 0}
-              index={index}
-              visitSiteIndexes={visitSiteIndexes}
-              //pass the link to the site
-              linkToSite={"https://wa.me/+971505074686"}
-              target="_blank"
-            />
-          ))}
+        <div className="flex w-full flex-col items-center gap-[56px] lg:gap-[70px]">
+          {items.map((item: any, index: number) => {
+            const imageRight = index % 2 === 0;
+            const showVisitButton = visitSiteIndexes.includes(index);
+            const isLongSection = item.text.length > 520;
+
+            const textBlock = (
+              <div className="flex w-full flex-col items-start lg:w-[58%]">
+                <div
+                  className="
+                    mb-[22px] flex w-full items-center
+                    border-l-[3px] border-[#111111]
+                    px-[16px] py-[10px]
+                    lg:px-[18px] lg:py-[12px]
+                  "
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(17,17,17,0.08) 52%, rgba(255,255,255,0) 100%)",
+                  }}
+                >
+                  <h2
+                    className="CormorantGaramond text-[20px] leading-[1.12] lg:text-[30px]"
+                    style={{
+                      color: "#111111",
+                      fontWeight: 700,
+                      opacity: 1,
+                    }}
+                  >
+                    {item.title}
+                  </h2>
+                </div>
+
+                <p
+                  className="whitespace-pre-line text-[14px] leading-[175%] lg:text-[17px]"
+                  style={{
+                    color: "#111111",
+                    fontWeight: 600,
+                    opacity: 1,
+                  }}
+                >
+                  {item.text.replace(/\./g, ".\n")}
+                </p>
+
+                {showVisitButton && (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="
+                      mt-[24px] inline-flex items-center justify-center
+                      rounded-[8px] bg-[#111111]
+                      px-[24px] py-[11px]
+                      text-[14px] font-semibold text-white
+                      transition-all duration-300
+                      hover:scale-[1.02] hover:bg-[#000000]
+                      hover:shadow-[0_14px_32px_rgba(17,17,17,0.18)]
+                    "
+                  >
+                    Visit the Site
+                  </a>
+                )}
+              </div>
+            );
+
+            const imageBlock = (
+              <div
+                className={`flex w-full justify-center lg:w-[42%] ${
+                  isLongSection ? "lg:sticky lg:top-[130px]" : ""
+                }`}
+              >
+                <img
+                  loading="lazy"
+                  src={item.image}
+                  alt={item.title}
+                  className={`w-full max-w-[420px] rounded-[18px] object-cover object-center shadow-[0_18px_44px_rgba(0,0,0,0.08)] ${
+                    isLongSection
+                      ? "h-[250px] lg:h-[300px]"
+                      : "h-[235px] lg:h-[305px]"
+                  }`}
+                />
+              </div>
+            );
+
+            return (
+              <section
+                key={index}
+                className="
+                  w-full max-w-[1100px]
+                  rounded-[18px]
+                  border border-[#E8DFD2]
+                  bg-white
+                  px-[22px] py-[28px]
+                  shadow-[0_22px_60px_rgba(0,0,0,0.055)]
+                  lg:px-[32px] lg:py-[32px]
+                "
+              >
+                <div
+                  className={`flex w-full flex-col gap-[30px] lg:flex-row lg:gap-[46px] ${
+                    isLongSection ? "lg:items-start" : "lg:items-center"
+                  }`}
+                >
+                  {imageRight ? (
+                    <>
+                      {textBlock}
+                      {imageBlock}
+                    </>
+                  ) : (
+                    <>
+                      {imageBlock}
+                      {textBlock}
+                    </>
+                  )}
+                </div>
+              </section>
+            );
+          })}
         </div>
       </PageLayout>
     </div>

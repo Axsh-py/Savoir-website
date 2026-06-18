@@ -14,13 +14,14 @@ export default function ContactUsItems() {
     {
       title: "General enquiry",
       subtitle:
-        "Have a question or request? Drop us a message, and a  Savior Properties  expert will get back to you shortly.",
+        "Have a question or request? Drop us a message, and a Savior Properties expert will get back to you shortly.",
       icon: icon.GeneralEnquiry,
       onClick: () => setOpenPopup(true),
     },
     {
       title: "Press",
-      subtitle: "Connect with our PR team for media inquiries or press-related requests",
+      subtitle:
+        "Connect with our PR team for media inquiries or press-related requests",
       icon: icon.Press,
       onClick: () => setOpenPopup(true),
     },
@@ -41,20 +42,70 @@ export default function ContactUsItems() {
   ];
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-[23px] w-full mt-[74px]">
+    <div className="mt-[74px] grid w-full grid-cols-1 gap-[23px] lg:grid-cols-4">
       {items.map((item: any, index: number) => (
-        <Card key={index} className="!rounded-[44px]">
-          <div className="flex flex-col items-center justify-between gap-[50px] lg:gap-0 lg:w-full lg:aspect-[318/465] px-[12px] py-[54px]">
-            <div className="flex flex-col items-center gap-[14px]">
-              <img loading="lazy" src={item.icon} alt="" />
-              <p className="text-[24px] font-semibold CormorantGaramond">{item.title}</p>
-              <p className="text-[18px] text-center">{item.subtitle}</p>
+        <Card
+          key={index}
+          className="
+            group
+            !rounded-[34px]
+            border border-[#111111]/10
+            bg-white
+            shadow-[0_16px_42px_rgba(17,17,17,0.06)]
+            transition-all
+            duration-300
+            hover:-translate-y-[3px]
+            hover:border-[#111111]
+            hover:shadow-[0_24px_58px_rgba(17,17,17,0.12)]
+          "
+        >
+          <div className="flex flex-col items-center justify-between gap-[42px] px-[14px] py-[44px] lg:w-full lg:aspect-[318/435] lg:gap-0">
+            <div className="flex flex-col items-center gap-[16px]">
+              <div className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-[#111111] shadow-[0_12px_28px_rgba(17,17,17,0.16)]">
+                <img
+                  loading="lazy"
+                  src={item.icon}
+                  alt=""
+                  className="max-h-[36px] max-w-[36px] brightness-0 invert"
+                />
+              </div>
+
+              <p
+                className="CormorantGaramond text-center text-[24px] leading-[1.15]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 700,
+                  opacity: 1,
+                }}
+              >
+                {item.title}
+              </p>
+
+              <p
+                className="text-center text-[16px] leading-[170%] lg:text-[17px]"
+                style={{
+                  color: "#111111",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                {item.subtitle}
+              </p>
             </div>
+
             <button
+              type="button"
               onClick={item.onClick}
-              className="w-full p-[14px] rounded-[13px] border border-[#C6A45A]"
+              className="
+                flex h-[44px] w-full items-center justify-center
+                rounded-[11px] bg-[#111111] px-[18px]
+                shadow-[0_12px_26px_rgba(17,17,17,0.16)]
+                transition-all duration-300 hover:bg-[#000000]
+              "
             >
-              <p className="text-[18px] font-medium">{item.title}</p>
+              <p className="text-[16px] font-semibold text-white">
+                {item.title}
+              </p>
             </button>
           </div>
         </Card>

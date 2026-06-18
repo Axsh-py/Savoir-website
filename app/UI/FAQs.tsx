@@ -1,14 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import useIcons from "~/hooks/imageHooks/useIcons";
 
 type Props = {
   questions: any;
 };
 
 export default function FAQs({ questions }: Props) {
-  const icon = useIcons();
-
   // First one open by default; null means all closed
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -41,7 +38,7 @@ export default function FAQs({ questions }: Props) {
               }}
             >
               <div
-                className="text-[10px] lg:text-[18px] font-medium pr-4 faq"
+                className="faq pr-4 text-[10px] font-bold text-[#111111] lg:text-[18px]"
                 dangerouslySetInnerHTML={{ __html: item.question }}
                 
               ></div>
@@ -51,15 +48,11 @@ export default function FAQs({ questions }: Props) {
                 onClick={() => toggle(idx)}
                 aria-expanded={isOpen}
                 aria-controls={`faq-panel-${idx}`}
-                className={`flex items-center justify-center 
-                  rounded-[4px] lg:rounded-[10px] h-[20px] lg:h-[40px] w-[28px] lg:w-[52px] transition ${isOpen ? "border border-[#353635] bg-white " : ""}`}
-                style={{
-                  background: isOpen
-                    ? ""
-                    : "linear-gradient(94deg, #C6A45A 3.17%, rgba(255, 255, 255, 0.60) 224.54%)",
-                }}
+                className={`flex h-[22px] w-[28px] items-center justify-center rounded-[4px] border border-[#111111] text-[20px] font-semibold leading-none transition lg:h-[32px] lg:w-[40px] lg:rounded-[8px] lg:text-[28px] ${
+                  isOpen ? "bg-white text-[#111111]" : "bg-[#111111] text-white"
+                }`}
               >
-                <img loading="lazy" src={isOpen ? icon.minusGold : icon.plusWhite} alt="" />
+                {isOpen ? "-" : "+"}
               </button>
             </div>
 
@@ -77,8 +70,7 @@ export default function FAQs({ questions }: Props) {
                 >
                   <div className="px-[8px] lg:px-[27px] py-[7px] lg:py-[22px] pt-4">
                     <div
-                      className="text-[10px] lg:text-[18px] leading-[1.9]"
-                      style={{fontFamily: "CormorantGaramond"}}
+                      className="Jakarta text-[10px] font-semibold leading-[1.9] text-[#111111] lg:text-[17px]"
                       dangerouslySetInnerHTML={{ __html: item.answer }}
                     ></div>
                   </div>

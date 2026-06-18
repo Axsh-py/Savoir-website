@@ -90,19 +90,13 @@ export default function ContactUsForm() {
   }
 
   return (
-    <div className="flex flex-col items-start gap-[22px] w-full mt-[112px]">
-      <div className="flex flex-col lg:flex-row items-center gap-[39px] w-full p-[11px] rounded-[9px] border border-[##9b957f] overflow-hidden relative z-10">
-        <img
-          loading="lazy"
-          src={icon.Ellipse8}
-          alt=""
-          className="absolute bottom-0 right-0 z-[-1]"
-        />
+    <div className="mx-auto mt-[82px] flex w-full max-w-[1080px] flex-col items-start gap-[22px]">
+      <div className="relative z-10 flex w-full flex-col items-center gap-[32px] overflow-hidden rounded-[9px] border border-[#9b957f] bg-white p-[10px] lg:flex-row">
         <div
-          className="flex flex-col items-start justify-between gap-[20px] p-[16px] lg:p-[44px] w-full lg:max-w-[490px] lg:aspect-[490/727] rounded-[11px] text-white"
+          className="flex flex-col items-start justify-between gap-[20px] p-[16px] lg:p-[34px] w-full lg:max-w-[405px] lg:aspect-[405/560] rounded-[11px] text-white"
           style={{ background: "black" }}
         >
-          <div className="flex flex-col items-start gap-[20px] lg:gap-[98px]">
+          <div className="flex flex-col items-start gap-[20px] lg:gap-[58px]">
             <div className="flex flex-col items-start gap-[6px]">
               <p className="text-[31px] font-semibold CormorantGaramond">Contact Information</p>
               <p className="text-[21px]">Let's Connect!</p>
@@ -123,7 +117,7 @@ export default function ContactUsForm() {
                   loading="lazy"
                   src={s.icon}
                   alt=""
-                  className="w-[48px] h-[48px] lg:w-[70px] lg:h-[70px]"
+            className="h-[42px] w-[42px] lg:h-[52px] lg:w-[52px]"
                 />
               </a>
             ))}
@@ -132,17 +126,11 @@ export default function ContactUsForm() {
 
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col items-center gap-[64px] w-full relative"
+          className="flex w-full flex-col items-center gap-[42px] relative"
           noValidate
         >
-          <img
-            loading="lazy"
-            src="/images/icons/popupPaterrn.svg"
-            alt=""
-            className="absolute bottom-0 right-0 z-[-1]"
-          />
-          <div className="flex flex-col items-start gap-[67px] w-full">
-            <div className="flex flex-col items-start gap-[20px] lg:gap-[54px] w-full">
+          <div className="flex w-full flex-col items-start gap-[44px]">
+            <div className="flex w-full flex-col items-start gap-[20px] lg:gap-[40px]">
               <BookingInput
                 placeholder="Enter Full Name"
                 value={name}
@@ -187,7 +175,7 @@ export default function ContactUsForm() {
 
             <div className="flex items-center justify-center lg:justify-end w-full">
               <Button
-                className="!rounded-[4px] !px-[78px] !py-[15px]  h-[44px] text-[18px]"
+                className="h-[44px] !rounded-[4px] !bg-[#111111] !px-[78px] !py-[15px] text-[18px] hover:!bg-[#262626]"
                 htmlType="submit"
                 disabled={submitting}
               >
@@ -200,7 +188,7 @@ export default function ContactUsForm() {
             <p className="text-black text-[18px] font-medium">Or contact us right now via</p>
             <Link to="https://wa.me/971505074686" target="_blank" rel="noreferrer" className="flex items-center gap-[9px]">
               <img loading="lazy" src={icon.whatsappGold} alt="" className="w-[27px]" />
-              <p className="text-[#C6A45A] text-[18px] font-medium">Whatsapp</p>
+              <p className="text-black text-[18px] font-semibold">Whatsapp</p>
             </Link>
           </div>
         </form>

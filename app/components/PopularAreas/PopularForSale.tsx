@@ -10,7 +10,7 @@ export default function PopularForSale() {
 
   return (
     <div className="flex flex-col items-start gap-[33px] w-full mt-[90px]">
-      <p className="text-[20px] lg:text-[36px] font-semibold">Properties For Sale {area.name}</p>
+      <p className="CormorantGaramond text-[28px] font-semibold leading-[1.05] text-black lg:text-[44px]">Properties For Sale {area.name}</p>
       <ThreeSwiper>
         {properties.map((project: any, index: number) => (
           <SwiperSlide key={index}>

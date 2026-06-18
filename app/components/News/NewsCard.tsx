@@ -8,20 +8,51 @@ type Props = {
 
 export default function NewsCard({ newsItem }: Props) {
   return (
-    <Card className="!px-[23px] !py-[27px] !rounded-[46.534px]">
-      <div className="flex flex-col items-start gap-[21px] w-full">
+    <Card className="!rounded-[46.534px] !px-[23px] !py-[27px]">
+      <div className="flex w-full flex-col items-start gap-[21px]">
         <img
           loading="lazy"
           src={newsItem.image}
           alt=""
-          className="w-full aspect-[375/277] rounded-[10px] object-cover"
+          className="aspect-[375/277] w-full rounded-[10px] object-cover"
         />
+
         <div className="flex flex-col items-start gap-[11px]">
-          <div className="flex flex-col items-start gap-[2px]">
-            <p className="text-[#353635] text-[15px] font-semibold">{newsItem.title}</p>
-            <p className="text-[#505050] text-[15px]">{newsItem.created_at}</p>
+          <div className="flex flex-col items-start gap-[4px]">
+            <p
+              className="text-[15px] leading-[1.45]"
+              style={{
+                color: "#111111",
+                fontWeight: 700,
+                opacity: 1,
+              }}
+            >
+              {newsItem.title}
+            </p>
+
+            <p
+              className="text-[14px]"
+              style={{
+                color: "#111111",
+                fontWeight: 600,
+                opacity: 1,
+              }}
+            >
+              {newsItem.created_at}
+            </p>
           </div>
-          <Link to={`/news/${newsItem.slug}`} className="text-[15px] text-[#C6A45A] font-semibold underline">
+
+          <Link
+            to={`/news/${newsItem.slug}`}
+            className="
+              flex h-[30px] items-center justify-center rounded-[6px]
+              bg-[#111111] px-[13px]
+              text-[12px] font-semibold text-white
+              shadow-[0_8px_18px_rgba(17,17,17,0.14)]
+              transition-all duration-300 hover:bg-[#000000]
+              lg:h-[32px] lg:px-[15px] lg:text-[13px]
+            "
+          >
             Read more
           </Link>
         </div>

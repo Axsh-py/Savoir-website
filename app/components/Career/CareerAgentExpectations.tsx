@@ -15,7 +15,7 @@ export default function CareerAgentExpectations() {
       style={{ backgroundImage: 'url("/images/placeholders/CareerAgentExpectations.png")' }}
     >
       <div className="w-full max-w-[1226px] mx-auto flex flex-col items-start justify-center gap-[20px]">
-        <p className="text-white text-[25px] lg:text-[34px]">Agent Expectations:</p>
+        <p className="CormorantGaramond text-[28px] leading-[1.05] text-white lg:text-[44px]">The Way We Operate</p>
         <div className="flex flex-col items-start gap-[10px] w-full pl-[25px]">
           {items.map((item: string, index: number) => (
             <ul className="flex items-start gap-[18px] w-full list-disc">

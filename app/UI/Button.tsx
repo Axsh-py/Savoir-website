@@ -28,12 +28,7 @@ const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled}
         type={htmlType}
-        className={`flex items-center justify-center gap-[3.5px] px-[24.88px] py-[9.7px]  rounded-[10.5px] text-white text-[16px] font-semibold ${className}`}
-        style={{
-          background: !disabled
-            ? "linear-gradient(94deg, #C6A45A 3.17%, rgba(255, 255, 255, 0.60) 224.54%)"
-            : "",
-        }}
+        className={`flex items-center justify-center gap-[3.5px] rounded-[10.5px] bg-[#111111] px-[24.88px] py-[9.7px] text-[16px] font-semibold text-white transition-colors duration-300 hover:bg-[#262626] disabled:cursor-not-allowed disabled:bg-[#9A9A9A] ${className}`}
       >
         {children}
       </button>

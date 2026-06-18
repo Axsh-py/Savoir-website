@@ -7,25 +7,21 @@ import { motion, type Variants, useInView } from "framer-motion";
 export default function HomeAbout() {
   const arrow = useArrow();
 
-  // One sentinel for the whole block
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, {
-    // give buffer to avoid flicker; replays every time it leaves/enters
     amount: 0.35,
     margin: "0px 0px -10% 0px",
     once: false,
   });
 
-  // Parent coordinates the sequence
   const parent: Variants = {
-    hidden: { opacity: 1 }, // keep container laid out
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: { when: "beforeChildren", staggerChildren: 0.12 },
     },
   };
 
-  // Shared child animation (fade + slide up)
   const child: Variants = {
     hidden: { opacity: 0, y: 60 },
     visible: { opacity: 1, y: 0 },
@@ -34,65 +30,84 @@ export default function HomeAbout() {
   return (
     <motion.div
       ref={ref}
-      className="mx-auto flex w-full max-w-[1160px] flex-col items-start gap-[18px] lg:gap-[26px]"
+      className="mx-auto grid w-full max-w-[1160px] grid-cols-1 items-start gap-[28px] lg:grid-cols-[0.95fr_0.8fr] lg:items-center lg:gap-[56px]"
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
       variants={parent}
       style={{ willChange: "transform, opacity" }}
     >
-      {/* Title */}
-      <motion.div variants={child} transition={{ duration: 0.6, ease: "easeOut" }}>
-        <div className="relative">
-          <p className="CormorantGaramond text-[15px] lg:text-[30px] text-[#353635] leading-[1.1]">
-            A NEW ERA OF REAL <span className="italic">ESTATE EXCELLENCE</span>
-          </p>
-          <div className="mt-[5px] h-[2px] w-full bg-[linear-gradient(90deg,rgba(255,255,255,0)_0%,rgba(53,54,53,0.28)_50%,rgba(255,255,255,0)_100%)]" />
-        </div>
-      </motion.div>
+      <div className="flex w-full max-w-[650px] flex-col items-start gap-[28px]">
+        <motion.div
+          variants={child}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="w-full"
+        >
+          <div className="relative w-full">
+            <p className="CormorantGaramond text-[15px] leading-[1.1] text-[#111111] lg:text-[30px]">
+              A NEW ERA OF REAL{" "}
+              <span className="italic">ESTATE EXCELLENCE</span>
+            </p>
 
-      {/* Text + Image */}
+            <div className="mt-[8px] h-[2px] w-full bg-[linear-gradient(90deg,rgba(0,0,0,0)_0%,rgba(0,0,0,0.62)_50%,rgba(0,0,0,0)_100%)]" />
+          </div>
+        </motion.div>
+
+        <motion.p
+          variants={child}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 1 }}
+          className="description-body text-[#111111]"
+          style={{
+            fontWeight: 600,
+            opacity: 1,
+            willChange: "transform, opacity",
+          }}
+        >
+          Savoir Privé Properties was founded four years ago in Dubai, UAE. But the
+          expertise behind it has been accumulating for far longer. Our founders each bring
+          over 20 years of Dubai real estate experience to the agency, a combined 40 years
+          of on-the-ground knowledge of this market in its every dimension. Add to that the
+          depth and diversity of the Savoir team, and the collective expertise within our
+          walls exceeds 100 years, spanning the UAE and markets across the globe.
+          <br />
+          <br />
+          That is not a statistic. It is the foundation of every recommendation we make,
+          every property we present, and every client relationship we build. Understanding
+          the distinct needs of each person we serve, we provide personalised solutions
+          that consistently surpass expectations, and a carefully curated selection of
+          exclusive properties that epitomise luxury living in the UAE and beyond.
+        </motion.p>
+
+        <motion.div
+          variants={child}
+          transition={{ duration: 1.0, ease: "easeOut", delay: 1.5 }}
+          style={{ willChange: "transform, opacity" }}
+        >
+          <Link to="/about-us" className="inline-block">
+            <Button className="h-[40px] w-[145px] !rounded-[8px] !bg-[#111111] !px-[18px] !py-[8px] text-[15px] font-semibold !text-white shadow-[0_12px_28px_rgba(17,17,17,0.18)] hover:!bg-[#000000] lg:h-[42px] lg:w-[170px] lg:text-[16px]">
+              Read more{" "}
+              <img
+                loading="lazy"
+                src={arrow.longWhite}
+                alt=""
+                className="w-[14px] rotate-[-45deg]"
+              />
+            </Button>
+          </Link>
+        </motion.div>
+      </div>
+
       <motion.div
         variants={child}
         transition={{ duration: 0.9, ease: "easeOut", delay: 1 }}
-        className="grid w-full grid-cols-1 items-start gap-[28px] lg:grid-cols-[0.95fr_0.8fr] lg:gap-[56px]"
+        className="w-full max-w-[460px] overflow-hidden rounded-[4px] shadow-[0_24px_70px_rgba(53,54,53,0.10)] lg:justify-self-end"
         style={{ willChange: "transform, opacity" }}
       >
-        <p
-          className="max-w-[650px] text-[#353635] text-[12px] lg:text-[17px] leading-[1.7] lg:leading-[1.62]"
-          style={{ fontFamily: "Didot, serif" }}
-        >
-          With four decades of experience, our luxury boutique real estate agency is dedicated to
-          setting a new benchmark for service and expertise in the realm of upscale properties in
-          Dubai.<br />
-          Understanding the distinct needs and preferences of our clients, we provide
-          personalized solutions that consistently surpass expectations.<br />
-          Leveraging our profound
-          knowledge of the local market and an extensive network, we present a carefully curated
-          selection of exclusive properties epitomizing luxury living.<br />
-        </p>
-
-        <div className="w-full max-w-[460px] overflow-hidden rounded-[4px] shadow-[0_24px_70px_rgba(53,54,53,0.10)] lg:justify-self-end">
-          <img
-            src="/images/placeholders/about.jpeg"
-            alt="Luxury real estate expertise in Dubai"
-            loading="lazy"
-            className="aspect-[4/3] w-full object-cover"
-          />
-        </div>
-      </motion.div>
-
-      {/* Button */}
-      <motion.div
-        variants={child}
-        transition={{ duration: 1.0, ease: "easeOut", delay: 1.5 }}
-        style={{ willChange: "transform, opacity" }}
-      >
-        <Link to="/about-us" className="inline-block">
-          <Button className="w-[154px] lg:w-[240px]">
-            Read more{" "}
-            <img loading="lazy" src={arrow.longWhite} alt="" className="w-[17px] rotate-[-45deg]" />
-          </Button>
-        </Link>
+        <img
+          src="/images/placeholders/about.jpeg"
+          alt="Luxury real estate expertise in Dubai"
+          loading="lazy"
+          className="aspect-[4/3] w-full object-cover"
+        />
       </motion.div>
     </motion.div>
   );

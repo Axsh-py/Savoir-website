@@ -10,6 +10,7 @@ import CareerFamilyCenter from "~/components/Career/CareerFamilyCenter";
 import CareerGlobalExposure from "~/components/Career/CareerGlobalExposure";
 import CareerHero from "~/components/Career/CareerHero";
 import PageLayout from "~/layouts/PageLayout";
+import Header from "~/UI/Header";
 
 export async function clientLoader() {
   try {
@@ -23,22 +24,64 @@ export async function clientLoader() {
 
 export default function career() {
   const { careers } = useLoaderData() as { careers: any[] };
+
   return (
     <div>
       <CareerHero />
+
       <PageLayout>
         <CareerAbout />
-        <div className="flex flex-col items-start gap-[18px] w-full mt-[51px]">
-          <p className="font-bold CormorantGaramond _title_13r73_1 text-[20px] lg:text-[34px]">Why Choose Us</p>
-          <div className="flex flex-col items-start gap-[52px] w-full">
-            <CareerGlobalExposure />
-            <CareerCreativity />
-            <CareerFamilyCenter />
-            <CareerEnduringLegacy />
+
+        <div className="flex w-full flex-col items-start gap-[34px] mt-[51px]">
+          <div className="career-why-heading-black">
+            <Header className="text-[28px] leading-[1.05] lg:text-[44px]">
+              Why Choose Us
+            </Header>
+          </div>
+
+          <div className="flex w-full flex-col items-start gap-[52px]">
+            <div className="w-full">
+              <CareerGlobalExposure />
+            </div>
+
+            <div className="w-full">
+              <CareerCreativity />
+            </div>
+
+            <div className="w-full">
+              <CareerFamilyCenter />
+            </div>
+
+            <div className="w-full">
+              <CareerEnduringLegacy />
+            </div>
           </div>
         </div>
+
+        <style>
+          {`
+            .career-why-heading-black,
+            .career-why-heading-black *,
+            .career-why-heading-black p,
+            .career-why-heading-black span,
+            .career-why-heading-black h1,
+            .career-why-heading-black h2 {
+              color: #111111 !important;
+              -webkit-text-fill-color: #111111 !important;
+              opacity: 1 !important;
+            }
+
+            .career-why-heading-black *::before,
+            .career-why-heading-black *::after {
+              background: #111111 !important;
+              border-color: #111111 !important;
+            }
+          `}
+        </style>
       </PageLayout>
+
       <CareerAgentExpectations />
+
       <PageLayout>
         <CareerCurrentVacancies vacancies={careers} />
       </PageLayout>

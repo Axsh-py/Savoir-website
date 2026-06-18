@@ -46,13 +46,32 @@ export default function FooterUsefulLinks() {
   ];
 
   return (
-    <div className="flex flex-col items-start gap-[8px] lg:gap-[20px] w-full max-w-[251px]">
-      <p className="text-[#C6A45A] text-[14px] lg:text-[24px] font-semibold">USEFUL LINKS</p>
-      <ul className="flex flex-col items-start gap-[6px] w-full">
+    <div className="flex w-full max-w-[251px] flex-col items-start gap-[8px] lg:gap-[20px]">
+      <p
+        className="text-[14px] font-semibold lg:text-[24px]"
+        style={{
+          color: "#000000",
+          fontWeight: 700,
+          opacity: 1,
+        }}
+      >
+        USEFUL LINKS
+      </p>
+
+      <ul className="flex w-full flex-col items-start gap-[6px]">
         {items.map((item: any, index: number) => (
-          <li key= {item.key ?? index} className=" text-[21px] ml-[22px]">
-            <Link to={item.link} key={item.key} className="">
-              <p className="text-[12px] lg:text-[18px]">{item.title}</p>
+          <li key={item.key ?? index} className="w-full list-none">
+            <Link to={item.link} key={item.key}>
+              <p
+                className="text-[12px] leading-[1.35] transition-opacity duration-200 hover:opacity-70 lg:text-[18px]"
+                style={{
+                  color: "#000000",
+                  fontWeight: 600,
+                  opacity: 1,
+                }}
+              >
+                {item.title}
+              </p>
             </Link>
           </li>
         ))}

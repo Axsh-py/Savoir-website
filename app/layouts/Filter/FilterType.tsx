@@ -15,6 +15,8 @@ type Props = {
   label?: string;
   placeholder?: string;
   maxWidthClass?: string;
+  variant?: "glass" | "listing";
+  showChevron?: boolean;
 };
 
 export default function FilterType({
@@ -24,9 +26,12 @@ export default function FilterType({
   label = "Type",
   placeholder = "Select Your Type",
   maxWidthClass = "max-w-[211px]",
+  variant = "glass",
+  showChevron = true,
 }: Props) {
   const arrow = useArrow();
   const icon = useIcons();
+  const isListing = variant === "listing";
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,20 +40,30 @@ export default function FilterType({
       if (!wrapperRef.current) return;
       if (!wrapperRef.current.contains(e.target as Node)) setOpen(false);
     };
+
     document.addEventListener("mousedown", onDocClick);
+
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
   const toggleValue = (code: string) => {
     const exists = selected.includes(code);
-    const next = exists ? selected.filter((v) => v !== code) : [...selected, code];
+    const next = exists
+      ? selected.filter((v) => v !== code)
+      : [...selected, code];
+
     onChange(next);
   };
 
   const summaryText = useMemo(() => {
     if (selected.length === 0) return placeholder;
-    const labels = options.filter((opt) => selected.includes(opt.code)).map((opt) => opt.label);
+
+    const labels = options
+      .filter((opt) => selected.includes(opt.code))
+      .map((opt) => opt.label);
+
     if (labels.length <= 2) return labels.join(", ");
+
     return `${labels.length} selected`;
   }, [selected, options, placeholder]);
 
@@ -61,17 +76,50 @@ export default function FilterType({
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <div className="flex flex-col items-start">
-          <p className="text-white text-[15.84px] font-semibold">{label}</p>
-          <div className="flex items-center gap-[12px]">
-            <p className="text-white text-[14.08px] truncate">{summaryText}</p>
+        <div
+          className={
+            isListing
+              ? "flex w-full items-center justify-between gap-[10px]"
+              : "flex flex-col items-start gap-[5px]"
+          }
+        >
+          <p
+            className={
+              isListing
+                ? "Jakarta truncate text-[16px] font-semibold leading-none text-black"
+                : "text-white text-[15.84px] font-semibold"
+            }
+          >
+            {isListing && selected.length > 0 ? summaryText : label}
+          </p>
+
+          {!isListing && (
+            <div className="flex items-center gap-[12px]">
+              <p className="text-white text-[14.08px] truncate">
+                {summaryText}
+              </p>
+
+              {showChevron && (
+                <img
+                  loading="lazy"
+                  src={arrow.smallBoldWhite}
+                  alt=""
+                  className={`transition-transform ${open ? "rotate-180" : ""}`}
+                />
+              )}
+            </div>
+          )}
+
+          {isListing && showChevron && (
             <img
               loading="lazy"
               src={arrow.smallBoldWhite}
               alt=""
-              className={`transition-transform ${open ? "rotate-180" : ""}`}
+              className={`w-[10px] shrink-0 brightness-0 transition-transform ${
+                open ? "rotate-180" : ""
+              }`}
             />
-          </div>
+          )}
         </div>
       </button>
 
@@ -90,6 +138,7 @@ export default function FilterType({
             <div className="flex flex-col items-start gap-[14px] w-full h-[272px] overflow-y-scroll small-scroll">
               {options.map((opt, idx) => {
                 const active = selected.includes(opt.code);
+
                 return (
                   <button
                     key={opt.code}
@@ -100,10 +149,24 @@ export default function FilterType({
                     className="w-full text-left px-[32px]"
                   >
                     <div className="flex items-center justify-between pb-[14px]">
-                      <p className="text-white text-[18px] leading-[22px]">{opt.label}</p>
-                      {active && <img loading="lazy" src={icon.checkGold} alt="" />}
+                      <p
+                        className="text-[18px] leading-[22px]"
+                        style={{
+                          color: "#FFFFFF",
+                          opacity: 1,
+                        }}
+                      >
+                        {opt.label}
+                      </p>
+
+                      {active && (
+                        <img loading="lazy" src={icon.checkGold} alt="" />
+                      )}
                     </div>
-                    {idx < options.length - 1 && <div className="h-px bg-white/10" />}
+
+                    {idx < options.length - 1 && (
+                      <div className="h-px bg-white/10" />
+                    )}
                   </button>
                 );
               })}

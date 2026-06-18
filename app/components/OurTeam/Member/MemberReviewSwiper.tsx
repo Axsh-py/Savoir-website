@@ -4,7 +4,6 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import useIcons from "~/hooks/imageHooks/useIcons";
 import { useIsMobile } from "~/hooks/functionHooks/useIsMobile";
 import ThreeSwiper from "~/UI/ThreeSwiper";
 import { useLoaderData } from "react-router";
@@ -55,35 +54,41 @@ export default function MemberReviewSwiper() {
     <>
       <div className="hidden lg:flex flex-col items-center gap-[37px] w-full mt-[112px]">
         <p className="text-black text-[42px] font-medium">The Reviews</p>
+
         <div
-          className={`w-full transition-colors duration-200  max-w-[1150px] mx-auto ${
+          className={`w-full max-w-[1150px] mx-auto transition-colors duration-200 ${
             isGrabbing ? "cursor-grabbing" : "cursor-grab"
           }`}
         >
           <Swiper
             slidesPerView="auto"
-            centeredSlides
+            centeredSlides={false}
             loop={enableLoop}
-            spaceBetween={-60} // overlap
+            spaceBetween={28}
             slidesOffsetBefore={8}
             slidesOffsetAfter={8}
             modules={[Navigation, Autoplay]}
-            autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             className="
-    w-full
-    [&_.swiper-wrapper]:overflow-visible
-    [&_.swiper-slide]:transition-[transform,opacity] [&_.swiper-slide]:duration-300
-    [&_.swiper-slide-active]:z-30            /* 💡 center on top */
-    [&_.swiper-slide-next]:z-10              /* both sides below */
-    [&_.swiper-slide-prev]:z-10
-  "
+              w-full
+              [&_.swiper-wrapper]:overflow-visible
+              [&_.swiper-slide]:transition-[transform,opacity]
+              [&_.swiper-slide]:duration-300
+              [&_.swiper-slide-active]:z-30
+              [&_.swiper-slide-next]:z-10
+              [&_.swiper-slide-prev]:z-10
+            "
             onTouchStart={() => setIsGrabbing(true)}
             onTouchEnd={() => setIsGrabbing(false)}
             onSliderFirstMove={() => setIsGrabbing(true)}
             onTransitionEnd={() => setIsGrabbing(false)}
           >
             {items.map((item) => (
-              <SwiperSlide key={item.id} className="!w-[45%]">
+              <SwiperSlide key={item.id} className="!w-[31.5%]">
                 <SlideCard data={item} />
               </SwiperSlide>
             ))}
@@ -110,51 +115,67 @@ export default function MemberReviewSwiper() {
 
 function SlideCard({ data }: { data: ReviewSlide }) {
   const { isActive } = useSwiperSlide();
-  const icon = useIcons();
+  const rating = typeof data.rating === "number" ? Math.round(data.rating) : 5;
 
   return (
     <div
-      className={`relative flex flex-col gap-[12px]
-         transition-all duration-300
-          lg:aspect-[517/453] backdrop-blur-[60px]
-           rounded-[15px] px-[39px] py-[29px]
-      ${isActive ? "scale-100 opacity-100" : "scale-[0.85] opacity-80"}`}
-      style={{
-        background:
-          "linear-gradient(141deg, rgba(53, 54, 53, 0.05) 0.94%, rgba(255, 255, 255, 0.07) 102.98%)",
-        boxShadow:
-          "49.15px -49.15px 49.15px 0 rgba(53, 54, 53, 0.10) inset, -49.15px 49.15px 49.15px 0 rgba(255, 255, 255, 0.07) inset",
-      }}
+      className={`
+        relative flex h-[365px] w-full flex-col justify-between
+        rounded-[12px]
+        border border-[#E7DCC8]
+        bg-white
+        px-[30px]
+        py-[32px]
+        shadow-[0_16px_45px_rgba(17,17,17,0.06)]
+        transition-all
+        duration-300
+        ${isActive ? "scale-100 opacity-100" : "scale-[0.98] opacity-95"}
+      `}
     >
-      <div
-        className={`flex flex-col items-start justify-between w-full h-full ${isActive ? "opacity-100" : "opacity-30"}`}
-      >
-        <div className="flex flex-col items-start gap-[18px]">
-          {typeof data.rating === "number" ? (
-            <div className="ml-[12px] flex items-center gap-2">
-              <span className="flex items-center gap-1 rounded-full bg-[#c6a45a] px-3 py-1 text-[10px] font-medium leading-[12px] text-white">
-                {data.rating}
-                <img loading="lazy" src={icon.startWhite} alt="" />
-              </span>
-            </div>
-          ) : null}
+      <div className="flex h-[215px] w-full flex-col items-start">
+        <p className="mb-[24px] h-[22px] text-[42px] font-semibold leading-none text-[#C6A45A]">
+          “
+        </p>
 
-          <div className="flex flex-col items-start gap-[6px]">
-            <img loading="lazy" src={icon.quotes} alt="" />
-            <p className="text-[#232222] text-[15px] leading-[156.667%] px-[7px]">{data.text}</p>
-          </div>
-          <hr className="w-[85%] border-2 border-[#3536354D] mx-auto" />
-        </div>
-        <div className="flex items-center gap-3 mt-6">
+        <p className="line-clamp-6 max-w-[330px] text-left text-[20px] italic leading-[1.48] text-[#3F3F3F]">
+          “{data.text}”
+        </p>
+      </div>
+
+      <div className="flex min-h-[64px] w-full items-center gap-[14px]">
+        {data.avatar ? (
           <img
             loading="lazy"
             src={data.avatar}
             alt={data.author}
-            className="w-10 h-10 rounded-full object-cover"
+            className="h-[52px] w-[52px] shrink-0 rounded-full object-cover"
           />
-          <div>
-            <p className="font-semibold text-gray-900">{data.author}</p>
-            <p className="text-sm text-gray-500">{data.role}</p>
+        ) : (
+          <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#6AA43A] text-[24px] font-semibold text-white">
+            {data.author?.charAt(0) || "U"}
+          </div>
+        )}
+
+        <div className="flex min-w-0 flex-col items-start">
+          <p className="line-clamp-1 text-[15px] font-semibold leading-[1.2] text-[#111111]">
+            {data.author}
+          </p>
+
+          <p className="line-clamp-1 text-[13px] leading-[1.35] text-[#555555]">
+            {data.role}
+          </p>
+
+          <div className="mt-[7px] flex items-center gap-[3px]">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <span
+                key={index}
+                className={`text-[13px] leading-none ${
+                  index < rating ? "text-[#C6A45A]" : "text-[#D8D8D8]"
+                }`}
+              >
+                ★
+              </span>
+            ))}
           </div>
         </div>
       </div>
