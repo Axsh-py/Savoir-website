@@ -67,7 +67,7 @@ export function meta({ data }: Route.MetaArgs) {
   return metaTags;
 }
 
-export async function loader({ params, request }: Route.LoaderArgs) {
+export async function clientLoader({ params, request }: Route.ClientLoaderArgs) {
   const projectSlug = params.projectSlug;
   const origin = new URL(request.url).origin;
   try {
