@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import OffPlanOption from "./OffPlanOption";
-import FilterType from "~/layouts/Filter/FilterType";
 import SearchButton from "~/layouts/Filter/SearchButton";
 import SelectSearch from "~/layouts/Filter/SelectSearch";
 
@@ -71,7 +70,7 @@ export default function OffPlanFilter() {
   };
 
   return (
-    <div className="relative z-20 flex w-full max-w-[1226px] flex-col bg-white shadow-[0_12px_34px_rgba(0,0,0,0.1)] lg:h-[58px] lg:flex-row lg:items-stretch">
+    <div className="relative z-20 flex w-full flex-col bg-white shadow-[0_12px_34px_rgba(0,0,0,0.1)] lg:h-[58px] lg:flex-row lg:items-stretch">
       {/* Single-select components that keep array API for compatibility */}
       <div className="grid w-full grid-cols-1 border-b border-[#E6E6E6] sm:grid-cols-2 lg:flex lg:w-auto lg:border-b-0">
         <div className="flex min-h-[54px] items-center border-r border-[#D5D5D5] px-[16px] lg:h-[58px] lg:w-[220px]">

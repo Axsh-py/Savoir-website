@@ -121,7 +121,7 @@ export default function project() {
     <PageLayout>
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-[13px] w-full mt-[90px]">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-[13px]">
-          <p className="CormorantGaramond text-[28px] font-bold leading-[1.08] text-[#111111] lg:text-[34px]">
+          <p className="CormorantGaramond text-[28px] font-[900] leading-[1.08] text-[#050505] [text-shadow:0_0_0.45px_#050505] lg:text-[34px]">
             {property?.title_en || property?.title || "Property"}
           </p>
           {(property?.community || property?.city) && (
@@ -136,7 +136,7 @@ export default function project() {
         {property?.price && (
           <div className="flex flex-col items-start gap-[2px]">
             <p className="Jakarta text-[14px] font-bold text-[#111111]">Price</p>
-            <p className="CormorantGaramond text-[27px] font-bold text-[#111111]">
+            <p className="CormorantGaramond text-[27px] font-[900] text-[#050505] [text-shadow:0_0_0.45px_#050505]">
               {formatPrice(property.price)} {property?.currency || ""}
             </p>
           </div>

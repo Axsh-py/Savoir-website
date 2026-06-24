@@ -124,13 +124,10 @@ export default function OffPlanDescription() {
 
   return (
     <div className="flex flex-col items-start gap-[29px] w-full">
-      <p className="CormorantGaramond text-[24px] font-bold leading-[1.12] text-[#111111] lg:text-[30px]">
+      <p className="CormorantGaramond text-[24px] font-[900] leading-[1.12] text-[#050505] [text-shadow:0_0_0.4px_#050505] lg:text-[30px]">
         {property.title}
       </p>
       <div className="flex flex-col items-start gap-[4px] w-full">
-        <p className="CormorantGaramond text-[26px] font-bold leading-[1.1] text-[#111111] lg:text-[32px]">
-          Description
-        </p>
         <div
           className="Jakarta text-[14px] font-semibold leading-[165%] text-[#111111] lg:text-[18px]"
           dangerouslySetInnerHTML={{
