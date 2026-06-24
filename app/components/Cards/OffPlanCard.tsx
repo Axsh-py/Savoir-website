@@ -31,7 +31,7 @@ export default function OffPlanCard({ project }: props) {
           </span>
         </div>
 
-        <p className="CormorantGaramond mt-[14px] max-w-[319px] text-[19px] font-semibold leading-[1.25] text-black">
+        <p className="mt-[14px] max-w-[319px] text-[16px] font-semibold text-black">
           {project.title}
         </p>
 
@@ -43,13 +43,13 @@ export default function OffPlanCard({ project }: props) {
               alt=""
               className="w-[20px]"
             />
-            <p className="Jakarta text-[15px] font-medium text-black">
+            <p className="text-[15px] font-medium text-black">
               {project.location}
             </p>
           </div>
 
           <div className="flex items-center gap-[6px]">
-            <p className="Jakarta text-[15px] font-medium text-black">
+            <p className="text-[15px] font-medium text-black">
               {project.developer}
             </p>
           </div>
@@ -57,11 +57,11 @@ export default function OffPlanCard({ project }: props) {
 
         <hr className="mt-[18px] w-full border-[#00000080]" />
 
-        <p className="Jakarta mt-[14px] text-[16px] font-medium text-black">
+        <p className="mt-[14px] text-[16px] text-black">
           Handover in {project.completion_date}
         </p>
 
-        <div className="Jakarta mt-[18px] flex h-[40px] w-full items-center justify-center rounded-[10.5px] bg-[#111111] px-[18px] text-[16px] font-semibold text-white shadow-[0_10px_22px_rgba(17,17,17,0.16)]">
+        <div className="mt-[18px] flex h-[40px] w-full items-center justify-center rounded-[10.5px] bg-[#111111] px-[18px] text-[16px] font-semibold text-white shadow-[0_10px_22px_rgba(17,17,17,0.16)]">
           From {formatPrice(project.starting_price)}
         </div>
       </Link>
